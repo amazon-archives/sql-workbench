@@ -1,4 +1,4 @@
-## Open Distro for Elasticsearch SQL Plugin
+## Open Distro for Elasticsearch SQL Kibana Plugin
 
 
 ## License
