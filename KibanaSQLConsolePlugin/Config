@@ -1,0 +1,50 @@
+# -*-perl-*-
+
+package.AWSSearchServicesKibanaSQLConsolePlugin = {
+    interfaces = (6.5);
+
+    deploy = {
+        generic = true;
+    };
+
+    build-environment = {
+        chroot = basic;
+        network-access = blocked;
+    };
+
+    # Use NoOpBuild. See https://w.amazon.com/index.php/BrazilBuildSystem/NoOpBuild
+    build-system = yarn-build;
+    build-tools = {
+        6.5 = {
+            YarnBuild = 2.0;
+            NodeJS = 8.x;
+            Yarn = 1.x;
+        };
+    };
+
+    # Use runtime-dependencies for when you want to bring in additional
+    # packages when deploying.
+    # Use dependencies instead if you intend for these dependencies to
+    # be exported to other packages that build against you.
+    dependencies = {
+        6.5 = {
+        };
+    };
+
+    runtime-dependencies = {
+        6.5 = {
+        };
+    };
+
+    resolves-conflict-dependencies = {
+        6.5 = {
+        };
+    };
+
+    targets = {
+       AWSSearchServicesKibanaSQLConsolePlugin-6.5 = {
+           type = default;
+       }
+    };
+
+};

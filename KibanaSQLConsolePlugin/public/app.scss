@@ -1,0 +1,225 @@
+@import '../node_modules/@elastic/eui/src/global_styling/variables/colors';
+@import '../node_modules/@elastic/eui/src/global_styling/variables/size';
+
+.sql-console-page-header {
+  padding: $euiSizeS $euiSizeL;
+  font-weight: 600;
+}
+
+.sql-console-query-container {
+  padding: $euiSizeL;
+}
+
+.sql-console-query-editor {
+  .container-panel {
+    border-radius: 0px;
+    box-shadow: none;
+    resize: vertical;
+    overflow: auto;
+  }
+
+  .container-panel-header {
+    font-weight: 450;
+    padding: $euiSize $euiSize;
+  }
+
+  .sql-query-panel {
+    border-radius: 0px;
+    border-width: 1px;
+    border-right-width: 0.5px;
+    box-shadow: none;
+  }
+
+  .sql-query-panel-header {
+    padding: $euiSizeS;
+    background-color: $euiColorLightestShade;
+  }
+
+  .translated-query-panel {
+    border-radius: 0px;
+    border-width: 1px;
+    border-left-width: 0.5px;
+    box-shadow: none;
+  }
+
+  .translated-query-panel-header {
+    padding: $euiSizeS;
+    background-color: $euiColorLightestShade;
+  }
+
+  .action-container {
+    padding: $euiSizeM;
+  }
+
+  .resize-panel {
+    resize: vertical;
+    overflow: auto; 
+  }
+
+}
+
+.sql-console-query-result{
+
+  .sql-console-results-container {
+    overflow: auto;
+  } 
+
+  .query-result-container {
+    border: solid 1.5px #d9d9d9;
+    border-radius: 0px;
+    border-bottom-width: 0;
+  }
+
+  .tabs-container {
+    overflow: auto;
+    margin: 3px;
+  }
+
+  .table {
+    border: solid 1.5px #d9d9d9;
+    border-bottom-width: 0;
+    border-radius: 0px;
+    margin-bottom: 0;
+  }
+
+  .table-name {
+    font-size: 20px;
+    padding: 20px 6px;
+  }
+
+  .table-header {
+    border-top: solid 1px #d9d9d9; 
+  }
+
+  .search-panel {
+    display: inline-flex; 
+    width:100%; 
+    padding:20px;
+  }
+
+  .search-bar {
+    width:80%;
+  }
+
+  .pagination-container {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .download-container {
+    padding: $euiSizeM;
+    height: 56px;
+    vertical-align: middle;
+    border-width: 1px;
+  }
+
+  .toggleContainer {
+    margin: 20px;
+  }
+}
+
+.box:after {
+  content:"";
+  position:absolute;
+  bottom: 0;
+  right:50px;
+  width: 0px;
+  height: 0px;
+  border-top: 20px solid transparent;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  
+}
+
+.box:before {
+  content:"";
+  position:absolute;
+  bottom:-5px;
+  right:50px;
+  width: 0px;
+  height: 0px;
+  border-top: 22px solid transparent;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 12px solid  rgb(245, 245, 245);
+}
+
+.box {
+  position:relative;
+  float:left;
+  text-align: left;
+  margin:18px 0 4px 0;
+  box-shadow:0px 0px 0px 0px; 
+}
+
+.box1{
+  position:relative;
+  width:200px;
+  height:57px;
+  padding:20px;
+  border-radius:10px;
+  background:#DBF3FF;
+  box-shadow: inset 0px 0px 5px 1px rgba(21,139,204,1);
+}
+.box1:after{
+  content:'';
+  position:absolute;
+  left:110px; bottom:-10px;
+  width:20px; height:20px;
+  background:inherit;
+  transform:rotate(45deg);
+  box-shadow: inset -5px -5px 5px -4px rgba(21,139,204,1);
+}
+
+.nested-table {
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 0;
+  padding-right: 0;
+  margin-bottom: 0;
+}
+
+.euiTableRow.euiTableRow-isExpandedRow .euiTableRowCell {
+  background-color: unset;
+}
+
+.expanded-row {
+  background-color: rgb(232,243,246);
+}
+
+.expanded-row:hover {
+  background-color: rgb(232,243,246);
+}
+
+.no-background {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.code-editor {
+  color: #006BB4;
+}
+
+.error-message {
+  color: red;
+}
+
+.successful-message{
+  color: #006BB4;
+}
+
+.nav-left-side-content{
+  max-height: 500px;
+  overflow: auto;
+}
+
+.pre {outline: 1px solid #ccc; padding: 5px; margin: 5px; }
+.string { color: green; }
+.number { color: darkorange; }
+.boolean { color: blue; }
+.null { color: magenta; }
+.key { color: red; }
+
+
+
+
+
