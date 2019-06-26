@@ -206,6 +206,16 @@ class QueryResultsBody extends Component<QueryResultsBodyProps, QueryResultsBody
     });
   }
   
+  renderHeaderCellsWithNoSorting(columns) {
+    return columns.map((field: string) => {
+      return <EuiTableHeaderCell
+        key={field}
+        width={COLUMN_WIDTH}
+        >{ this.capitalizeFirstLetter(field) }
+       </EuiTableHeaderCell>
+    });
+  }
+  
   renderArrayList(items) {
      let rows = [];
      let tableCells = [];
@@ -555,7 +565,7 @@ class QueryResultsBody extends Component<QueryResultsBodyProps, QueryResultsBody
 					      <EuiText className="table-name">{this.capitalizeFirstLetter(tableName)}</EuiText>
 						      <EuiTable className="no-background">
 						        <EuiTableHeader className="table-header">
-						          {this.renderHeaderCells(nestedTableColumns)}
+						          {this.renderHeaderCellsWithNoSorting(nestedTableColumns)}
 						        </EuiTableHeader>
 						
 						        <EuiTableBody>
@@ -575,7 +585,7 @@ class QueryResultsBody extends Component<QueryResultsBodyProps, QueryResultsBody
 					    <EuiText className="table-name">{this.capitalizeFirstLetter(parentTableName)}</EuiText>
 					      <EuiTable className="no-background">
 					        <EuiTableHeader  className="table-header">
-					          {this.renderHeaderCells(parentColumns)}
+					          {this.renderHeaderCellsWithNoSorting(parentColumns)}
 					        </EuiTableHeader>
 					
 					        <EuiTableBody>
@@ -695,7 +705,7 @@ class QueryResultsBody extends Component<QueryResultsBodyProps, QueryResultsBody
 				         <EuiFlexItem className="nav-left-side-content">
 					      <EuiTable>
 					        <EuiTableHeader className="table-header">
-					          {this.renderHeaderCells(this.columns)}
+					          {this.renderHeaderCellsWithNoSorting(this.columns)}
 					        </EuiTableHeader>
 					
 					        <EuiTableBody>
