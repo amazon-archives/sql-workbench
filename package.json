@@ -1,5 +1,5 @@
 {
-  "name": "sql_console",
+  "name": "opendistro-kibana-sql",
   "version": "1.0.0.0",
   "description": "ES SQL Console",
   "main": "index.js",
