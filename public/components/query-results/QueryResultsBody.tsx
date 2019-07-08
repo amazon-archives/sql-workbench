@@ -128,7 +128,7 @@ class QueryResultsBody extends Component<QueryResultsBodyProps, QueryResultsBody
   addNodesToTree (items, parentNode) {
      let currentNode = parentNode;
      let currentParentNode = parentNode;
-     
+     console.log("TEST");
      if(items === null){
         return;
      }
