@@ -1,5 +1,5 @@
 {
-  "name": "opendistro-kibana-sql",
+  "name": "sql-kibana",
   "version": "1.0.0.0",
   "description": "ES SQL Console",
   "main": "index.js",
@@ -30,7 +30,8 @@
     "elasticsearch": "^15.2.0",
     "lodash": "npm:@elastic/lodash@3.10.1-kibana1",
     "react": "^16.3.0",
-    "react-dom": "^16.3.0"
+    "react-dom": "^16.3.0",
+    "react-double-scrollbar": "^0.0.15"
   },
   "devDependencies": {
     "@elastic/eslint-config-kibana": "link:../../kibana/packages/eslint-config-kibana",
@@ -38,7 +39,7 @@
     "@kbn/plugin-helpers": "link:../../kibana/packages/kbn-plugin-helpers",
     "@types/hapi-latest": "npm:@types/hapi@17.0.12",
     "@types/jest": "^23.3.1",
-    "@types/lodash": "^3.10.1",   
+    "@types/lodash": "^3.10.1",
     "@types/react": "^16.3.14",
     "@types/react-dom": "^16.0.5",
     "enzyme": "^3.1.0",
@@ -60,6 +61,6 @@
     "yarn": "^1.10.1"
   },
   "resolutions": {
-	 "**/@types/react": "16.3.14"
-   }
+    "**/@types/react": "16.3.14"
+  }
 }

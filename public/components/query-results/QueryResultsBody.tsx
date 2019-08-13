@@ -14,9 +14,9 @@
  */
  
 import React, { Fragment, Component } from 'react';
+import DoubleScrollbar from 'react-double-scrollbar';
 import _ from 'lodash';
 import {
-  EuiPanel,
   EuiCodeEditor,
   EuiTable,
   EuiTableBody,
@@ -33,11 +33,12 @@ import {
   EuiButtonIcon,
   EuiText,
   EuiSideNav,
-  EuiSwitch
+  EuiLink,
+  EuiHorizontalRule
 } from '@elastic/eui/lib';
 
 import { SortableProperties } from '@elastic/eui/lib/services';
-import { isEmpty } from '../utils/utils';
+import { isEmpty, capitalizeFirstLetter, getMessageString, scrollToNode } from '../utils/utils';
 import 'brace/mode/mysql';
 import 'brace/mode/json';
 import '../../ace-themes/sql_console';
@@ -71,25 +72,26 @@ interface QueryResultsBodyState {
      filters: boolean;
      itemIdToExpandedRowMap: object;
      searchQuery: string;
+     selectedItemMap: object;
      selectedItemName: string;
      selectedItemData: object;
      navView: boolean;
 }
 
-export const MAX_NUM_VALUES_IN_FIELD = 2;
+export const MAX_NUM_VALUES_IN_FIELD = 1;
 export const PAGE_OPTIONS = [10, 20, 50, 100];
 export const COLUMN_WIDTH = '155px';
 
-export function Node(data, name, parent={}, parentId) {
+export function Node(data, parentId, name='', parent={} ) {
     this.data = data;
     this.name = name;
     this.children = [];
     this.parent = parent;
-    this.nodeId = name + '_' + parentId;
+    this.nodeId = name === '' ? parentId : parentId + '_' + name;
 }
 
-export function Tree(data, name) {
-    const node = new Node(data, name, {}, '');
+export function Tree(data, parentId) {
+    const node = new Node(data, parentId);
     this._root = node;
 }
 
@@ -108,6 +110,7 @@ class QueryResultsBody extends Component<QueryResultsBodyProps, QueryResultsBody
       filters: false,
       itemIdToExpandedRowMap: this.props.itemIdToExpandedRowMap,
       searchQuery: this.props.searchQuery,
+      selectedItemMap: {},
       selectedItemName: '',
       selectedItemData: {},
       navView: false,
@@ -118,289 +121,29 @@ class QueryResultsBody extends Component<QueryResultsBodyProps, QueryResultsBody
     this.columns = [];
   }
   
-  createRecordsTree( items, table_name ) {
-     const tree = new Tree( items, 'Row' );
-     tree._root;
-     this.addNodesToTree( items, tree._root );  
+  // It creates a tree of nested objects or arrays for the row
+  createRowTree( item, rootId ) {
+     const tree = new Tree( item, rootId );
+     const root = tree._root;
+     
+     if( typeof item === 'object') {  
+        for( let j = 0; j < Object.keys(item).length; j++ ) {
+          let data = Object.values(item)[j];
+          let name = Object.keys(item)[j];
+          
+          // If value of field is an array or an object it gets added to the tree
+          if( data !== null && (Array.isArray(data) || typeof data === 'object')) {
+             const firstNode = new Node(data, rootId, name, root );
+             root.children.push(firstNode);  
+          }   
+        } 
+      }     
      return tree;
   }
   
-  addNodesToTree (items, parentNode) {
-     let currentNode = parentNode;
-     let currentParentNode = parentNode;
-     console.log("TEST");
-     if(items === null){
-        return;
-     }
-     
-     if (Array.isArray( items )) {  
-       for( let i = 0; i < items.length; i++ ) {
-	      let data =  items[i];
-	      let name = currentParentNode.name ? currentParentNode.name + ' ' + i : 'Record ' + i;  
-	      
-	      if( data !== null && ( Array.isArray(data) || typeof data === 'object')) {
-	          currentNode = new Node(data, name, currentParentNode, currentParentNode.nodeId);
-		      currentParentNode.children.push(currentNode); 
-		      this.addNodesToTree(data, currentNode);
-		  }
-	   }
-     }
-     // If Node is an object
-     else if( typeof items === 'object') {
-        
-        for( let j = 0; j < Object.keys(items).length; j++ ) {
-          let data = Object.values(items)[j];
-          let name = Object.keys(items)[j];
-          
-          if( data !== null && (Array.isArray(data) || typeof data === 'object')) {
-             currentNode = new Node(data, name, parentNode, parentNode.nodeId);
-             parentNode.children.push(currentNode); 
-             this.addNodesToTree(data, currentNode); 
-          }   
-        }
-     } 
-  }
-  
-  capitalizeFirstLetter(name) {  
-	 return name && name.length > 0 ? name.charAt(0).toUpperCase() + name.slice(1) : name;
-  }
-  
-  getMessage(name) {
-   return this.capitalizeFirstLetter(name);
-  }
-  
-  getMessageString(messages) {
-   return messages && messages.length > 0 && this.props.tabNames ? messages.reduce( (finalMessage, message, currentIndex) => finalMessage.concat(this.getMessage(this.props.tabNames[currentIndex]), ': ', message.text, '\n\n'), '' ) : '';
-  }
-   
-  renderMessagesTab(): JSX.Element {
-    return <EuiCodeEditor
-      className = { this.props.message && this.props.message.length > 0 ? this.props.message[0].className : "successful-message"}
-      mode="text"
-      theme="sql_console"
-      width="100%"
-      value={this.getMessageString(this.props.message)}
-      showPrintMargin={false}
-      readOnly={true}
-      setOptions={{
-        fontSize: '14px',
-        readOnly: true,
-        highlightActiveLine: false,
-        highlightGutterLine: false,
-      }}
-      onBlur={() => { console.log('blur'); }} // eslint-disable-line no-console
-      aria-label="Code Editor"
-    />  
-  }
-  
-  renderHeaderCells(columns) {
-    return columns.map((field: string) => {
-      return <EuiTableHeaderCell
-        key={field}
-        width={COLUMN_WIDTH}
-        onSort={this.props.onSort.bind(this, field)}
-        isSorted={this.props.sortedColumn === field}
-        isSortAscending={this.props.sortableProperties.isAscendingByName(field)}
-        >{ this.capitalizeFirstLetter(field) }
-       </EuiTableHeaderCell>
-    });
-  }
-  
-  renderHeaderCellsWithNoSorting(columns) {
-    return columns.map((field: string) => {
-      return <EuiTableHeaderCell
-        key={field}
-        width={COLUMN_WIDTH}
-        >{ this.capitalizeFirstLetter(field) }
-       </EuiTableHeaderCell>
-    });
-  }
-  
-  renderArrayList(items) {
-     let rows = [];
-     let tableCells = [];
-     
-	 for (let i = 0 ; i < items.length; i++) {
-	   tableCells.push( <EuiTableRowCell textOnly={true}>{items[i]} </EuiTableRowCell> );
-	   if( i > 0 && i % this.expandedRowColSpan == 0 ){
-	      rows.push(<EuiTableRow>{tableCells}</EuiTableRow>);
-	      tableCells = [];
-	   }
-	 }
-	 rows.push(<EuiTableRow>{tableCells}</EuiTableRow>);
-	 return rows;
-  }
-  
-  renderNavRows(items, columns, tableName) {
-    let rows = [];
-    if ( items && ( ( typeof items === 'object' && !isEmpty(items) ) || (Array.isArray(items) && items.length > 0))){
-      let records = []; 
-      
-      if(Array.isArray( items )) {
-          records = items;
-        } else {
-          records.push(items);
-        }
-        
-      for( let i = 0; i < records.length; i++ ) {
-         let record = records[i];
-	     let tableCells = [];
-	      
-	     if(columns.length > 0){  
-		     columns.map((field:string) => {
-			      // Row
-			      const fieldObj = this.getFieldValue(record[field], field); 
-		          tableCells.push(<EuiTableRowCell  key={field} textOnly={true}>
-		                               { fieldObj.value }
-		                           </EuiTableRowCell>);
-		     });
-		  } else {
-			   const fieldObj = this.getFieldValue(record, ''); 
-			   tableCells.push(<EuiTableRowCell textOnly={true}>
-			                               { fieldObj.value }
-		                        </EuiTableRowCell>);	 
-		  }
-	     const row = ( <EuiTableRow>{tableCells} </EuiTableRow> );
-	     const rowWithExpandable = (
-			    <Fragment>
-			        {row}
-      			</Fragment>);
-	     rows.push(rowWithExpandable);
-	  }   
-   }
-   return rows;
-  }
-  
-  
-  renderRows(items, columns, tableName, parentKey, expandedRowMap) {
-    let rows = [];
-    
-    if (items){
-	    for (let itemIndex = this.props.firstItemIndex; itemIndex <= this.props.lastItemIndex; itemIndex++) {
-	      const item = items[itemIndex];
-	        
-	      if(item){ 
-			  const rowId = item['id'];
-	          
-		      // NESTED TABLE	   
-		      let expandedTableCells = []; 
-		      let tableCells = [];
-		      
-			  columns.map((field:string, index) => {
-			      let itemKey = index.toString();
-			      
-			      // Create key for nested object 
-			      if( parentKey.length > 0 ) {
-			        itemKey = parentKey.concat(',', rowId.toString(),'-', index.toString());
-			      } else {
-			        itemKey = rowId.toString().concat('-', index.toString());
-			      }
-			      
-			      // Row
-			      const record = this.getFieldValue(item[field], field); 
-		          const expandandingRowIcon = record.hasExpandingRow ?  this.addExpandingRowIcon(item[field], itemKey, field, tableName, items, columns, parentKey, expandedRowMap) : '';
-		          const expandingRowIconForArray = record.hasExpandingArray ? this.addExpandingRowIconForArray(item[field], itemKey, field, expandedRowMap) : '';
-		         
-		          
-		          if(record.hasExpandingArray) {
-		              tableCells.push( <EuiTableRowCell key={field} textOnly={true}>
-		                               { record.value }{ expandingRowIconForArray }
-		                           </EuiTableRowCell>);
-		          } else {
-		             tableCells.push(<EuiTableRowCell  key={field} textOnly={true}>
-		                               { record.value }{ expandandingRowIcon }
-		                           </EuiTableRowCell>);
-		          }
-		          
-			     // Expanded Row      
-                 if(expandedRowMap && expandedRowMap.hasOwnProperty(itemKey)) {
-                 
-                    let records = [];
-        
-			        if(Array.isArray( item[field] )) {
-			          records = item[field];
-			        } else {
-			          records.push(item[field]);
-			        }
-			        
-			        // expandedRowColSpan represents the number of columns for the parent table
-			        // numNestedTableColumns represents the number of columns for the child table
-			        
-	                const numNestedTableColumns = typeof records[0] === 'object' ? Object.keys(records[0]).length : records.length;
-	                const halfNestedTable = numNestedTableColumns/2 ;
-	                let colSpanLeft =  0;
-	                let colSpanRight = 0;
-	                
-	                // No colSpanLeft 
-	                if( numNestedTableColumns >= this.expandedRowColSpan || halfNestedTable >= index ) {
-	                  colSpanRight = this.expandedRowColSpan -  numNestedTableColumns;
-	                } 
-	                // If half nested table is greater than the father right side
-	                else if( halfNestedTable >=  this.expandedRowColSpan - index + 1 ){  
-	                  colSpanLeft = this.expandedRowColSpan - numNestedTableColumns
-	              
-	                } else if( halfNestedTable < index ) {
-             
-                       colSpanLeft = index - halfNestedTable;
-                       colSpanRight = this.expandedRowColSpan -  numNestedTableColumns - colSpanLeft;  
-	                }
-	                
-	                if( colSpanLeft > 0 ) {
-	                     expandedTableCells.push(<EuiTableRowCell colSpan={ colSpanLeft }></EuiTableRowCell>)
-				    }
-				    
-                    expandedTableCells.push( <EuiTableRowCell className="nested-table" colSpan={ Math.min(this.expandedRowColSpan, numNestedTableColumns) }>   
-				                                   {expandedRowMap[itemKey]}
-				                             </EuiTableRowCell> );  
-				                             
-				    expandedTableCells.push(<EuiTableRowCell colSpan={ colSpanRight }></EuiTableRowCell>)                                                 
-				  } 
-				  
-			 });
-			 
-			 const row = ( <EuiTableRow key={itemIndex}>{tableCells} </EuiTableRow>);
-		     let rowWithExpandable = (
-				    <Fragment key={rowId}>
-				        {row}
-	      			</Fragment>);
-			      			   
-		     if( expandedTableCells.length > 0 ) {
-		         const expandedRow =  <EuiTableRow>{expandedTableCells}</EuiTableRow>;
-		         const row = ( <EuiTableRow className="expanded-row" key={itemIndex}>{tableCells} </EuiTableRow>);
-		         rowWithExpandable = (
-				    <Fragment key={rowId}>
-				        {row}
-				        {expandedRow}
-	      			</Fragment>);
-		     
-		     } 		     
-		     rows.push(rowWithExpandable);
-	     }
-     } 
-   }
-   return rows;
-  }
- 
-  renderSearchBar() {
-   const search = {
-      box: {
-        incremental: this.state.incremental,
-        placeholder: 'Search',
-        schema: true
-      }
-    };  
-    
-      return (
-      <div className="search-bar">
-        <EuiSearchBar 
-          onChange={this.props.onQueryChange}
-          query={this.props.searchQuery}
-          {...search}
-        />
-      </div>  
-      );
-    
-  }
+  getRowTree(nodeId, item, expandedRowMap) {
+    return expandedRowMap[nodeId] && expandedRowMap[nodeId].nodes ? expandedRowMap[nodeId].nodes : this.createRowTree( item, nodeId);    
+  }	      
   
   getItems(records) {
     const matchingItems = this.props.searchQuery ? EuiSearchBar.Query.execute(this.props.searchQuery, records) : records;
@@ -411,6 +154,7 @@ class QueryResultsBody extends Component<QueryResultsBodyProps, QueryResultsBody
     let hasExpandingRow = false;
     let hasExpandingArray = false;
     let value = '';
+    let link: string = '';
     
       if (fieldValue === null) {
         return {
@@ -429,230 +173,402 @@ class QueryResultsBody extends Component<QueryResultsBodyProps, QueryResultsBody
       
       // Array
 	  if (Array.isArray( fieldValue )) {
+	     if (typeof fieldValue[0] !== 'object') {
+	        hasExpandingArray = true;
+	        link = field.concat(': [', fieldValue.length, ']');
+	     } else {
+	        hasExpandingRow = true;
+	        link = field.concat(': {', fieldValue.length, '}');
+	     }
+	    /*
+	    
 	    const maxNumOfValues = Math.min(fieldValue.length, MAX_NUM_VALUES_IN_FIELD);
-	    let formattedFieldValue: string='';
+	    let formattedFieldValue: string = '';
 	    
 	    for (let i = 0; i < maxNumOfValues; i += 1) {
 	      const child = fieldValue[i];
 	      
+	      //Array of strings or number 
 	      if (typeof child !== 'object') {
 	            formattedFieldValue = formattedFieldValue.concat( child );
-		        
+		       
 		        // It is not the last element
 		        if( i !== maxNumOfValues - 1 ){
 		          formattedFieldValue = formattedFieldValue.concat(',\n ');
 		        }  
 		        // It is the last element and there are more values 
 		        if( i === maxNumOfValues - 1 && fieldValue.length > maxNumOfValues ){
-		            formattedFieldValue = formattedFieldValue.concat(' ... ', (fieldValue.length - maxNumOfValues).toString(), ' more');
 		            hasExpandingArray = true;
+		            link = '...View more');
 		         }
-	       
-	       } else {
+	       } 
+	       // Array of object
+	       else {
 	           return {
 			        hasExpandingRow: true,
 			        hasExpandingArray : hasExpandingArray,
-			        value: field.concat(': ', fieldValue.length)
-			   }	
-	            
+			        link: field.concat(': {', fieldValue.length, '}'),
+			        value: value
+			   }	    
 	       }
 	    }
-	       value = formattedFieldValue; 
+	       value = formattedFieldValue; */
 	  } 
-	  // Object
+	  // Single Object
 	  else {
 	     hasExpandingRow = true;
-	     value = field.concat(': 1');
+	     link = field.concat(': {1}');
+	     value = value;
 	  } 
 	  
 	  return {
         hasExpandingRow: hasExpandingRow,
         hasExpandingArray : hasExpandingArray,
-        value: value
+        value: value,
+        link: link,
 	  }	  
 	}
-	
-	addExpandingRowIcon(item, itemKey, tableName, parentTableName, parentItems, parentColumns, parentKey, expandedRowMap) {
-	   
-	   return <EuiButtonIcon
-          onClick={() => this.toggleDetails(item, itemKey, tableName, parentItems, parentColumns, parentTableName, parentKey, expandedRowMap)}
-          aria-label={expandedRowMap[itemKey]? 'Collapse' : 'Expand'}
-          iconType={expandedRowMap[itemKey] ? 'arrowUp' : 'arrowDown'}
-          
-        />
-	 }
-	 
-    addExpandingRowIconForArray(items, itemKey, tableName, expandedRowMap) {
-	   return <EuiButtonIcon
-          onClick={() => this.toggleArrayList(items, itemKey, tableName, expandedRowMap)}
-          aria-label={expandedRowMap[itemKey]? 'Collapse' : 'Expand'}
-          iconType={expandedRowMap[itemKey] ? 'arrowUp' : 'arrowDown'}
-        />
-	 } 
-	  
-	toggleArrayList = (items, itemKey, tableName, expandedRowMap) => {
-        
-        let newItemIdToExpandedRowMap = {};
-        	   	    
-	    if( items.length > 0 ) {
-		    
-	       if (expandedRowMap[itemKey]) {
-	           delete expandedRowMap[itemKey];
-	           newItemIdToExpandedRowMap = expandedRowMap;
-	       } else {  
-			      newItemIdToExpandedRowMap[itemKey] = 
-				      <div>
-					     <div className="table">
-					      <EuiText className="table-name">{this.capitalizeFirstLetter(tableName)}</EuiText>
-						      <EuiTable className="no-background">
-						        <EuiTableBody>
-						          {this.renderArrayList(items)}
-						        </EuiTableBody>
-						      </EuiTable>
-					      </div>
-				      </div>
-		    }
-		    this.props.updateExpandedMap(newItemIdToExpandedRowMap);      
-		 }
-	  };  
-	 	 
-	 toggleDetails = (item, itemKey, tableName, parentItems, parentColumns, parentTableName, parentKey, expandedRowMap) => {
-        let records = [];
-        
-        if(Array.isArray( item )) {
-          records = item;
-        } else {
-          records.push(item);
-        }
-	    
-	    const nestedTableColumns = Object.keys(records[0]);
-	    
-	    let databaseRecords = [];
-	    let newItemIdToExpandedRowMap = {};
-	         
-	    for (let i = 0 ; i < records.length; i +=1) {
-           
-           let databaseRecord: {[key: string]: any} = {};
-           const rowValues = Object.values(records[i]);
-           
-           //Add row id
-           databaseRecord['id'] = i.toString();
-           for( let j = 0; j < rowValues.length; j += 1 ) {	 
-           	 const field: string = nestedTableColumns[j];
-           	 databaseRecord[field] = rowValues[j];
-           } 
-           databaseRecords.push(databaseRecord);
-	    }
-		   	    
-	    if( databaseRecords.length > 0 ) {
 
-	        if (expandedRowMap[itemKey]) {
-	           delete expandedRowMap[itemKey];
-	           newItemIdToExpandedRowMap = expandedRowMap;
-	        } else {
-	            
-			    // Delete all keys except parents key
-			      const keys = itemKey.split(',');
-			        
-			      for( let k = 1; k < keys.length; k += 1 ){
-			         const parentKey = itemKey.split(',', k);
-			         newItemIdToExpandedRowMap[parentKey] = expandedRowMap[parentKey];
-			      }
-			      
-			      newItemIdToExpandedRowMap[itemKey] = 
-				      <div>
-					     <div className="table">
-					      <EuiText className="table-name">{this.capitalizeFirstLetter(tableName)}</EuiText>
-						      <EuiTable className="no-background">
-						        <EuiTableHeader className="table-header">
-						          {this.renderHeaderCellsWithNoSorting(nestedTableColumns)}
-						        </EuiTableHeader>
-						
-						        <EuiTableBody>
-						          {this.renderRows(databaseRecords, nestedTableColumns, tableName, itemKey, newItemIdToExpandedRowMap)}
-						        </EuiTableBody>
-						      </EuiTable>
-					      </div>
-				      </div>
-		      }
-		      
-		      if( parentKey.length > 0 ){
-		          
-			      newItemIdToExpandedRowMap[parentKey]=
-				      <div>
-					    
-					    <div className="table" >
-					    <EuiText className="table-name">{this.capitalizeFirstLetter(parentTableName)}</EuiText>
-					      <EuiTable className="no-background">
-					        <EuiTableHeader  className="table-header">
-					          {this.renderHeaderCellsWithNoSorting(parentColumns)}
-					        </EuiTableHeader>
-					
-					        <EuiTableBody>
-					          {this.renderRows(parentItems, parentColumns, parentTableName, parentKey, newItemIdToExpandedRowMap)}
-					        </EuiTableBody>
-					      </EuiTable>
-					    </div>  
-				      </div>
-		      } 
-		      this.props.updateExpandedMap(newItemIdToExpandedRowMap);   
-		 }
-	  };
+  addExpandingNodeIcon(node, expandedRowMap) {      
+     return <EuiButtonIcon
+        onClick={() => this.toggleNodeData(node, expandedRowMap)}
+        aria-label={expandedRowMap[node.nodeId] && expandedRowMap[node.nodeId].expandedRow ? 'Collapse' : 'Expand'}
+        iconType={expandedRowMap[node.nodeId] && expandedRowMap[node.nodeId].expandedRow ? 'minusInCircle' : 'plusInCircle'}    
+      />
+  }
+	 
+  addExpandingSideNavIcon(node, expandedRowMap) {      
+	  return <EuiButtonIcon
+        onClick={() => this.updateExpandedRowMap(node, expandedRowMap)}
+         aria-label={expandedRowMap[node.parent.nodeId] && expandedRowMap[node.parent.nodeId].selectedNodes && expandedRowMap[node.parent.nodeId].selectedNodes.hasOwnProperty(node.nodeId) ? 'Collapse' : 'Expand'}
+         iconType={expandedRowMap[node.parent.nodeId] && expandedRowMap[node.parent.nodeId].selectedNodes && expandedRowMap[node.parent.nodeId].selectedNodes.hasOwnProperty(node.nodeId) ? 'minusInCircle' : 'plusInCircle'}    
+       />
+  }
+	 
+  addExpandingIconColumn(columns) {
+	 const expandIconColumn = [{
+		        id: 'expandIcon',
+		        label: '',
+		        isSortable: false,
+		        width: '30px',
+		    }];
+	    
+     columns = expandIconColumn.concat(columns); 
+	 return columns;
+  }
+  
+  updateSelectedNodes( parentNode, selectedNode, expandedRowMap, keepOpen = false ) {
+    const parentNodeId = parentNode.nodeId;
+        
+    if(expandedRowMap[parentNodeId] &&
+       expandedRowMap[parentNodeId].selectedNodes &&
+	   expandedRowMap[parentNodeId].selectedNodes.hasOwnProperty(selectedNode.nodeId) &&
+	   !keepOpen){
+        
+        delete expandedRowMap[parentNodeId].selectedNodes[selectedNode.nodeId];
+	
+	} else {
+      
+      if (!expandedRowMap[parentNodeId].selectedNodes) {
+        expandedRowMap[parentNodeId].selectedNodes = {};
+       }
+       expandedRowMap[parentNodeId].selectedNodes[selectedNode.nodeId] = selectedNode.data;
+    }   
+    return expandedRowMap;
+  }
+  
+  updateExpandedRow ( node, expandedRowMap ) {
+     let newItemIdToExpandedRowMap = expandedRowMap;
+      
+	 if (expandedRowMap[node.nodeId]) {
+	           
+         newItemIdToExpandedRowMap[node.nodeId].expandedRow =   
+	       <div id={node.nodeId} style={{ padding: '0 0 20px 19px' }}>
+	          { this.renderNav(node, node.name, expandedRowMap) }   
+	       </div>                  
+	  }  
+     return newItemIdToExpandedRowMap;
+  }
+  
+  updateExpandedRowMap (node, expandedRowMap, keepOpen = false) {
+     let newItemIdToExpandedRowMap = this.updateSelectedNodes( node.parent, node, expandedRowMap, keepOpen );
+	 const rootNode = this.findRootNode(node, expandedRowMap);
+	 	  
+	 if ( expandedRowMap[rootNode.nodeId]) {
+        newItemIdToExpandedRowMap = this.updateExpandedRow ( node.parent, newItemIdToExpandedRowMap );
+        newItemIdToExpandedRowMap = this.updateExpandedRow ( rootNode, newItemIdToExpandedRowMap );      
+	 }   
+	 this.props.updateExpandedMap(newItemIdToExpandedRowMap);  	  
+  }
+   
+  findRootNode = (node, expandedRowMap) => {	
+      const rootNodeId = node.nodeId.split('_')[0];
+      const rootNode = expandedRowMap[rootNodeId].nodes._root;
+      return rootNode;
+    };
+	
+  toggleNodeData = (node, expandedRowMap) => {
+     let newItemIdToExpandedRowMap = expandedRowMap;
+     const rootNode = this.findRootNode(node, expandedRowMap);
+   
+     if (expandedRowMap[node.nodeId] && expandedRowMap[node.nodeId].expandedRow) {
+       delete newItemIdToExpandedRowMap[node.nodeId].expandedRow;
+     
+     } else if (node.children && node.children.length > 0){
+       newItemIdToExpandedRowMap = this.updateExpandedRow ( node, expandedRowMap );        
+     } 
+   
+     if(rootNode !== node){	 
+       newItemIdToExpandedRowMap = this.updateExpandedRow ( rootNode, expandedRowMap ); 
+     }
 	  
-  toggleNavView = () => {
-    this.setState(prevState => ({ navView: !prevState.navView }));
-  };	  
-	  
-	  
-  getChildrenItems( nodes ) {
-    if( nodes.length == 0 ){
-       return;
-    }
+	  this.props.updateExpandedMap(newItemIdToExpandedRowMap); 
+  };	   	 
+	  	  
+  getChildrenItems( nodes, parentNode, expandedRowMap ) {
     const itemList = [];
-    for(let i = 0; i < nodes.length; i++) {  
-       itemList.push(this.createItem(nodes[i].nodeId, nodes[i].name, nodes[i].data, { items: this.getChildrenItems(nodes[i].children)} )); 
+    
+    if( nodes.length === 0 && parentNode.data) { 
+       const renderedData = this.renderNodeData( parentNode, expandedRowMap );
+       itemList.push(this.createItem(expandedRowMap, parentNode, renderedData, { items: nodes.children ? this.getChildrenItems(nodes.children, nodes, expandedRowMap) : []}));
+    }
+ 
+    for(let i = 0; i < nodes.length; i++) {     
+       itemList.push(this.createItem(expandedRowMap, nodes[i], nodes[i].name, { icon: this.addExpandingSideNavIcon(nodes[i], expandedRowMap),  items: this.getChildrenItems(nodes[i].children, nodes[i], expandedRowMap)} )); 
     } 
     return itemList;
-  }	  
+  }
+  
+  createItem = (expandedRowMap, node, name, items={}) => {    
+     const nodeId = node.nodeId;
+     const parentId = node.parent.nodeId;
+    
+     const isSelected = expandedRowMap[parentId] 
+                    && expandedRowMap[parentId].selectedNodes 
+                    && expandedRowMap[parentId].selectedNodes.hasOwnProperty(nodeId) ;
+    
+     return {
+	      ...items,
+	      id: nodeId,
+	      name,
+	      isSelected: isSelected,
+	      onClick: () => console.log("open side nav"),
+      };
+  };
+ 
+ 
+  /************* Render Functions *************/ 
+  
+  renderMessagesTab(): JSX.Element {
+    return <EuiCodeEditor
+      className = { this.props.message && this.props.message.length > 0 ? this.props.message[0].className : "successful-message"}
+      mode="text"
+      theme="sql_console"
+      width="100%"
+      value={getMessageString(this.props.message, this.props.tabNames)}
+      showPrintMargin={false}
+      readOnly={true}
+      setOptions={{
+        fontSize: '14px',
+        readOnly: true,
+        highlightActiveLine: false,
+        highlightGutterLine: false,
+      }}
+      onBlur={() => { console.log('blur'); }} // eslint-disable-line no-console
+      aria-label="Code Editor"
+    />  
+  }
+  
+  renderHeaderCells(columns) {
+    return columns.map((field: any) => {
+      const label = field.id === 'expandIcon' ? field.label : field;
+      const colwidth = field.id === 'expandIcon' ? field.width : COLUMN_WIDTH;
+      return <EuiTableHeaderCell
+        key={label}
+        width={colwidth}
+        onSort={this.props.onSort.bind(this, field)}
+        isSorted={this.props.sortedColumn === field}
+        isSortAscending={this.props.sortableProperties.isAscendingByName(field)}
+        >{ label }
+       </EuiTableHeaderCell>
+    });
+  }
+  
+  renderHeaderCellsWithNoSorting(columns) {
+    return columns.map((field: any) => {
+      const label = field.id === 'expandIcon' ? field.label : field;
+      const colwidth = field.id === 'expandIcon' ? field.width : COLUMN_WIDTH;
+      return <EuiTableHeaderCell
+        key={label}
+        width={colwidth}
+        >{ label }
+       </EuiTableHeaderCell>
+    });
+  }
+  
+  renderRow(item, columns, rowId, expandedRowMap) {
+     let rows = [];   
+     if (item && ((typeof item === 'object' && !isEmpty(item)) || (Array.isArray(item) && item.length > 0))){
+        let rowItems = []; 
+             
+        if(Array.isArray( item )) {
+           rowItems = item;
+        } else {
+           rowItems.push(item);
+        }
+        
+        for(let i = 0; i < rowItems.length; i++) {
+           let rowItem = rowItems[i];
+	       let tableCells = [];
+	       const tree = this.getRowTree(rowId, rowItem, expandedRowMap); 
+	       
+	       // Add nodes to expandedRowMap
+           if (!expandedRowMap[rowId] || !expandedRowMap[rowId].nodes) {  
+              expandedRowMap[rowId] = { nodes: tree }; 
+           }
+	     
+	       const expandingNode = tree && tree._root.children.length > 0 ? this.addExpandingNodeIcon(tree._root, expandedRowMap) : '';
+	     
+	       if(columns.length > 0){  
+		      columns.map((field:any, index) => {
+		          
+		          // Table cell
+			      if(field.id !== 'expandIcon') {
+				     const fieldObj = this.getFieldValue(rowItem[field], field); 
+				     let fieldValue = fieldObj.value;
+				     
+				     // If field is expandable 
+				     if(fieldObj.hasExpandingRow || fieldObj.hasExpandingArray) {
+				        const fieldNode = expandedRowMap[tree._root.nodeId].nodes._root.children.find(node => node.name === field);
+		                fieldValue = (
+		                  <span> {fieldObj.value}
+                              	 <EuiLink
+			                        color="primary"
+			                        onClick={() => { this.updateExpandedRowMap (fieldNode, expandedRowMap, true); scrollToNode(tree._root.nodeId);}}>
+			                        {fieldObj.link}
+			                     </EuiLink> 
+			              </span>);										
+				     } 
+			         tableCells.push(<EuiTableRowCell key={field} truncateText={false} textOnly={true}>{ fieldValue }</EuiTableRowCell>);
+			      }
+			      
+			      // Expanding icon cell
+			      else { 
+				      tableCells.push( <EuiTableRowCell id={tree._root.nodeId}>{ expandingNode }</EuiTableRowCell>);
+			      }    
+		      });
+		  } 
+		  
+		  else {
+			 const fieldObj = this.getFieldValue(rowItem, ''); 
+			 tableCells.push(<EuiTableRowCell truncateText={false} textOnly={true}>{ fieldObj.value }</EuiTableRowCell>);	 
+		  }
+		  
+		  const tableRow = ( <EuiTableRow key={rowId}>{tableCells} </EuiTableRow>);
+		  let row = (
+					  <Fragment>
+					     {tableRow} 
+		      		  </Fragment>);
+		      			
+		  if (expandedRowMap[rowId] && expandedRowMap[rowId].expandedRow){ 
+		      const tableRow = ( <EuiTableRow className="expanded-row" key={rowId}>{tableCells} </EuiTableRow>);
+			  const expandedRow =  <EuiTableRow>{expandedRowMap[rowId].expandedRow}</EuiTableRow>;
+			  row = (
+				    <Fragment>
+				        {tableRow}
+				        {expandedRow}
+	      			</Fragment>);	     
+		   }    		     
+		   rows.push(row);	      
+	    }   
+     }
+   return rows;
+  }
+  
+  
+  renderRows(items, columns, expandedRowMap) {
+    let rows = []; 
+    if (items){
+	    for ( let itemIndex = this.props.firstItemIndex; itemIndex <= this.props.lastItemIndex; itemIndex++ ) {
+	      const item = items[itemIndex];
+	      if(item){ 
+		     const rowId = item['id'];
+		     const rowsForItem = this.renderRow(item, columns, rowId, expandedRowMap);
+		     rows.push(rowsForItem);
+	     }
+     } 
+   }
+   return rows;
+  }
+ 
+  renderSearchBar() {
+   const search = {
+      box: {
+        incremental: this.state.incremental,
+        placeholder: 'Search',
+        schema: true
+      }
+    };     
+    return (
+      <div className="search-bar">
+        <EuiSearchBar 
+          onChange={this.props.onQueryChange}
+          query={this.props.searchQuery}
+          {...search}
+        />
+      </div>  
+      );   
+  }
+  	 
+  renderNodeData = (node, expandedRowMap) => {
+	 let items = [];
+	 let columns = [];
+	 let records = [];
+	 const data = node.data;
+	   
+	 if(Array.isArray(data)) {
+	    items = data;
+	    columns = typeof items[0] === 'object' ? Object.keys(items[0]) : [];
+	 } else if (typeof data === 'object') {
+	    records.push(data);
+	    items = records;
+	    columns = this.addExpandingIconColumn(Object.keys(data));
+	 }
+	          
+	 const dataTable=
+	      <div> 
+	       
+	        <EuiTable className ="sideNav-table" >
+		        <EuiTableHeader className="table-header">
+		          {this.renderHeaderCellsWithNoSorting(columns)}
+		        </EuiTableHeader>
+		
+		        <EuiTableBody>
+		          {this.renderRow(items, columns, node.nodeId, expandedRowMap)}
+		        </EuiTableBody>
+		      </EuiTable>
+		    </div> 
+		    
+	   return dataTable;     
+	};
 	  
-  renderNav(nodes, table_name){ 
+  renderNav(node, table_name, expandedRowMap){    
     const sideNav = [
-      this.createItem( table_name, table_name, nodes, {
-        items: 
-            this.getChildrenItems(nodes._root.children),
+      this.createItem( expandedRowMap, node, table_name,  {
+        items: this.getChildrenItems(node.children, node, expandedRowMap),
       }),
-   ];
+    ];
    
-   return (
+    return (
       <EuiSideNav
         mobileTitle="Navigate within $APP_NAME"
         items={sideNav}
-        style={{ width: 192 }}
+        className="sideNavItem__items"
+        style={{ width: '300px', padding: '0 0 20px 9px', }}
       />
     );
-}	  
-  
-  selectItem = (name, data) => {
-    this.setState({
-      selectedItemName: name,
-      selectedItemData: data,
-    });
-  };
-
-  createItem = (nodeId, name, value, data = {}) => {
-    return {
-      ...data,
-      id: nodeId,
-      name,
-      isSelected: this.state.selectedItemName === nodeId,
-      onClick: () => this.selectItem(nodeId, value),
-    };
-  };
-  
-  isRootNode (node) {
-    return typeof node === 'object' && node.hasOwnProperty("_root");
-  }
-  
+  }	  
+    
   render() {
     
     if (this.props.selectedTabId === 'messages') {
@@ -661,129 +577,63 @@ class QueryResultsBody extends Component<QueryResultsBodyProps, QueryResultsBody
       return null;
     } else {
         
-	    const navView = this.state.navView;
-	    // NAVIGATION VIEW
-	    if(navView) {
-	      const table_name = this.capitalizeFirstLetter(this.props.selectedTabName);
-	      const nodes = this.createRecordsTree( this.getItems(this.props.queryResult.records), table_name );
-	      let records : any[] = [];
-	      if ( this.state.selectedItemData && !isEmpty(this.state.selectedItemData) && !this.isRootNode(this.state.selectedItemData)) {
-		      if(Array.isArray(this.state.selectedItemData)) {
-		         this.items = this.state.selectedItemData;
-		         this.columns = typeof this.state.selectedItemData[0] === 'object' ? Object.keys(this.state.selectedItemData[0]) : [];
-		      } else if (typeof this.state.selectedItemData === 'object') {
-		        records.push(this.state.selectedItemData);
-		        this.items = records;
-		        this.columns = Object.keys(this.state.selectedItemData);
-		      }
-		  } else {
-		     this.items = this.getItems(this.props.queryResult.records);
-		     this.columns = this.props.queryResult.fields;
-		  }
-		 
-		   return <div>
-		           <EuiSpacer size="m" />
-		            <EuiFlexGroup gutterSize="none" className="toggleContainer">
-					   <EuiFlexItem grow={false}>
-				            <EuiSwitch
-				              label="Navigation View"
-				              checked={this.state.navView}
-				              onChange={this.toggleNavView}
-				            />
-				       </EuiFlexItem>
-				   </EuiFlexGroup>
-		                 
-				   <EuiText className="table-name">{this.capitalizeFirstLetter(this.props.selectedTabName)}</EuiText>
-				   
-			       <div className="sql-console-results-container"> 
-			         <EuiFlexGroup gutterSize="none" className="-panel">
-				         <EuiFlexItem className="nav-left-side-content" grow={false}>
-				           <EuiPanel>
-				              {this.renderNav(nodes, table_name)}   
-				           </EuiPanel>  
-				         </EuiFlexItem>
-				         <EuiFlexItem className="nav-left-side-content">
-					      <EuiTable>
-					        <EuiTableHeader className="table-header">
-					          {this.renderHeaderCellsWithNoSorting(this.columns)}
-					        </EuiTableHeader>
-					
-					        <EuiTableBody>
-					          {this.renderNavRows(this.items, this.columns, 'Table Name')}
-					        </EuiTableBody>
-					
-					      </EuiTable>
-					     </EuiFlexItem>
-					 </EuiFlexGroup>    
-			      </div>     
-		   </div> 
+	    if (this.props.queryResult) {
+	      this.items = this.getItems(this.props.queryResult.records);
+	      //Adding an extra empty column for the tree
+	      this.columns = this.addExpandingIconColumn(this.props.queryResult.fields);
+	      this.expandedRowColSpan = this.columns.length;
 	    } 
 	    
-	    // NESTED TABLE VIEW 
-	    else {
-		    if (this.props.queryResult) {
-		      this.items = this.getItems(this.props.queryResult.records);
-		      this.columns = this.props.queryResult.fields;
-		      this.expandedRowColSpan = this.columns.length;
-		    } 
-		    
-		      return <div>    
-		           <EuiSpacer size="m" /> 
-		           <EuiText className="table-name">{this.capitalizeFirstLetter(this.props.selectedTabName)}</EuiText>
-		                  
-			       <div className="search-panel">   
-			       		{this.renderSearchBar()}
-			      
-				      <EuiTablePagination
-				          activePage={this.props.pager.getCurrentPageIndex()}
-				          itemsPerPage={this.props.itemsPerPage}
-				          itemsPerPageOptions={PAGE_OPTIONS}
-				          pageCount={this.props.pager.getTotalPages()}
-				          onChangeItemsPerPage={this.props.onChangeItemsPerPage}
-				          onChangePage={this.props.onChangePage}
-					   />
-				   </div>
-				   
-			       <EuiSpacer size="m" />
-				   <EuiFlexGroup gutterSize="none" className="toggleContainer">
-					   <EuiFlexItem grow={false}>
-				            <EuiSwitch
-				              label="Navigation View"
-				              checked={this.state.navView}
-				              onChange={this.toggleNavView}
-				            />
-				       </EuiFlexItem>
-				   </EuiFlexGroup> 
-				   
-			       <div className="sql-console-results-container"> 
-			         <EuiFlexGroup gutterSize="none" >
-				         <EuiFlexItem>
-					      <EuiTable>
-					        <EuiTableHeader className="table-header">
-					          {this.renderHeaderCells(this.columns)}
-					        </EuiTableHeader>
-					
-					        <EuiTableBody>
-					          {this.renderRows(this.items, this.columns, 'Table Name', '', this.props.itemIdToExpandedRowMap)}
-					        </EuiTableBody>
-					
-					      </EuiTable>
-					     </EuiFlexItem>
-					 </EuiFlexGroup>    
-			      </div>
-			      
-			      <div className="pagination-container">
-			        <EuiTablePagination
+	    return <div> 
+	           <EuiSpacer size="m" /> 
+	           <EuiText className="table-name">{capitalizeFirstLetter(this.props.selectedTabName)}</EuiText>
+	           <EuiHorizontalRule margin="none" />  
+	               
+		       <div className="search-panel">   
+		       	  {this.renderSearchBar()}
+		      
+			      <EuiTablePagination
 			          activePage={this.props.pager.getCurrentPageIndex()}
 			          itemsPerPage={this.props.itemsPerPage}
 			          itemsPerPageOptions={PAGE_OPTIONS}
 			          pageCount={this.props.pager.getTotalPages()}
 			          onChangeItemsPerPage={this.props.onChangeItemsPerPage}
 			          onChangePage={this.props.onChangePage}
-			        />
-			      </div> 
-			   </div>   
-		  }
+				   />
+			   </div>
+		       
+		       <EuiSpacer size="m" />
+		       
+		       <div className="sql-console-results-container"> 
+		         <EuiFlexGroup gutterSize="none" >
+			         <EuiFlexItem>
+			  <DoubleScrollbar> 
+				      <EuiTable>
+				        <EuiTableHeader className="table-header">
+				          {this.renderHeaderCells(this.columns)}
+				        </EuiTableHeader>
+				
+				        <EuiTableBody>
+				          {this.renderRows(this.items, this.columns, this.props.itemIdToExpandedRowMap)}
+				        </EuiTableBody>
+				
+				      </EuiTable>
+				</DoubleScrollbar>      
+				     </EuiFlexItem>
+				 </EuiFlexGroup>    
+		      </div>
+		      
+		      <div className="pagination-container">
+		        <EuiTablePagination
+		          activePage={this.props.pager.getCurrentPageIndex()}
+		          itemsPerPage={this.props.itemsPerPage}
+		          itemsPerPageOptions={PAGE_OPTIONS}
+		          pageCount={this.props.pager.getTotalPages()}
+		          onChangeItemsPerPage={this.props.onChangeItemsPerPage}
+		          onChangePage={this.props.onChangePage}
+		        />
+		      </div> 
+		   </div>   
 	  }	      
    }
 }

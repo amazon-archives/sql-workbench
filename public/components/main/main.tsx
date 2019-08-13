@@ -17,7 +17,7 @@ import React from 'react';
 import Header from '../header/Header';
 import QueryEditor from '../query-editor/QueryEditor';
 import QueryResults from '../query-results/QueryResults';
-import { EuiSpacer, EuiIcon } from '@elastic/eui';
+import { EuiSpacer } from '@elastic/eui';
 import { getQueries, getQueryIndex } from '../utils/utils';
 
 export type QueryResultCSV = string;
@@ -132,7 +132,7 @@ export class Main extends React.Component<MainProps, MainState> {
       selectedTabName: 'messages',
       selectedTabId: 'messages',
       searchQuery:' ',
-      itemIdToExpandedRowMap:{},
+      itemIdToExpandedRowMap:{id : { nodes:{}, expandedRow:{}, selectedNodes:{} }},
       queryResultsTable:[],
       queryResultsJDBC:[],
       queryResults:[],

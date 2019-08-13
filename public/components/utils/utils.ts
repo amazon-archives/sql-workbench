@@ -41,3 +41,16 @@ export function isEmpty (obj) {
   }
   return true;
 }
+
+export function capitalizeFirstLetter(name) {  
+  return name && name.length > 0 ? name.charAt(0).toUpperCase() + name.slice(1) : name;
+}
+
+export function getMessageString(messages, tabNames) {
+  return messages && messages.length > 0 && tabNames ? messages.reduce( (finalMessage, message, currentIndex) => finalMessage.concat(capitalizeFirstLetter(tabNames[currentIndex]), ': ', message.text, '\n\n'), '' ) : '';
+}
+
+export function scrollToNode(nodeId) {
+  const element = document.getElementById(nodeId);
+  element.scrollIntoView();
+}

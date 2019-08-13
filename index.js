@@ -22,15 +22,15 @@ import { createSqlCluster } from './server/clusters';
 export default function (kibana) {
   return new kibana.Plugin({
     require: ['elasticsearch'],
-    name: 'sql_console',
+    name: 'sql-kibana',
     uiExports: {
       app: {
         title: 'Sql Console',
         description: 'ES SQL Console',
-        main: 'plugins/sql_console/app',
+        main: 'plugins/sql-kibana/app',
       },
       hacks: [
-        'plugins/sql_console/hack'
+        'plugins/sql-kibana/hack'
       ],
       styleSheetPaths: require('path').resolve(__dirname, 'public/app.scss'),
     },

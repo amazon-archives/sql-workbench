@@ -15,6 +15,7 @@
  
 import React, { Component } from 'react';
 import _ from 'lodash';
+import PropTypes from 'prop-types';
 import {
   EuiButton,
   EuiPanel,
@@ -23,12 +24,12 @@ import {
   EuiTab,
   EuiTabs,
   EuiPopover,
-  EuiButtonIcon,
   EuiContextMenuItem,
   EuiContextMenuPanel,
   EuiHorizontalRule,
   EuiSearchBar,
   Pager,
+  EuiContextMenu,
 } from '@elastic/eui/lib';
 import 'brace/mode/mysql';
 import 'brace/mode/json';
@@ -42,9 +43,9 @@ interface QueryResultsProps {
   queries: string[];
   queryResults: ResponseDetail<QueryResult>[];
   message: QueryMessage[];
-  selectedTabName: string;
-  selectedTabId: string; 
-  searchQuery: string;
+  selectedTabName: PropTypes.string.isRequired;
+  selectedTabId: PropTypes.string.isRequired; 
+  searchQuery: PropTypes.string.isRequired;
   onSelectedTabIdChange: (tab: Tab) => void;
   onQueryChange: (query: object) => void;
   updateExpandedMap: (map:object) => void;
@@ -56,8 +57,22 @@ interface QueryResultsProps {
 
 interface QueryResultsState {
   isPopoverOpen: boolean;
+  isDownloadPopoverOpen: boolean;
   itemsPerPage: number;
 }
+
+function flattenPanelTree(tree, array = []) {
+	  array.push(tree);
+	  if (tree.items) {
+	    tree.items.forEach(item => {
+	      if (item.panel) {
+	        flattenPanelTree(item.panel, array);
+	        item.panel = item.panel.id;
+	      }
+	    });
+	  }	
+  return array;
+} 
 
 export const MAX_NUM_RECORDS_PER_PAGE = 10;
 
@@ -68,12 +83,14 @@ class QueryResults extends Component<QueryResultsProps, QueryResultsState> {
   public tabNames: string[];
   public pager: Pager;
   public selectedTabId: any;
+  public panels: string[];
   
   constructor(props: QueryResultsProps) {
     super(props);
 
     this.state = {
       isPopoverOpen: false,
+      isDownloadPopoverOpen: false,
       itemsPerPage: MAX_NUM_RECORDS_PER_PAGE      
     };
 
@@ -88,8 +105,44 @@ class QueryResults extends Component<QueryResultsProps, QueryResultsState> {
    
    this.tabNames = []; 
    this.pager = new Pager(0, this.state.itemsPerPage); 
+   
+   // Downloads Action button
+   const panelTree = {
+      id: 0,
+      title: 'Download',
+      items: [
+        {
+          name: 'Download JSON',
+          onClick: () => { this.onDownloadJSON(); },  
+        },
+        {
+          name: 'Download JDBC',
+          onClick: () => { this.onDownloadJDBC(); },
+        },
+        {
+          name: 'Download CVS',
+          onClick: () => { this.onDownloadCSV(); },
+        },
+      ],
+    };  
+    
+    this.panels = flattenPanelTree(panelTree);
   }
-
+  
+  // Actions for Downloads Button
+  onDownloadButtonClick = (): void => {
+    this.setState(prevState => ({
+      isDownloadPopoverOpen: !prevState.isDownloadPopoverOpen,
+    }));
+  };
+  
+  closeDownloadPopover = (): void => {
+    this.setState({
+      isDownloadPopoverOpen: false,
+    });
+  };
+  
+  // Actions for Tabs Button
   onButtonClick = (): void => {
     this.setState(prevState => ({
       isPopoverOpen: !prevState.isPopoverOpen,
@@ -133,10 +186,7 @@ class QueryResults extends Component<QueryResultsProps, QueryResultsState> {
 	   }   
    } 
    
-  resetSortableColumn() {
-    this.sortableColumns = [];
-  }
-      
+     
   onSort = prop => {
     this.sortableProperties.sortOn(prop);
     this.sortedColumn = prop;
@@ -231,6 +281,7 @@ class QueryResults extends Component<QueryResultsProps, QueryResultsState> {
       this.updateSortableColumns(queryResultSelected);
     }
     
+    // Action button with list of tabs
     const button = (
       <EuiButton    
         onClick={this.onButtonClick}
@@ -238,6 +289,16 @@ class QueryResults extends Component<QueryResultsProps, QueryResultsState> {
         iconSide="right"
         disabled={false}
       > Tabs
+      </EuiButton>
+    );
+    
+    // Action button with list of downloads
+    const downloadsButton = (
+      <EuiButton
+        iconType="arrowDown"
+        iconSide="right"
+        onClick={this.onDownloadButtonClick}>
+        Download
       </EuiButton>
     );
     
@@ -269,42 +330,15 @@ class QueryResults extends Component<QueryResultsProps, QueryResultsState> {
         {tab.name}
       </EuiTab>     
     ));
-    
+      
     return <EuiPanel className="query-result-container" paddingSize="none">
       <EuiFlexGroup style={{ padding: '10px', 'border-top-color': '#69707d', 'border-left-color': '#69707d', 'border-right-color': '#69707d'}}>
-        <EuiFlexGroup className= "tabs-container" alignItems="center" gutterSize="s">
-                   
-          { false && 
-            <EuiFlexItem grow={false}>
-	            <EuiButtonIcon
-	              color="text"
-	              onClick={() => window.scrollBy(-100, 0)}
-	              iconType="arrowLeft"
-	              aria-label="Previous"
-	              disabled={false}
-	            />
-            </EuiFlexItem>
-          }
-          
-	          <EuiFlexItem style={{ marginTop: '8px', marginBottom: '18px' }} grow={false}>
-	            <EuiTabs>
-	              {tabsButtons}
-	            </EuiTabs>
-	          </EuiFlexItem>
-          
-                   
-          { false && 
-            <EuiFlexItem grow={false}>
-	            <EuiButtonIcon
-	              color="text"
-	              onClick={() => window.scrollBy(100, 0)}
-	              iconType="arrowRight"
-	              aria-label="Next"
-	              disabled={false}
-	            />
-            </EuiFlexItem>
-          }
-          
+        <EuiFlexGroup className= "tabs-container" alignItems="center" gutterSize="s">  
+          <EuiFlexItem style={{ marginTop: '8px', marginBottom: '18px' }} grow={false}>
+            <EuiTabs>
+              {tabsButtons}
+            </EuiTabs>
+          </EuiFlexItem>  
         </EuiFlexGroup>
         
         { showArrows &&
@@ -318,26 +352,26 @@ class QueryResults extends Component<QueryResultsProps, QueryResultsState> {
 	              panelPaddingSize="none"
 	              anchorPosition="downLeft"
 	            >
-	              <EuiContextMenuPanel
-	                items={tabsItems}
+	              <EuiContextMenuPanel items={tabsItems}
 	              />
 	            </EuiPopover>
 	          </EuiFlexItem></div>
           }
+          
          { enableDownload &&
          <div className="download-container">    
-           <EuiFlexGroup>
-	        <EuiFlexItem grow={false}>
-	          <EuiButton fill={true} onClick={this.onDownloadJSON}>Download JSON</EuiButton>
-	        </EuiFlexItem>
-	        <EuiFlexItem grow={false}>
-	          <EuiButton fill={true} onClick={this.onDownloadJDBC}>Download JDBC</EuiButton>
-	        </EuiFlexItem>
-	        <EuiFlexItem grow={false}>
-	          <EuiButton fill={true} onClick={this.onDownloadCSV}>Download CSV</EuiButton>
-	         
-	        </EuiFlexItem>
-	       </EuiFlexGroup> </div>
+           <EuiFlexItem grow={false}>
+	            <EuiPopover
+	              id="singlePanel"
+	              button={downloadsButton}
+	              isOpen={this.state.isDownloadPopoverOpen}
+	              closePopover={this.closeDownloadPopover}
+	              panelPaddingSize="none"
+	              anchorPosition="downLeft"
+	            >
+	              <EuiContextMenu initialPanelId={0} panels={this.panels} />
+	            </EuiPopover>
+	       </EuiFlexItem> </div>
 	     }   
       </EuiFlexGroup>
 
@@ -360,6 +394,7 @@ class QueryResults extends Component<QueryResultsProps, QueryResultsState> {
                         sortableProperties={this.sortableProperties}
                         itemIdToExpandedRowMap= {this.props.itemIdToExpandedRowMap} 
 	                    updateExpandedMap={this.props.updateExpandedMap}
+	                    
       />
     </EuiPanel>;
   }

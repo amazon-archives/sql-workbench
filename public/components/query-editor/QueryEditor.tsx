@@ -36,7 +36,7 @@ class QueryEditor extends React.Component<QueryEditorProps, QueryEditorState> {
   constructor(props: QueryEditorProps) {
     super(props);
     this.state = {
-      sqlQueriesString: '',
+      sqlQueriesString: 'select * from kibana_sample_data_ecommerce',
     };
 
     this.updateSQLQueries = _.debounce(this.updateSQLQueries, 250).bind(this);
@@ -51,15 +51,15 @@ class QueryEditor extends React.Component<QueryEditorProps, QueryEditorState> {
       <EuiTitle className="container-panel-header" size="l">
         <h1>SQL console</h1>
       </EuiTitle>
-      <EuiFlexGroup gutterSize="none" className="resize-panel">
-        <EuiFlexItem grow={1}>
-          <EuiPanel className="sql-query-panel" paddingSize="none">
+      <EuiFlexGroup gutterSize="none">
+        <EuiFlexItem grow={1} className="sql-query-panel" paddingSize="none">
+          
             <EuiText className="sql-query-panel-header">SQL</EuiText>
             <EuiCodeEditor
               mode="mysql"
               theme="sql_console"
               width="100%"
-              height="100%"
+              height="80%"
               value={this.state.sqlQueriesString}
               onChange={this.updateSQLQueries}
               showPrintMargin={false}
@@ -72,16 +72,16 @@ class QueryEditor extends React.Component<QueryEditorProps, QueryEditorState> {
               onBlur={() => { console.log('blur'); }} // eslint-disable-line no-console
               aria-label="Code Editor"
             />
-          </EuiPanel>
+          
         </EuiFlexItem>
-        <EuiFlexItem grow={1}>
-          <EuiPanel className="translated-query-panel" paddingSize="none">
+        <EuiFlexItem grow={1} className="translated-query-panel" paddingSize="none">
+          
             <EuiText className="translated-query-panel-header">Elasticsearch query string</EuiText>
             <EuiCodeEditor
               mode="json"
               theme="sql_console"
               width="100%"
-              height="100%"
+              height="80%"
               value={this.props.queryTranslations.map((queryTranslation: any) =>
 		                JSON.stringify(queryTranslation.data, null, 2)
 		              ).join('\n')}
@@ -98,7 +98,7 @@ class QueryEditor extends React.Component<QueryEditorProps, QueryEditorState> {
               onBlur={() => { console.log('blur'); }} // eslint-disable-line no-console
               aria-label="Code Editor"
             />
-          </EuiPanel>
+          
         </EuiFlexItem>
       </EuiFlexGroup>
 

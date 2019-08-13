@@ -12,7 +12,7 @@
  *   express or implied. See the License for the specific language governing
  *   permissions and limitations under the License.
  */
- 
+
 @import '../node_modules/@elastic/eui/src/global_styling/variables/colors';
 @import '../node_modules/@elastic/eui/src/global_styling/variables/size';
 
@@ -28,159 +28,99 @@
 
 .sql-console-query-editor {
   height: 477px;
+  max-height: 500px;
+  
   .container-panel {
     border-radius: 0px;
     box-shadow: none;
   }
-
   .container-panel-header {
     font-weight: 450;
     padding: $euiSize $euiSize;
   }
-
   .sql-query-panel {
     border-radius: 0px;
     border-width: 1px;
     border-right-width: 0.5px;
     box-shadow: none;
   }
-
   .sql-query-panel-header {
     padding: $euiSizeS;
     background-color: $euiColorLightestShade;
   }
-
   .translated-query-panel {
     border-radius: 0px;
     border-width: 1px;
     border-left-width: 0.5px;
     box-shadow: none;
   }
-
   .translated-query-panel-header {
     padding: $euiSizeS;
     background-color: $euiColorLightestShade;
   }
-
   .action-container {
     padding: $euiSizeM;
   }
-
   .resize-panel {
     resize: vertical;
     overflow: auto; 
     cursor: row-resize;
   }
 }
-
 .sql-console-query-result{
   height: 577px;
+  scroll-behavior: smooth;
   .sql-console-results-container {
     overflow: auto;
   } 
-
   .query-result-container {
     border: solid 1.5px #d9d9d9;
     border-radius: 0px;
     border-bottom-width: 0;
   }
-
   .tabs-container {
     overflow: auto;
     margin: 3px;
   }
-
-  .table {
-    border: solid 1.5px #d9d9d9;
-    border-bottom-width: 0;
-    border-radius: 0px;
-    margin-bottom: 0;
-  }
-
   .table-name {
     font-size: 20px;
-    padding: 20px 6px;
+    padding: 20px;
   }
-
   .table-header {
-    border-top: solid 1px #d9d9d9; 
+    /*border-top: solid 1px #d9d9d9;*/
+    background-color: #d9d9d9; 
   }
-
+  .sideNav-table { 
+    border: solid 1px rgb(217, 217, 217);
+    border-collapse: separate;
+  }
   .search-panel {
     display: inline-flex; 
     width:100%; 
     padding:20px;
   }
-
   .search-bar {
     width:80%;
   }
-
   .pagination-container {
     margin-top: 10px;
     margin-bottom: 10px;
   }
-
   .download-container {
     padding: $euiSizeM;
     height: 56px;
     vertical-align: middle;
     border-width: 1px;
   }
-
   .toggleContainer {
     margin: 20px;
-  }
-}
-
-.box:after {
-  content:"";
-  position:absolute;
-  bottom: 0;
-  right:50px;
-  width: 0px;
-  height: 0px;
-  border-top: 20px solid transparent;
-  border-left: 20px solid transparent;
-  border-right: 20px solid transparent;
-  
-}
-
-.box:before {
-  content:"";
-  position:absolute;
-  bottom:-5px;
-  right:50px;
-  width: 0px;
-  height: 0px;
-  border-top: 22px solid transparent;
-  border-left: 12px solid transparent;
-  border-right: 12px solid transparent;
-  border-bottom: 12px solid  rgb(245, 245, 245);
-}
-
-.box {
-  position:relative;
-  float:left;
-  text-align: left;
-  margin:18px 0 4px 0;
-  box-shadow:0px 0px 0px 0px; 
-}
-
-.nested-table {
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 0;
-  padding-right: 0;
-  margin-bottom: 0;
-}
-
-.euiTableRow.euiTableRow-isExpandedRow .euiTableRowCell {
-  background-color: unset;
+  } 
 }
 
 .expanded-row {
-  background-color: rgb(232,243,246);
+  /*background-color: rgb(232,243,246);
+  /*background-color: rgb(245,247,250);*/
+  border-collapse: separate;
 }
 
 .expanded-row:hover {
@@ -191,6 +131,7 @@
   background-color: rgba(0, 0, 0, 0);
 }
 
+/* Message Tab */
 .code-editor {
   color: #006BB4;
 }
@@ -203,20 +144,109 @@
   color: #006BB4;
 }
 
-.nav-left-side-content{
-  max-height: 500px;
-  overflow: auto;
+/*********  EuiTable overrides ***********/
+.euiTableCellContent {
+  display: inline-block; 
+  width: 100%;
 }
 
-.resize-icon {
-  cursor: ns-resize; 
-  width: 3px;
-  margin-left: auto;
-  margin-right: auto;
+.euiTableRow.euiTableRow-isExpandedRow .euiTableRowCell {
+  background-color: unset;
 }
-.pre {outline: 1px solid #ccc; padding: 5px; margin: 5px; }
-.string { color: green; }
-.number { color: darkorange; }
-.boolean { color: blue; }
-.null { color: magenta; }
-.key { color: red; }
+
+.sideNav-table .euiTableRowCell {
+  border-top: 0;
+}
+
+.euiTableRow:hover{
+  background-color: unset;
+}
+
+/********* EuiSideNav overrides *********/
+
+/* Add the vertical line to connect the side Nav to the parent row */
+.sideNavItem__items {
+  position: relative;
+  &:after { /* 1 */
+    position: absolute;
+    content: '';
+    top: -10px;
+    bottom: 32px;
+    width: 1px;
+    background: rgb(217, 217, 217);
+    left: 0;
+  }
+}
+
+/* Add the vertical line to connect the side nav item to its parent item */
+.euiSideNavItem__items:after {
+  bottom: 50%;
+}
+
+/* Add the tick line to each item */
+.euiSideNavItem {
+  /**
+   * 1. Absolutely position the horizontal tick connecting the item to the vertical line.
+   */
+   > .euiSideNavItemButton {
+    position: relative; /* 1 */
+    padding-left: 13px;
+    padding-right: 8px; /* 1 */
+
+    &:after {
+      position: absolute;
+      content: "";
+      top: 50%;
+      left: 0;
+      width: 10px;
+      height: 1px;
+      background: rgb(217, 217, 217);
+    }
+  }
+
+/* Remove the horizontal tick from the root of the sideNav */
+  &.euiSideNavItem--root > .euiSideNavItemButton {   
+    &:after {
+      background: none;
+    }
+  }
+
+  & > .sideNavItem__items {
+    margin-left: 16px;
+  }
+}
+
+/* To remove caret icon from sideNavItems */
+.euiIcon--small {
+  width: 0px;
+  height: 0px;
+}
+
+/* To remove bold and underline inside nested tables */
+.euiSideNavItemButton.euiSideNavItemButton-isSelected .euiSideNavItemButton__label .euiTableRowCell {
+  font-weight: normal;
+  text-decoration: none;
+}
+
+.euiSideNavItemButton__content {
+  float: left;
+}
+
+/* To Fix Word-wrap not working for table cells inside SideNav component */
+.euiSideNavItemButton__label {
+  white-space: normal;
+}
+
+/* To center vertical line from sideNav item to its children*/
+.euiSideNavItem--trunk > .euiSideNavItem__items {
+  margin-left: 15px;
+}
+
+/*
+.euiSideNavItem .euiSideNavItem--trunk .euiSideNavItem--hasChildItems:after {
+  bottom:100%;
+}*/
+
+.euiSideNavItem--branch > .euiSideNavItemButton {
+  padding-left: 10px;
+}
