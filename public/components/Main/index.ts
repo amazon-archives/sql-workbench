@@ -13,4 +13,4 @@
  *   permissions and limitations under the License.
  */
 
-export { Main } from './main';
+export { Main } from './Main';

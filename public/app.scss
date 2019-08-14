@@ -66,6 +66,9 @@
     overflow: auto; 
     cursor: row-resize;
   }
+  .sql-editor-link {
+    padding-bottom: 20px;
+  }
 }
 .sql-console-query-result{
   height: 577px;

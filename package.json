@@ -1,7 +1,7 @@
 {
   "name": "sql-kibana",
   "version": "1.0.0.0",
-  "description": "ES SQL Console",
+  "description": "SQL Console",
   "main": "index.js",
   "license": "Apache-2.0",
   "homepage": "https://github.com/opendistro-for-elasticsearch/sql-kibana-plugin",
@@ -19,7 +19,7 @@
     "lint": "tslint .",
     "start": "plugin-helpers start",
     "test:server": "plugin-helpers test:server",
-    "test:browser": "plugin-helpers test:browser",
+    "test:browser": "testcafe chrome public/__tests__",
     "build": "plugin-helpers build"
   },
   "dependencies": {
