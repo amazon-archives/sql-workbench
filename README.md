@@ -40,7 +40,7 @@ Example output: `./build/opendistro-kibana-sql-1.0.0.0.zip`
 
 ## Run
 
-- `yarn start`
+- `yarn start` inside kibana-extra/opendistro-elasticsearch-sql-kibana.
 
   Starts Kibana and includes this plugin. Kibana will be available on `localhost:5601`.
 
