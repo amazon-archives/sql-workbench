@@ -12,13 +12,13 @@
  *   express or implied. See the License for the specific language governing
  *   permissions and limitations under the License.
  */
- 
-import 'brace/mode/mysql';
-import 'brace/mode/json';
-import '../../ace-themes/sql_console';
+
 import React from 'react';
 import _ from 'lodash';
 import { EuiPanel, EuiTitle, EuiButton, EuiText, EuiFlexGroup, EuiFlexItem, EuiCodeEditor, EuiHeaderLink } from '@elastic/eui/lib';
+import 'brace/mode/mysql';
+import 'brace/mode/json';
+import '../../ace-themes/sql_console';
 import { ResponseDetail, TranslateResult } from '../Main/main';
 
 interface QueryEditorProps {

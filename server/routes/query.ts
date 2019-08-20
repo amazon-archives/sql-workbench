@@ -13,22 +13,23 @@
  *   permissions and limitations under the License.
  */
 
-import QueryService from '../services/query-service';
 import { Server } from 'hapi-latest';
+import QueryService from '../services/query-service';
+import { ROUTE_PATH_QUERY, ROUTE_PATH_QUERY_CSV, ROUTE_PATH_QUERY_JDBC } from "../utils/constants";
 
 export default function query(server: Server, service: QueryService) {
   server.route({
-    path: '/api/sql_console/query',
+    path: ROUTE_PATH_QUERY,
     method: 'POST',
     handler: service.describeQuery
   });
   server.route({
-    path: '/api/sql_console/querycsv',
+    path: ROUTE_PATH_QUERY_CSV,
     method: 'POST',
     handler: service.describeQueryCsv
   });
   server.route({
-    path: '/api/sql_console/queryjdbc',
+    path: ROUTE_PATH_QUERY_JDBC,
     method: 'POST',
     handler: service.describeQueryJdbc
   });

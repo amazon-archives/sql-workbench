@@ -109,12 +109,26 @@
     margin-top: 10px;
     margin-bottom: 10px;
   }
+
+  .tab-arrow-down-container {
+    padding: 25px;
+    height: 56px;
+    vertical-align: middle;
+    color: rgb(0, 121, 165);
+  }
+
   .download-container {
     padding: $euiSizeM;
     height: 56px;
     vertical-align: middle;
     border-width: 1px;
+    margin-bottom: 20px;
   }
+
+  .download-button-container {
+    float:right;
+  }
+
   .toggleContainer {
     margin: 20px;
   } 

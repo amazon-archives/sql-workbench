@@ -13,4 +13,6 @@
  *   permissions and limitations under the License.
  */
 
-export { Main } from './main';
+export const ROUTE_PATH_QUERY = '/api/sql_console/query';
+export const ROUTE_PATH_QUERY_CSV = '/api/sql_console/querycsv';
+export const ROUTE_PATH_QUERY_JDBC = '/api/sql_console/queryjdbc';

@@ -13,8 +13,8 @@
  *   permissions and limitations under the License.
  */
 
-import TranslateService from '../services/translate-service';
 import { Server } from 'hapi-latest';
+import TranslateService from '../services/translate-service';
 
 export default function translate(server: Server, service: TranslateService) {
   server.route({
