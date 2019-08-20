@@ -14,10 +14,10 @@
  */
 
 import React from 'react';
+import { EuiSpacer } from '@elastic/eui';
 import Header from '../Header/Header';
 import QueryEditor from '../QueryEditor/QueryEditor';
 import QueryResults from '../QueryResults/QueryResults';
-import { EuiSpacer } from '@elastic/eui';
 import { getQueries, getQueryIndex } from '../../utils/utils';
 
 export type QueryResultCSV = string;

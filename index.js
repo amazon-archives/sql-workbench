@@ -25,13 +25,10 @@ export default function (kibana) {
     name: 'sql-kibana',
     uiExports: {
       app: {
-        title: 'Sql Console',
+        title: 'SQL Console',
         description: 'ES SQL Console',
         main: 'plugins/sql-kibana/app',
       },
-      hacks: [
-        'plugins/sql-kibana/hack'
-      ],
       styleSheetPaths: require('path').resolve(__dirname, 'public/app.scss'),
     },
 
