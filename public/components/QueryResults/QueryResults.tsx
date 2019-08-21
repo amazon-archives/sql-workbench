@@ -15,8 +15,6 @@
 
 import React, { Component } from 'react';
 import { SortableProperties, SortableProperty } from '@elastic/eui/lib/services';
-import _ from 'lodash';
-import PropTypes from 'prop-types';
 import {
   EuiPanel,
   EuiFlexGroup,
@@ -44,9 +42,9 @@ interface QueryResultsProps {
   queries: string[];
   queryResults: ResponseDetail<QueryResult>[];
   message: QueryMessage[];
-  selectedTabName: PropTypes.string.isRequired;
-  selectedTabId: PropTypes.string.isRequired;
-  searchQuery: PropTypes.string.isRequired;
+  selectedTabName: string;
+  selectedTabId: string;
+  searchQuery: string;
   onSelectedTabIdChange: (tab: Tab) => void;
   onQueryChange: (query: object) => void;
   updateExpandedMap: (map: object) => void;
@@ -67,7 +65,6 @@ class QueryResults extends Component<QueryResultsProps, QueryResultsState> {
   public sortedColumn: string;
   public tabNames: string[];
   public pager: Pager;
-  public selectedTabId: any;
   public panels: string[];
 
   constructor(props: QueryResultsProps) {
@@ -186,7 +183,7 @@ class QueryResults extends Component<QueryResultsProps, QueryResultsState> {
     // Update PAGINATION  and SORTABLE columns
     const queryResultSelected = this.props.queryResults
       ? this.getQueryResult(this.props.queryResults, this.props.selectedTabId)
-      : '';
+      : undefined;
 
     if (queryResultSelected) {
       const matchingItems = this.props.searchQuery
@@ -294,51 +291,4 @@ class QueryResults extends Component<QueryResultsProps, QueryResultsState> {
   }
 }
 
-// interface QueryResultsContainerProps {
-//   queries: string[];
-//   queryResultsRaw: ResponseDetail<string>[];
-//   queryResultsTable: ResponseDetail<QueryResult>[];
-//   queryResultsJDBC: ResponseDetail<string>[];
-//   queryResultsCSV: ResponseDetail<string>[];
-//   selectedTabName: string;
-//   selectedTabId: string;
-//   onSelectedTabIdChange: (tab: Tab) => void;
-//   searchQuery: string;
-//   onQueryChange: (query: object) => void;
-//   updateExpandedMap: (map: object) => void;
-//   message: QueryMessage[];
-//   itemIdToExpandedRowMap;
-// }
-//
-// interface QueryResultsContainerState {}
-//
-// class QueryResultsContainer extends React.Component<
-//   QueryResultsContainerProps,
-//   QueryResultsContainerState
-// {
-//       constructor(props: QueryResultsContainerProps) {
-//         super(props);
-//       }
-//
-//       render() {
-//         return (
-//           <QueryResults
-//             queries={this.props.queries}
-//             queryResultsRaw={this.props.queryResultsRaw}
-//             queryResults={this.props.queryResultsTable}
-//             queryResultsJDBC={this.props.queryResultsJDBC}
-//             queryResultsCSV={this.props.queryResultsCSV}
-//             message={this.props.message}
-//             searchQuery={this.props.searchQuery}
-//             itemIdToExpandedRowMap={this.props.itemIdToExpandedRowMap}
-//             onSelectedTabIdChange={this.props.onSelectedTabIdChange}
-//             onQueryChange={this.props.onQueryChange}
-//             selectedTabId={this.props.selectedTabId}
-//             selectedTabName={this.props.selectedTabName}
-//             updateExpandedMap={this.props.updateExpandedMap}
-//           />
-//         );
-//       }
-// }
-//
 export default QueryResults;

@@ -55,7 +55,7 @@ import 'brace/mode/mysql';
 import 'brace/mode/json';
 import '../../ace-themes/sql_console';
 import { PAGE_OPTIONS, COLUMN_WIDTH } from '../../utils/constants';
-import { QueryResult, ResponseDetail, QueryMessage } from '../Main/main';
+import { QueryResult, QueryMessage } from '../Main/main';
 
 interface QueryResultsBodyProps {
   queryResults: QueryResult;
@@ -232,7 +232,6 @@ class QueryResultsBody extends Component<QueryResultsBodyProps, QueryResultsBody
     else {
       hasExpandingRow = true;
       link = field.concat(': {1}');
-      value = value;
     }
 
     return {
@@ -261,7 +260,7 @@ class QueryResultsBody extends Component<QueryResultsBodyProps, QueryResultsBody
     );
   }
 
-  addExpandingSideNavIcon(node, expandedRowMap) {
+  addExpandingSideNavIcon(node, expandedRowMap): any {
     return (
       <EuiButtonIcon
         onClick={() => this.updateExpandedRowMap(node, expandedRowMap)}
@@ -619,7 +618,7 @@ class QueryResultsBody extends Component<QueryResultsBodyProps, QueryResultsBody
       columns = this.addExpandingIconColumn(Object.keys(data));
     }
 
-    const dataTable = (
+    return
       <div>
         <EuiTable className="sideNav-table">
           <EuiTableHeader className="table-header">
@@ -629,9 +628,7 @@ class QueryResultsBody extends Component<QueryResultsBodyProps, QueryResultsBody
           <EuiTableBody>{this.renderRow(items, columns, node.nodeId, expandedRowMap)}</EuiTableBody>
         </EuiTable>
       </div>
-    );
 
-    return dataTable;
   };
 
   renderNav(node, table_name, expandedRowMap) {
