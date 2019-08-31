@@ -113,7 +113,6 @@ class QueryEditor extends React.Component<QueryEditorProps, QueryEditorState> {
                 highlightActiveLine: false,
                 highlightGutterLine: false
               }}
-              //onBlur={() => { console.log('blur'); }} // eslint-disable-line no-console
               aria-label="Code Editor"
             />
           </EuiFlexItem>

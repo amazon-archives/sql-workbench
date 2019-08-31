@@ -62,8 +62,8 @@ interface QueryResultsProps {
   updateExpandedMap: (map: ItemIdToExpandedRowMap) => void;
   itemIdToExpandedRowMap: ItemIdToExpandedRowMap;
   queryResultsRaw: ResponseDetail<string>[];
-  queryResultsJDBC: Array<ResponseDetail<string>>;
-  queryResultsCSV: Array<ResponseDetail<string>>;
+  queryResultsJDBC: ResponseDetail<string>[];
+  queryResultsCSV: ResponseDetail<string>[];
 }
 
 interface QueryResultsState {
