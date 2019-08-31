@@ -59,28 +59,4 @@ test('back to home page', async (t) => {
 	  .click(homeLink)
 	  .expect(addData.innerText).eql('Add Data to Kibana');
 });
-/*
-test('Tab button rendered', async (t) => {
-	for( let i = 0; i < MAX_NUM_TABS + 1; i++ ) {
-	  await t
-	    .typeText(queryEditor,'select * from kibana_sample_data_ecommerce;\n');
-	}
-	  
-	await t
-	  .wait( 5000 )
-	  .click(runButton)
-	  .expect(topBarButton.count).gt(1);
-});
-	  
-test('Tab button not rendered', async (t) => {
-	for( let i = 0; i < MAX_NUM_TABS - 1; i++ ) {
-	  await t
-	    .typeText(queryEditor,'select * from kibana_sample_data_ecommerce;\n');
-	} 
-	  
-	await t
-	 .wait( 5000 )
-	 .click(runButton)
-	 .expect(topBarButton.count).eql(1);
-});
-*/
+

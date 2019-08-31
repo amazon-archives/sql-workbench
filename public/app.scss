@@ -27,7 +27,7 @@
 }
 
 .sql-console-query-editor {
-  height: 477px;
+  height: 500px;
   max-height: 500px;
   
   .container-panel {
@@ -66,8 +66,11 @@
     overflow: auto; 
     cursor: row-resize;
   }
-  .sql-editor-link {
-    padding-bottom: 20px;
+  .sql-editor-link:visited {
+    background-color: rgb(255,255,255);
+  }
+  .sql-editor-button {
+    margin:10px;
   }
 }
 .sql-console-query-result{
@@ -82,7 +85,7 @@
     border-bottom-width: 0;
   }
   .tabs-container {
-    overflow: auto;
+    overflow: hidden;
     margin: 3px;
   }
   .table-name {

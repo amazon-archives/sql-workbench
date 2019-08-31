@@ -17,12 +17,14 @@ import React from 'react';
 import { EuiHorizontalRule } from '@elastic/eui';
 
 const Header = () => {
-  return <div>
-    <div className="sql-console-page-header">
-      SQL console
-    </div>
-    <EuiHorizontalRule margin="none" />
-  </div>;
+  return (
+      <div>
+        <div className="sql-console-page-header">
+         SQL console
+        </div>
+        <EuiHorizontalRule margin="none" />
+      </div>
+  );
 };
 
 export default Header;

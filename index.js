@@ -19,15 +19,18 @@ import QueryService from './server/services/query-service';
 import TranslateService from './server/services/translate-service';
 import { createSqlCluster } from './server/clusters';
 
+export const PLUGIN_NAME = 'opendistro-sql-kibana';
+
 export default function (kibana) {
   return new kibana.Plugin({
     require: ['elasticsearch'],
-    name: 'sql-kibana',
+    name: PLUGIN_NAME,
     uiExports: {
       app: {
         title: 'SQL Console',
-        description: 'ES SQL Console',
-        main: 'plugins/sql-kibana/app',
+        description: 'SQL Console',
+        main: 'plugins/' + PLUGIN_NAME + '/app',
+        icon:'plugins/' + PLUGIN_NAME + '/icons/sql.svg',
       },
       styleSheetPaths: require('path').resolve(__dirname, 'public/app.scss'),
     },

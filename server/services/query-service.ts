@@ -18,7 +18,6 @@ import { CLUSTER } from './utils/constants';
 
 export default class QueryService {
   private client: any;
-
   constructor(client) {
     this.client = client;
   }

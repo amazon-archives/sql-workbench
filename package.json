@@ -1,5 +1,5 @@
 {
-  "name": "sql-kibana",
+  "name": "opendistro-sql-kibana",
   "version": "1.0.0.0",
   "description": "SQL Console",
   "main": "index.js",
@@ -23,20 +23,23 @@
     "build": "plugin-helpers build"
   },
   "dependencies": {
-    "@elastic/datemath": "^5.0.2",
     "@elastic/eui": "^6.5.1",
     "@kbn/i18n": "link:../../kibana/packages/kbn-i18n",
     "@kbn/ui-framework": "link:../../kibana/packages/kbn-ui-framework",
-    "elasticsearch": "^15.2.0",
-    "lodash": "npm:@elastic/lodash@3.10.1-kibana1",
-    "react": "^16.3.0",
     "react-dom": "^16.3.0",
     "react-double-scrollbar": "^0.0.15"
   },
   "devDependencies": {
     "@elastic/eslint-config-kibana": "link:../../kibana/packages/eslint-config-kibana",
     "@elastic/eslint-import-resolver-kibana": "link:../../kibana/packages/kbn-eslint-import-resolver-kibana",
+    "@elastic/elasticsearch": "^7.2.0",
     "@kbn/plugin-helpers": "link:../../kibana/packages/kbn-plugin-helpers",
+    "@types/hapi-latest": "npm:@types/hapi@17.0.12",
+    "@types/angular": "1.6.50",
+    "@types/jest": "^23.3.1",
+    "@types/lodash": "^3.10.1",
+    "@types/react": "^16.3.14",
+    "@types/react-dom": "^16.0.5",
     "jest": "^23.5.0",
     "jest-cli": "^23.5.0",
     "jest-raw-loader": "^1.0.1",
@@ -54,6 +57,7 @@
     "yarn": "^1.10.1"
   },
   "resolutions": {
-    "**/@types/react": "16.3.14"
+    "**/@types/react": "16.3.14",
+    "**/@types/angular": "1.6.50"
   }
 }

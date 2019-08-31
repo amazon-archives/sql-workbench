@@ -38,19 +38,18 @@ export default function sqlPlugin(Client, config, components) {
   });
   
   sql.getCsv = ca({
-	    url: {
-	      fmt: `${QUERY_ROUTE}?${FORMAT_CSV}`,
-	    },
-	    needBody: true,
-	    method: 'POST',
-	  });
+	url: {
+	  fmt: `${QUERY_ROUTE}?${FORMAT_CSV}`,
+	},
+	needBody: true,
+	method: 'POST',
+  });
   
   sql.getJdbc = ca({
-	    url: {
-	      fmt: `${QUERY_ROUTE}?${FORMAT_JDBC}`,
-	    },
-	    needBody: true,
-	    method: 'POST',
-	  });
-
+    url: {
+      fmt: `${QUERY_ROUTE}?${FORMAT_JDBC}`,
+    },
+    needBody: true,
+    method: 'POST',
+  });
 }

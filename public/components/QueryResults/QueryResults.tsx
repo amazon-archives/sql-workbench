@@ -13,8 +13,11 @@
  *   permissions and limitations under the License.
  */
 
-import React, { Component } from 'react';
-import { SortableProperties, SortableProperty } from '@elastic/eui/lib/services';
+import React from "react";
+import {
+  SortableProperties,
+  SortableProperty
+} from "@elastic/eui/lib/services";
 import {
   EuiPanel,
   EuiFlexGroup,
@@ -27,88 +30,115 @@ import {
   EuiHorizontalRule,
   EuiSearchBar,
   Pager,
-  EuiIcon,
-} from '@elastic/eui/lib';
-import 'brace/mode/mysql';
-import 'brace/mode/json';
-import '../../ace-themes/sql_console';
-import { QueryResult, QueryMessage, Tab, ResponseDetail } from '../Main/main';
-import QueryResultsBody from './QueryResultsBody';
-import { getQueryIndex } from '../../utils/utils';
-import { DEFAULT_NUM_RECORDS_PER_PAGE, MAX_NUM_TABS } from '../../utils/constants';
-
+  EuiIcon
+} from "@elastic/eui/lib";
+import "brace/mode/mysql";
+import "brace/mode/json";
+import "../../ace-themes/sql_console";
+import {
+  QueryResult,
+  QueryMessage,
+  Tab,
+  ResponseDetail,
+  ItemIdToExpandedRowMap
+} from "../Main/main";
+import QueryResultsBody from "./QueryResultsBody";
+import { getQueryIndex, needsScrolling } from "../../utils/utils";
+import {
+  DEFAULT_NUM_RECORDS_PER_PAGE,
+  MESSAGE_TAB_LABEL,
+  TAB_CONTAINER_ID
+} from "../../utils/constants";
 
 interface QueryResultsProps {
   queries: string[];
   queryResults: ResponseDetail<QueryResult>[];
-  message: QueryMessage[];
+  messages: QueryMessage[];
   selectedTabName: string;
   selectedTabId: string;
   searchQuery: string;
   onSelectedTabIdChange: (tab: Tab) => void;
-  onQueryChange: (query: object) => void;
-  updateExpandedMap: (map: object) => void;
-  itemIdToExpandedRowMap: object;
+  onQueryChange: (query: string) => void;
+  updateExpandedMap: (map: ItemIdToExpandedRowMap) => void;
+  itemIdToExpandedRowMap: ItemIdToExpandedRowMap;
   queryResultsRaw: ResponseDetail<string>[];
-  queryResultsJDBC: ResponseDetail<string>[];
-  queryResultsCSV: ResponseDetail<string>[];
+  queryResultsJDBC: Array<ResponseDetail<string>>;
+  queryResultsCSV: Array<ResponseDetail<string>>;
 }
 
 interface QueryResultsState {
   isPopoverOpen: boolean;
+  tabsOverflow: boolean;
   itemsPerPage: number;
 }
 
-class QueryResults extends Component<QueryResultsProps, QueryResultsState> {
+class QueryResults extends React.Component<
+  QueryResultsProps,
+  QueryResultsState
+> {
   public sortableColumns: Array<SortableProperty<string>>;
   public sortableProperties: SortableProperties;
   public sortedColumn: string;
   public tabNames: string[];
   public pager: Pager;
-  public panels: string[];
 
   constructor(props: QueryResultsProps) {
     super(props);
 
     this.state = {
       isPopoverOpen: false,
-      itemsPerPage: DEFAULT_NUM_RECORDS_PER_PAGE,
+      tabsOverflow: false,
+      itemsPerPage: DEFAULT_NUM_RECORDS_PER_PAGE
     };
 
     this.sortableColumns = [];
-    this.sortedColumn = '';
+    this.sortedColumn = "";
     this.sortableProperties = new SortableProperties(
       [
         {
-          name: '',
-          getValue: item => '',
-          isAscending: true,
-        },
+          name: "",
+          getValue: item => "",
+          isAscending: true
+        }
       ],
-      ''
+      ""
     );
 
     this.tabNames = [];
     this.pager = new Pager(0, this.state.itemsPerPage);
   }
 
+  componentDidUpdate() {
+    const showArrow = needsScrolling("tabsContainer");
+    if (showArrow !== this.state.tabsOverflow) {
+      this.setState({ tabsOverflow: showArrow });
+    }
+  }
   // Actions for Tabs Button
-  onButtonClick = (): void => {
+  showTabsMenu = (): void => {
     this.setState(prevState => ({
-      isPopoverOpen: !prevState.isPopoverOpen,
+      isPopoverOpen: !prevState.isPopoverOpen
     }));
+  };
+
+  slideTabsRight = (): void => {
+    document.getElementById(TAB_CONTAINER_ID).scrollBy(50, 0);
+  };
+
+  slideTabsLeft = (): void => {
+    document.getElementById(TAB_CONTAINER_ID).scrollBy(-50, 0);
   };
 
   closePopover = (): void => {
     this.setState({
-      isPopoverOpen: false,
+      isPopoverOpen: false
     });
   };
 
   onChangeItemsPerPage = itemsPerPage => {
     this.pager.setItemsPerPage(itemsPerPage);
     this.setState({
-      itemsPerPage,
+      itemsPerPage
     });
   };
 
@@ -117,22 +147,26 @@ class QueryResults extends Component<QueryResultsProps, QueryResultsState> {
     this.setState({});
   };
 
-  updatePagination(totalItemsCount) {
+  updatePagination(totalItemsCount: number): void {
     this.pager.setTotalItems(totalItemsCount);
   }
 
   // Update SORTABLE COLUMNS - All columns
-  updateSortableColumns(queryResultsSelected) {
+  updateSortableColumns(queryResultsSelected: QueryResult): void {
     if (this.sortableColumns.length === 0) {
       queryResultsSelected.fields.map((field: string) => {
         this.sortableColumns.push({
           name: field,
           getValue: item => item[field],
-          isAscending: true,
+          isAscending: true
         });
       });
-      this.sortedColumn = this.sortableColumns.length > 0 ? this.sortableColumns[0].name : '';
-      this.sortableProperties = new SortableProperties(this.sortableColumns, this.sortedColumn);
+      this.sortedColumn =
+        this.sortableColumns.length > 0 ? this.sortableColumns[0].name : "";
+      this.sortableProperties = new SortableProperties(
+        this.sortableColumns,
+        this.sortedColumn
+      );
     }
   }
 
@@ -142,10 +176,14 @@ class QueryResults extends Component<QueryResultsProps, QueryResultsState> {
     this.setState({});
   };
 
-  getQueryResult = (queryResults, selectedTabId): QueryResult => {
+  getQueryResult = (
+    queryResults: ResponseDetail<QueryResult>[],
+    selectedTabId: string
+  ): QueryResult | null => {
     const selectedIndex: number = parseInt(selectedTabId);
     if (!Number.isNaN(selectedIndex)) {
-      const queryResultResponseDetail: ResponseDetail<QueryResult> = queryResults[selectedIndex];
+      const queryResultResponseDetail: ResponseDetail<QueryResult> =
+        queryResults[selectedIndex];
       return queryResultResponseDetail && queryResultResponseDetail.fulfilled
         ? queryResultResponseDetail.data
         : null;
@@ -156,10 +194,10 @@ class QueryResults extends Component<QueryResultsProps, QueryResultsState> {
   renderTabs(): Tab[] {
     const tabs = [
       {
-        id: 'messages',
-        name: 'Messages',
-        disabled: false,
-      },
+        id: MESSAGE_TAB_LABEL,
+        name: MESSAGE_TAB_LABEL,
+        disabled: false
+      }
     ];
 
     this.tabNames = [];
@@ -171,7 +209,7 @@ class QueryResults extends Component<QueryResultsProps, QueryResultsState> {
           tabs.push({
             id: i.toString(),
             name: tabName,
-            disabled: false,
+            disabled: false
           });
         }
       }
@@ -186,18 +224,35 @@ class QueryResults extends Component<QueryResultsProps, QueryResultsState> {
       : undefined;
 
     if (queryResultSelected) {
-      const matchingItems = this.props.searchQuery
-        ? EuiSearchBar.Query.execute(this.props.searchQuery, queryResultSelected.records)
+      const matchingItems: object[] = this.props.searchQuery
+        ? EuiSearchBar.Query.execute(
+            this.props.searchQuery,
+            queryResultSelected.records
+          )
         : queryResultSelected.records;
       this.updatePagination(matchingItems.length);
       this.updateSortableColumns(queryResultSelected);
     }
 
-    // Action button with list of tabs
-    const tabIcon = <EuiIcon onClick={this.onButtonClick} type={'arrowDown'} disabled={false} />;
+    // Action button with list of tabs, TODO: disable tabArrowRight and tabArrowLeft when no more scrolling is possible
+    const tabArrowDown = (
+      <EuiIcon onClick={this.showTabsMenu} type={"arrowDown"} />
+    );
+    const tabArrowRight = (
+      <EuiIcon
+        onClick={this.slideTabsRight}
+        type={"arrowRight"}
+        disabled={false}
+      />
+    );
+    const tabArrowLeft = (
+      <EuiIcon
+        onClick={this.slideTabsLeft}
+        type={"arrowLeft"}
+        disabled={false}
+      />
+    );
     const tabs: Tab[] = this.renderTabs();
-    const showArrows: boolean = tabs.length > MAX_NUM_TABS;
-
     const tabsItems = tabs.map((tab, index) => (
       <EuiContextMenuItem
         key="10 rows"
@@ -232,46 +287,68 @@ class QueryResults extends Component<QueryResultsProps, QueryResultsState> {
       <EuiPanel className="query-result-container" paddingSize="none">
         <EuiFlexGroup
           style={{
-            padding: '10px',
-            'border-top-color': '#69707d',
-            'border-left-color': '#69707d',
-            'border-right-color': '#69707d',
+            padding: "10px",
+            "border-top-color": "#69707d",
+            "border-left-color": "#69707d",
+            "border-right-color": "#69707d"
           }}
         >
-          <EuiFlexGroup className="tabs-container" alignItems="center" gutterSize="s">
-            <EuiFlexItem style={{ marginTop: '8px', marginBottom: '18px' }} grow={false}>
+          {/*ARROW LEFT*/}
+          {this.state.tabsOverflow && (
+            <div className="tab-arrow-down-container">
+              <EuiFlexItem grow={false}>{tabArrowLeft}</EuiFlexItem>
+            </div>
+          )}
+
+          {/*TABS*/}
+          <EuiFlexGroup
+            className="tabs-container"
+            alignItems="center"
+            gutterSize="s"
+            id="tabsContainer"
+          >
+            <EuiFlexItem
+              style={{ marginTop: "8px", marginBottom: "18px" }}
+              grow={false}
+            >
               <EuiTabs>{tabsButtons}</EuiTabs>
             </EuiFlexItem>
           </EuiFlexGroup>
 
-          {showArrows && (
+          {/*ARROW RIGHT and DOWN*/}
+          {this.state.tabsOverflow && (
             <div className="tab-arrow-down-container">
-              <EuiFlexItem grow={false}>
-                <EuiPopover
-                  id="singlePanel"
-                  button={tabIcon}
-                  isOpen={this.state.isPopoverOpen}
-                  closePopover={this.closePopover}
-                  panelPaddingSize="none"
-                  anchorPosition="downLeft"
-                >
-                  <EuiContextMenuPanel items={tabsItems} />
-                </EuiPopover>
-              </EuiFlexItem>
+              <EuiFlexGroup>
+                <EuiFlexItem grow={false}>{tabArrowRight}</EuiFlexItem>
+                <EuiFlexItem grow={false}>
+                  <EuiPopover
+                    id="singlePanel"
+                    button={tabArrowDown}
+                    isOpen={this.state.isPopoverOpen}
+                    closePopover={this.closePopover}
+                    panelPaddingSize="none"
+                    anchorPosition="downLeft"
+                  >
+                    <EuiContextMenuPanel items={tabsItems} />
+                  </EuiPopover>
+                </EuiFlexItem>
+              </EuiFlexGroup>
             </div>
           )}
         </EuiFlexGroup>
 
         <EuiHorizontalRule margin="none" />
+
+        {/*RESULTS TABLE*/}
         <QueryResultsBody
           selectedTabId={this.props.selectedTabId}
           selectedTabName={this.props.selectedTabName}
           tabNames={this.tabNames}
-          queryResults={queryResultSelected}
+          queryResultSelected={queryResultSelected}
           queryResultsRaw={this.props.queryResultsRaw}
           queryResultsJDBC={this.props.queryResultsJDBC}
           queryResultsCSV={this.props.queryResultsCSV}
-          message={this.props.message}
+          messages={this.props.messages}
           searchQuery={this.props.searchQuery}
           onQueryChange={this.props.onQueryChange}
           pager={this.pager}
@@ -290,5 +367,4 @@ class QueryResults extends Component<QueryResultsProps, QueryResultsState> {
     );
   }
 }
-
 export default QueryResults;
