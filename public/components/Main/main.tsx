@@ -98,8 +98,11 @@ export function getQueryResultsForTable(
         let databaseRecords: { [key: string]: any }[] = [];
         const responseObj = JSON.parse(queryResultResponseDetail.data);
         const hits = _.get(responseObj, "hits[hits]", []);
-        const databaseFields =
-          hits.length > 0 ? Object.keys(hits[0]["_source"]) : [];
+        let databaseFields = [];
+        if (hits.length > 0) {
+          databaseFields=(Object.keys(hits[0]["_source"]));
+          databaseFields.unshift("id");
+        }
 
         for (let i = 0; i < hits.length; i += 1) {
           const values =
@@ -107,9 +110,9 @@ export function getQueryResultsForTable(
           const databaseRecord: { [key: string]: any } = {};
 
           //Add row id
-          databaseRecord["id"] = i.toString();
+          databaseRecord["id"] = i;
           for (let j = 0; j < values.length; j += 1) {
-            const field: string = databaseFields[j];
+            const field: string = databaseFields[j+1]; // databaseFields has an extra value for "id"
             databaseRecord[field] = values[j];
           }
           databaseRecords.push(databaseRecord);
@@ -212,7 +215,7 @@ export class Main extends React.Component<MainProps, MainState> {
     this.setState({ itemIdToExpandedRowMap: map });
   };
 
-  // It returns the error or successfull message from to display in the Message Tab
+  // It returns the error or successfull message to display in the Message Tab
   getMessage(
     queryResultsForTable: ResponseDetail<QueryResult>[]
   ): Array<QueryMessage> {

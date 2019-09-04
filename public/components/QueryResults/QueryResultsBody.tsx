@@ -54,6 +54,7 @@ import "brace/mode/json";
 import "../../ace-themes/sql_console";
 import {
   PAGE_OPTIONS,
+  SMALL_COLUMN_WIDTH,
   COLUMN_WIDTH,
   MESSAGE_TAB_LABEL
 } from "../../utils/constants";
@@ -507,7 +508,7 @@ class QueryResultsBody extends React.Component<
   renderHeaderCells(columns) {
     return columns.map((field: any) => {
       const label = field.id === "expandIcon" ? field.label : field;
-      const colwidth = field.id === "expandIcon" ? field.width : COLUMN_WIDTH;
+      const colwidth = field.id === "expandIcon" || field === "id"? SMALL_COLUMN_WIDTH : COLUMN_WIDTH;
       return (
         <EuiTableHeaderCell
           key={label}
@@ -538,10 +539,8 @@ class QueryResultsBody extends React.Component<
 
   renderRow(item, columns, rowId, expandedRowMap) {
     let rows = [];
-    if (
-      item &&
-      ((typeof item === "object" && !isEmpty(item)) ||
-        (Array.isArray(item) && item.length > 0))
+    // If the item is an array or an object we add it to the expandedRowMap
+    if ( item && ((typeof item === "object" && !isEmpty(item)) || (Array.isArray(item) && item.length > 0))
     ) {
       let rowItems = [];
 
@@ -664,7 +663,7 @@ class QueryResultsBody extends React.Component<
       ) {
         const item = items[itemIndex];
         if (item) {
-          const rowId = item["id"];
+          const rowId = item["id"].toString();
           const rowsForItem = this.renderRow(
             item,
             columns,
@@ -770,7 +769,7 @@ class QueryResultsBody extends React.Component<
     } else {
       if (this.props.queryResultSelected) {
         this.items = this.getItems(this.props.queryResultSelected.records);
-        //Adding an extra empty column for the tree
+        //Adding an extra empty column for the expanding icon
         this.columns = this.addExpandingIconColumn(
           this.props.queryResultSelected.fields
         );
@@ -825,7 +824,6 @@ class QueryResultsBody extends React.Component<
           <EuiSpacer size="m" />
 
           {/*Table*/}
-
           <div className="sql-console-results-container">
             {/*Add a scrollbar on top of the table*/}
             <DoubleScrollbar>

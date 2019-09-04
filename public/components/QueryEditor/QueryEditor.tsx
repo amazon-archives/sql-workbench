@@ -29,6 +29,8 @@ import "brace/mode/mysql";
 import "brace/mode/json";
 import "../../ace-themes/sql_console";
 import { ResponseDetail, TranslateResult } from "../Main/main";
+// import { Resizable, ResizableBox } from 'react-resizable';
+
 
 interface QueryEditorProps {
   onRun: (queriesString: string) => void;
@@ -57,8 +59,7 @@ class QueryEditor extends React.Component<QueryEditorProps, QueryEditorState> {
 
   render() {
     return (
-      <EuiPanel
-        className="sql-console-query-editor container-panel"
+      <EuiPanel className="sql-console-query-editor container-panel"
         paddingSize="none"
       >
         <EuiTitle className="container-panel-header" size="l">
@@ -82,7 +83,6 @@ class QueryEditor extends React.Component<QueryEditorProps, QueryEditorState> {
                 enableSnippets: true,
                 enableLiveAutocompletion: true
               }}
-              //onBlur={() => { console.log('blur'); }} // eslint-disable-line no-console
               aria-label="Code Editor"
             />
           </EuiFlexItem>
@@ -119,7 +119,7 @@ class QueryEditor extends React.Component<QueryEditorProps, QueryEditorState> {
         </EuiFlexGroup>
 
         <div className="action-container">
-          <EuiFlexGroup gutterSize="m">
+          <EuiFlexGroup className="action-container" gutterSize="m">
             <EuiFlexItem
               grow={false}
               onClick={() => this.props.onRun(this.state.sqlQueriesString)}
