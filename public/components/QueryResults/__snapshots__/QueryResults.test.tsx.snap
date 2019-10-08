@@ -1,0 +1,258 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<QueryResults /> spec renders the component with no data 1`] = `
+<div>
+  <div
+    class="euiPanel query-result-container"
+  >
+    <div
+      class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
+      style="padding: 10px; border-top-color: #69707d; border-left-color: #69707d; border-right-color: #69707d;"
+    >
+      <div
+        class="tab-arrow-down-container"
+      >
+        <div
+          class="euiFlexItem euiFlexItem--flexGrowZero"
+        >
+          <svg
+            class="euiIcon euiIcon--medium"
+            data-test-subj="slide-left"
+            focusable="false"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <defs>
+              <path
+                d="M13.069 5.157L8.384 9.768a.546.546 0 0 1-.768 0L2.93 5.158a.552.552 0 0 0-.771 0 .53.53 0 0 0 0 .759l4.684 4.61c.641.631 1.672.63 2.312 0l4.684-4.61a.53.53 0 0 0 0-.76.552.552 0 0 0-.771 0z"
+                id="arrow_left-a"
+              />
+            </defs>
+            <use
+              fill-rule="nonzero"
+              transform="rotate(90 8 8)"
+              xlink:href="#arrow_left-a"
+            />
+          </svg>
+        </div>
+      </div>
+      <div
+        class="euiFlexGroup euiFlexGroup--gutterSmall euiFlexGroup--alignItemsCenter euiFlexGroup--directionRow euiFlexGroup--responsive tabs-container"
+        id="tabsContainer"
+      >
+        <div
+          class="euiFlexItem euiFlexItem--flexGrowZero"
+          style="margin-top: 8px; margin-bottom: 18px;"
+        >
+          <div
+            class="euiTabs"
+            role="tablist"
+          >
+            <button
+              aria-selected="false"
+              class="euiTab"
+              role="tab"
+              type="button"
+            >
+              <span
+                class="euiTab__content"
+              >
+                Messages
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        class="tab-arrow-down-container"
+      >
+        <div
+          class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
+        >
+          <div
+            class="euiFlexItem euiFlexItem--flexGrowZero"
+          >
+            <svg
+              class="euiIcon euiIcon--medium"
+              data-test-subj="slide-right"
+              focusable="false"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+            >
+              <defs>
+                <path
+                  d="M13.069 5.157L8.384 9.768a.546.546 0 0 1-.768 0L2.93 5.158a.552.552 0 0 0-.771 0 .53.53 0 0 0 0 .759l4.684 4.61c.641.631 1.672.63 2.312 0l4.684-4.61a.53.53 0 0 0 0-.76.552.552 0 0 0-.771 0z"
+                  id="arrow_right-a"
+                />
+              </defs>
+              <use
+                fill-rule="nonzero"
+                transform="matrix(0 1 1 0 0 0)"
+                xlink:href="#arrow_right-a"
+              />
+            </svg>
+          </div>
+          <div
+            class="euiFlexItem euiFlexItem--flexGrowZero"
+          >
+            <div
+              class="euiPopover euiPopover--anchorDownLeft"
+              id="singlePanel"
+            >
+              <div
+                class="euiPopover__anchor"
+              >
+                <svg
+                  class="euiIcon euiIcon--medium"
+                  data-test-subj="slide-down"
+                  focusable="false"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                >
+                  <defs>
+                    <path
+                      d="M13.069 5.157L8.384 9.768a.546.546 0 0 1-.768 0L2.93 5.158a.552.552 0 0 0-.771 0 .53.53 0 0 0 0 .759l4.684 4.61c.641.631 1.672.63 2.312 0l4.684-4.61a.53.53 0 0 0 0-.76.552.552 0 0 0-.771 0z"
+                      id="arrow_down-a"
+                    />
+                  </defs>
+                  <use
+                    fill-rule="nonzero"
+                    xlink:href="#arrow_down-a"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr
+      class="euiHorizontalRule euiHorizontalRule--full"
+    />
+    <div
+      class="euiCodeEditorWrapper"
+      data-test-subj="codeEditorContainer"
+      style="width: 100%;"
+    >
+      <div
+        class="euiCodeEditorKeyboardHint"
+        data-test-subj="codeEditorHint"
+        id="some_html_id"
+        role="button"
+        tabindex="0"
+      >
+        <p
+          class="euiText"
+        >
+          Press Enter to start editing.
+        </p>
+        <p
+          class="euiText"
+        >
+          When you're done, press Escape to stop editing.
+        </p>
+      </div>
+      <div
+        class=" ace_editor ace-sql-console successful-message"
+        id="brace-editor"
+        style="width: 100%; height: 500px; font-size: 14px;"
+      >
+        <textarea
+          aria-label="Code Editor"
+          autocapitalize="off"
+          autocorrect="off"
+          class="ace_text-input"
+          spellcheck="false"
+          style="opacity: 0;"
+          tabindex="-1"
+          wrap="off"
+        />
+        <div
+          aria-hidden="true"
+          class="ace_gutter"
+        >
+          <div
+            class="ace_layer ace_gutter-layer ace_folding-enabled"
+          />
+          <div
+            class="ace_gutter-active-line"
+            style="display: none;"
+          />
+        </div>
+        <div
+          class="ace_scroller"
+        >
+          <div
+            class="ace_content"
+          >
+            <div
+              class="ace_layer ace_print-margin-layer"
+            >
+              <div
+                class="ace_print-margin"
+                style="left: 4px; visibility: hidden;"
+              />
+            </div>
+            <div
+              class="ace_layer ace_marker-layer"
+            />
+            <div
+              class="ace_layer ace_text-layer"
+              style="padding: 0px 4px;"
+            />
+            <div
+              class="ace_layer ace_marker-layer"
+            />
+            <div
+              class="ace_layer ace_cursor-layer ace_hidden-cursors"
+            >
+              <div
+                class="ace_cursor"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="ace_scrollbar ace_scrollbar-v"
+          style="display: none; width: 20px;"
+        >
+          <div
+            class="ace_scrollbar-inner"
+            style="width: 20px;"
+          />
+        </div>
+        <div
+          class="ace_scrollbar ace_scrollbar-h"
+          style="display: none; height: 20px;"
+        >
+          <div
+            class="ace_scrollbar-inner"
+            style="height: 20px;"
+          />
+        </div>
+        <div
+          style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: hidden;"
+        >
+          <div
+            style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: visible;"
+          />
+          <div
+            style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: visible;"
+          >
+            XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
