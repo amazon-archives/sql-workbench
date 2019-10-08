@@ -14,56 +14,33 @@
  */
 
 import React from "react";
-import {
-  SortableProperties,
-  SortableProperty
-} from "@elastic/eui/lib/services";
-import {
-  EuiPanel,
-  EuiFlexGroup,
-  EuiFlexItem,
-  EuiTab,
-  EuiTabs,
-  EuiPopover,
-  EuiContextMenuItem,
-  EuiContextMenuPanel,
-  EuiHorizontalRule,
-  EuiSearchBar,
-  Pager,
-  EuiIcon
-} from "@elastic/eui/lib";
+// @ts-ignore
+import {SortableProperties, SortableProperty} from "@elastic/eui/lib/services";
+// @ts-ignore
+import {EuiPanel, EuiFlexGroup, EuiFlexItem, EuiTab, EuiTabs, EuiPopover, EuiContextMenuItem, EuiContextMenuPanel, EuiHorizontalRule, EuiSearchBar, Pager, EuiIcon} from "@elastic/eui/lib";
 import "brace/mode/mysql";
 import "brace/mode/json";
 import "../../ace-themes/sql_console";
-import {
-  QueryResult,
-  QueryMessage,
-  Tab,
-  ResponseDetail,
-  ItemIdToExpandedRowMap
-} from "../Main/main";
+import {QueryResult, QueryMessage, Tab, ResponseDetail, ItemIdToExpandedRowMap} from "../Main/main";
 import QueryResultsBody from "./QueryResultsBody";
-import { getQueryIndex, needsScrolling } from "../../utils/utils";
-import {
-  DEFAULT_NUM_RECORDS_PER_PAGE,
-  MESSAGE_TAB_LABEL,
-  TAB_CONTAINER_ID
-} from "../../utils/constants";
+import { getQueryIndex, needsScrolling, getSelectedResults } from "../../utils/utils";
+import {DEFAULT_NUM_RECORDS_PER_PAGE, MESSAGE_TAB_LABEL, TAB_CONTAINER_ID} from "../../utils/constants";
 
 interface QueryResultsProps {
   queries: string[];
   queryResults: ResponseDetail<QueryResult>[];
+  queryResultsRaw: string;
+  queryResultsJDBC: string;
+  queryResultsCSV: string;
   messages: QueryMessage[];
   selectedTabName: string;
   selectedTabId: string;
   searchQuery: string;
+  tabsOverflow: boolean;
   onSelectedTabIdChange: (tab: Tab) => void;
-  onQueryChange: (query: string) => void;
+  onQueryChange: (object:any) => void;
   updateExpandedMap: (map: ItemIdToExpandedRowMap) => void;
   itemIdToExpandedRowMap: ItemIdToExpandedRowMap;
-  queryResultsRaw: ResponseDetail<string>[];
-  queryResultsJDBC: Array<ResponseDetail<string>>;
-  queryResultsCSV: Array<ResponseDetail<string>>;
 }
 
 interface QueryResultsState {
@@ -72,10 +49,7 @@ interface QueryResultsState {
   itemsPerPage: number;
 }
 
-class QueryResults extends React.Component<
-  QueryResultsProps,
-  QueryResultsState
-> {
+class QueryResults extends React.Component<QueryResultsProps, QueryResultsState> {
   public sortableColumns: Array<SortableProperty<string>>;
   public sortableProperties: SortableProperties;
   public sortedColumn: string;
@@ -87,7 +61,7 @@ class QueryResults extends React.Component<
 
     this.state = {
       isPopoverOpen: false,
-      tabsOverflow: false,
+      tabsOverflow: this.props.tabsOverflow ? this.props.tabsOverflow : false,
       itemsPerPage: DEFAULT_NUM_RECORDS_PER_PAGE
     };
 
@@ -97,7 +71,7 @@ class QueryResults extends React.Component<
       [
         {
           name: "",
-          getValue: item => "",
+          getValue: (item: any) => "",
           isAscending: true
         }
       ],
@@ -107,7 +81,7 @@ class QueryResults extends React.Component<
     this.tabNames = [];
     this.pager = new Pager(0, this.state.itemsPerPage);
   }
-
+  
   componentDidUpdate() {
     const showArrow = needsScrolling("tabsContainer");
     if (showArrow !== this.state.tabsOverflow) {
@@ -122,12 +96,16 @@ class QueryResults extends React.Component<
   };
 
   slideTabsRight = (): void => {
-    document.getElementById(TAB_CONTAINER_ID).scrollBy(50, 0);
+    if (document.getElementById(TAB_CONTAINER_ID)) {
+      document.getElementById(TAB_CONTAINER_ID)!.scrollBy(50, 0);
+    }
   };
 
   slideTabsLeft = (): void => {
-    document.getElementById(TAB_CONTAINER_ID).scrollBy(-50, 0);
-  };
+    if (document.getElementById(TAB_CONTAINER_ID)) {
+      document.getElementById(TAB_CONTAINER_ID)!.scrollBy(-50, 0);
+    }
+   };
 
   closePopover = (): void => {
     this.setState({
@@ -135,14 +113,14 @@ class QueryResults extends React.Component<
     });
   };
 
-  onChangeItemsPerPage = itemsPerPage => {
+  onChangeItemsPerPage = (itemsPerPage: number) => {
     this.pager.setItemsPerPage(itemsPerPage);
     this.setState({
       itemsPerPage
     });
   };
 
-  onChangePage = pageIndex => {
+  onChangePage = (pageIndex: number) => {
     this.pager.goToPageIndex(pageIndex);
     this.setState({});
   };
@@ -157,7 +135,7 @@ class QueryResults extends React.Component<
       queryResultsSelected.fields.map((field: string) => {
         this.sortableColumns.push({
           name: field,
-          getValue: item => item[field],
+          getValue: (item: any) => item[field],
           isAscending: true
         });
       });
@@ -170,25 +148,10 @@ class QueryResults extends React.Component<
     }
   }
 
-  onSort = prop => {
+  onSort = (prop: string) => {
     this.sortableProperties.sortOn(prop);
     this.sortedColumn = prop;
     this.setState({});
-  };
-
-  getQueryResult = (
-    queryResults: ResponseDetail<QueryResult>[],
-    selectedTabId: string
-  ): QueryResult | null => {
-    const selectedIndex: number = parseInt(selectedTabId);
-    if (!Number.isNaN(selectedIndex)) {
-      const queryResultResponseDetail: ResponseDetail<QueryResult> =
-        queryResults[selectedIndex];
-      return queryResultResponseDetail && queryResultResponseDetail.fulfilled
-        ? queryResultResponseDetail.data
-        : null;
-    }
-    return null;
   };
 
   renderTabs(): Tab[] {
@@ -218,10 +181,8 @@ class QueryResults extends React.Component<
   }
 
   render() {
-    // Update PAGINATION  and SORTABLE columns
-    const queryResultSelected = this.props.queryResults
-      ? this.getQueryResult(this.props.queryResults, this.props.selectedTabId)
-      : undefined;
+    // Update PAGINATION and SORTABLE columns
+    const queryResultSelected = getSelectedResults(this.props.queryResults, this.props.selectedTabId);
 
     if (queryResultSelected) {
       const matchingItems: object[] = this.props.searchQuery
@@ -236,11 +197,16 @@ class QueryResults extends React.Component<
 
     // Action button with list of tabs, TODO: disable tabArrowRight and tabArrowLeft when no more scrolling is possible
     const tabArrowDown = (
-      <EuiIcon onClick={this.showTabsMenu} type={"arrowDown"} />
+      <EuiIcon
+        onClick={this.showTabsMenu}
+        type={"arrowDown"}
+        data-test-subj={"slide-down"}
+      />
     );
     const tabArrowRight = (
       <EuiIcon
         onClick={this.slideTabsRight}
+        data-test-subj={"slide-right"}
         type={"arrowRight"}
         disabled={false}
       />
@@ -248,6 +214,7 @@ class QueryResults extends React.Component<
     const tabArrowLeft = (
       <EuiIcon
         onClick={this.slideTabsLeft}
+        data-test-subj={"slide-left"}
         type={"arrowLeft"}
         disabled={false}
       />

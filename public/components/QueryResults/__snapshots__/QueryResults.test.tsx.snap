@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<QueryResults /> spec renders the component 1`] = `
+exports[`<QueryResults /> spec renders the component with no data 1`] = `
 <div>
   <div
     class="euiPanel query-result-container"
@@ -9,6 +9,36 @@ exports[`<QueryResults /> spec renders the component 1`] = `
       class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
       style="padding: 10px; border-top-color: #69707d; border-left-color: #69707d; border-right-color: #69707d;"
     >
+      <div
+        class="tab-arrow-down-container"
+      >
+        <div
+          class="euiFlexItem euiFlexItem--flexGrowZero"
+        >
+          <svg
+            class="euiIcon euiIcon--medium"
+            data-test-subj="slide-left"
+            focusable="false"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <defs>
+              <path
+                d="M13.069 5.157L8.384 9.768a.546.546 0 0 1-.768 0L2.93 5.158a.552.552 0 0 0-.771 0 .53.53 0 0 0 0 .759l4.684 4.61c.641.631 1.672.63 2.312 0l4.684-4.61a.53.53 0 0 0 0-.76.552.552 0 0 0-.771 0z"
+                id="arrow_left-a"
+              />
+            </defs>
+            <use
+              fill-rule="nonzero"
+              transform="rotate(90 8 8)"
+              xlink:href="#arrow_left-a"
+            />
+          </svg>
+        </div>
+      </div>
       <div
         class="euiFlexGroup euiFlexGroup--gutterSmall euiFlexGroup--alignItemsCenter euiFlexGroup--directionRow euiFlexGroup--responsive tabs-container"
         id="tabsContainer"
@@ -33,6 +63,74 @@ exports[`<QueryResults /> spec renders the component 1`] = `
                 Messages
               </span>
             </button>
+          </div>
+        </div>
+      </div>
+      <div
+        class="tab-arrow-down-container"
+      >
+        <div
+          class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
+        >
+          <div
+            class="euiFlexItem euiFlexItem--flexGrowZero"
+          >
+            <svg
+              class="euiIcon euiIcon--medium"
+              data-test-subj="slide-right"
+              focusable="false"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+            >
+              <defs>
+                <path
+                  d="M13.069 5.157L8.384 9.768a.546.546 0 0 1-.768 0L2.93 5.158a.552.552 0 0 0-.771 0 .53.53 0 0 0 0 .759l4.684 4.61c.641.631 1.672.63 2.312 0l4.684-4.61a.53.53 0 0 0 0-.76.552.552 0 0 0-.771 0z"
+                  id="arrow_right-a"
+                />
+              </defs>
+              <use
+                fill-rule="nonzero"
+                transform="matrix(0 1 1 0 0 0)"
+                xlink:href="#arrow_right-a"
+              />
+            </svg>
+          </div>
+          <div
+            class="euiFlexItem euiFlexItem--flexGrowZero"
+          >
+            <div
+              class="euiPopover euiPopover--anchorDownLeft"
+              id="singlePanel"
+            >
+              <div
+                class="euiPopover__anchor"
+              >
+                <svg
+                  class="euiIcon euiIcon--medium"
+                  data-test-subj="slide-down"
+                  focusable="false"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                >
+                  <defs>
+                    <path
+                      d="M13.069 5.157L8.384 9.768a.546.546 0 0 1-.768 0L2.93 5.158a.552.552 0 0 0-.771 0 .53.53 0 0 0 0 .759l4.684 4.61c.641.631 1.672.63 2.312 0l4.684-4.61a.53.53 0 0 0 0-.76.552.552 0 0 0-.771 0z"
+                      id="arrow_down-a"
+                    />
+                  </defs>
+                  <use
+                    fill-rule="nonzero"
+                    xlink:href="#arrow_down-a"
+                  />
+                </svg>
+              </div>
+            </div>
           </div>
         </div>
       </div>

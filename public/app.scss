@@ -35,7 +35,7 @@
     box-shadow: none;
   }
   .container-panel-header {
-    font-weight: 450;
+    font-weight: 450px;
     padding: $euiSize $euiSize;
   }
   .sql-query-panel {
@@ -219,7 +219,7 @@
       top: 50%;
       left: 0;
       width: 10px;
-      height: 1px;
+      height: 2px;
       background: rgb(217, 217, 217);
     }
   }

@@ -19,7 +19,7 @@ import { CLUSTER } from './utils/constants';
 export default class TranslateService {
   private client: any;
 
-  constructor(client) {
+  constructor(client: any) {
     this.client = client;
   }
 

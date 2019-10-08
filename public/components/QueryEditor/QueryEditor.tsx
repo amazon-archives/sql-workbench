@@ -15,28 +15,19 @@
 
 import React from "react";
 import _ from "lodash";
-import {
-  EuiPanel,
-  EuiTitle,
-  EuiButton,
-  EuiText,
-  EuiFlexGroup,
-  EuiFlexItem,
-  EuiCodeEditor,
-  EuiHeaderLink
-} from "@elastic/eui/lib";
+// @ts-ignore
+import { EuiPanel, EuiTitle, EuiButton, EuiText, EuiFlexGroup, EuiFlexItem, EuiCodeEditor, EuiHeaderLink} from "@elastic/eui/lib";
 import "brace/mode/mysql";
 import "brace/mode/json";
 import "../../ace-themes/sql_console";
 import { ResponseDetail, TranslateResult } from "../Main/main";
-// import { Resizable, ResizableBox } from 'react-resizable';
-
 
 interface QueryEditorProps {
   onRun: (queriesString: string) => void;
   onTranslate: (queriesString: string) => void;
   onClear: () => void;
   queryTranslations: ResponseDetail<TranslateResult>[];
+  sqlQueriesString: string;
 }
 
 interface QueryEditorState {
@@ -47,7 +38,7 @@ class QueryEditor extends React.Component<QueryEditorProps, QueryEditorState> {
   constructor(props: QueryEditorProps) {
     super(props);
     this.state = {
-      sqlQueriesString: ""
+      sqlQueriesString: this.props.sqlQueriesString ? this.props.sqlQueriesString : ""
     };
 
     this.updateSQLQueries = _.debounce(this.updateSQLQueries, 250).bind(this);
@@ -73,7 +64,7 @@ class QueryEditor extends React.Component<QueryEditorProps, QueryEditorState> {
               mode="mysql"
               theme="sql_console"
               width="100%"
-              height="80%"
+              height="20em"
               value={this.state.sqlQueriesString}
               onChange={this.updateSQLQueries}
               showPrintMargin={false}
@@ -98,13 +89,12 @@ class QueryEditor extends React.Component<QueryEditorProps, QueryEditorState> {
               mode="json"
               theme="sql_console"
               width="100%"
-              height="80%"
+              height="20em"
               value={this.props.queryTranslations
                 .map((queryTranslation: any) =>
                   JSON.stringify(queryTranslation.data, null, 2)
                 )
                 .join("\n")}
-              onChange={() => {}}
               showPrintMargin={false}
               readOnly={true}
               setOptions={{
@@ -124,7 +114,7 @@ class QueryEditor extends React.Component<QueryEditorProps, QueryEditorState> {
               grow={false}
               onClick={() => this.props.onRun(this.state.sqlQueriesString)}
             >
-              <EuiButton fill={true} className="sql-editor-button">
+              <EuiButton fill={true} className="sql-editor-button" >
                 Run
               </EuiButton>
             </EuiFlexItem>

@@ -20,7 +20,7 @@ import _ from "lodash";
 import Header from "../Header/Header";
 import QueryEditor from "../QueryEditor/QueryEditor";
 import QueryResults from "../QueryResults/QueryResults";
-import { getQueries, getQueryIndex } from "../../utils/utils";
+import { getQueries, getDefaultTabId, getDefaultTabLabel, getSelectedResults, Tree } from "../../utils/utils";
 import { MESSAGE_TAB_LABEL } from "../../utils/constants";
 
 interface ResponseData {
@@ -53,16 +53,15 @@ export interface Tab {
   disabled: boolean;
 }
 
-export type ItemIdToExpandedRowMap = {
-  id: {
-    nodes: {};
-    expandedRow: {};
-    selectedNodes: {};
-  };
-};
+export type ItemIdToExpandedRowMap = {[key: string]:{
+  nodes: Tree;
+  expandedRow?: {};
+  selectedNodes?: {[key: string]: any};
+}};
 
 interface MainProps {
   httpClient: IHttpService;
+  sqlQueriesString?: string;
 }
 
 interface MainState {
@@ -82,13 +81,9 @@ interface MainState {
 const SUCCESS_MESSAGE = "Successfull";
 
 // It gets column names and row values to display in a Table from the json API response
-export function getQueryResultsForTable(
-  queryResultsRaw: ResponseDetail<string>[]
-): ResponseDetail<QueryResult>[] {
+export function getQueryResultsForTable(queryResultsRaw: ResponseDetail<string>[]): ResponseDetail<QueryResult>[] {
   return queryResultsRaw.map(
-    (
-      queryResultResponseDetail: ResponseDetail<string>
-    ): ResponseDetail<QueryResult> => {
+    ( queryResultResponseDetail: ResponseDetail<string> ): ResponseDetail<QueryResult> => {
       if (!queryResultResponseDetail.fulfilled) {
         return {
           fulfilled: queryResultResponseDetail.fulfilled,
@@ -96,17 +91,16 @@ export function getQueryResultsForTable(
         };
       } else {
         let databaseRecords: { [key: string]: any }[] = [];
-        const responseObj = JSON.parse(queryResultResponseDetail.data);
+        const responseObj = queryResultResponseDetail.data ? JSON.parse(queryResultResponseDetail.data) : '';
         const hits = _.get(responseObj, "hits[hits]", []);
-        let databaseFields = [];
+        let databaseFields: string[] = [];
         if (hits.length > 0) {
           databaseFields=(Object.keys(hits[0]["_source"]));
           databaseFields.unshift("id");
         }
 
         for (let i = 0; i < hits.length; i += 1) {
-          const values =
-            hits[i] != null ? Object.values(hits[i]["_source"]) : "";
+          const values = hits[i] != null ? Object.values(hits[i]["_source"]) : "";
           const databaseRecord: { [key: string]: any } = {};
 
           //Add row id
@@ -148,23 +142,26 @@ export class Main extends React.Component<MainProps, MainState> {
       selectedTabName: MESSAGE_TAB_LABEL,
       selectedTabId: MESSAGE_TAB_LABEL,
       searchQuery: " ",
-      itemIdToExpandedRowMap: {
-        id: { nodes: {}, expandedRow: {}, selectedNodes: {} }
-      },
+      itemIdToExpandedRowMap: {},
       messages: []
     };
 
     this.httpClient = this.props.httpClient;
   }
 
-  processTranslateResponse(
-    response: IHttpResponse<ResponseData>
-  ): ResponseDetail<TranslateResult> {
+  processTranslateResponse(response: IHttpResponse<ResponseData>): ResponseDetail<TranslateResult> {
+      if(!response){
+        return{
+          fulfilled: false,
+          errorMessage: "no response",
+          data: undefined
+        }
+      }
     if (!response.data.ok) {
       return {
         fulfilled: false,
         errorMessage: response.data.resp,
-        data: null
+        data: undefined
       };
     }
     return {
@@ -173,14 +170,19 @@ export class Main extends React.Component<MainProps, MainState> {
     };
   }
 
-  processQueryResponse(
-    response: IHttpResponse<ResponseData>
-  ): ResponseDetail<string> {
+  processQueryResponse(response: IHttpResponse<ResponseData>): ResponseDetail<string> {
+    if(!response){
+      return{
+        fulfilled: false,
+        errorMessage: "no response",
+        data: ''
+      }
+    }
     if (!response.data.ok) {
       return {
         fulfilled: false,
         errorMessage: response.data.resp,
-        data: null
+        data: ''
       };
     }
 
@@ -195,19 +197,15 @@ export class Main extends React.Component<MainProps, MainState> {
       selectedTabId: tab.id,
       selectedTabName: tab.name,
       searchQuery: " ",
-      itemIdToExpandedRowMap: {
-        id: { nodes: {}, expandedRow: {}, selectedNodes: {} }
-      }
+      itemIdToExpandedRowMap: {}
     });
   };
 
-  onQueryChange = (query): void => {
+  onQueryChange = ({query}: {query : any}) => {
     // Reset pagination state.
     this.setState({
       searchQuery: query,
-      itemIdToExpandedRowMap: {
-        id: { nodes: {}, expandedRow: {}, selectedNodes: {} }
-      }
+      itemIdToExpandedRowMap: {},
     });
   };
 
@@ -216,17 +214,12 @@ export class Main extends React.Component<MainProps, MainState> {
   };
 
   // It returns the error or successfull message to display in the Message Tab
-  getMessage(
-    queryResultsForTable: ResponseDetail<QueryResult>[]
-  ): Array<QueryMessage> {
+  getMessage( queryResultsForTable: ResponseDetail<QueryResult>[] ): Array<QueryMessage> {
     const messages = queryResultsForTable.map(queryResult => {
       return {
-        text: !queryResult.fulfilled
-          ? queryResult.errorMessage
-          : queryResult.data.message,
-        className: !queryResult.fulfilled
-          ? "error-message"
-          : "successful-message"
+
+        text: queryResult.fulfilled && queryResult.data ? queryResult.data.message : queryResult.errorMessage ,
+        className: queryResult.fulfilled ? "successful-message" : "error-message"
       };
     });
     return messages;
@@ -306,26 +299,16 @@ export class Main extends React.Component<MainProps, MainState> {
           queryResultsJDBCResponse,
           queryResultsCSVResponse
         ]) => {
-          const queryResults: ResponseDetail<
-            string
-          >[] = queryResultsResponse.map(queryResultResponse =>
-            this.processQueryResponse(queryResultResponse as IHttpResponse<
-              ResponseData
-            >)
+          const queryResults: ResponseDetail<string>[] = queryResultsResponse.map(queryResultResponse =>
+            this.processQueryResponse(queryResultResponse as IHttpResponse<ResponseData>)
           );
-          const queryResultsForTable: ResponseDetail<
-            QueryResult
-          >[] = getQueryResultsForTable(queryResults);
-          const queryResultsJDBC: ResponseDetail<
-            string
-          >[] = queryResultsJDBCResponse.map(queryJDBCResultResponse =>
+          const queryResultsForTable: ResponseDetail<QueryResult>[] = getQueryResultsForTable(queryResults);
+          const queryResultsJDBC: ResponseDetail<string>[] = queryResultsJDBCResponse.map(queryJDBCResultResponse =>
             this.processQueryResponse(queryJDBCResultResponse as IHttpResponse<
               ResponseData
             >)
           );
-          const queryResultsCSV: ResponseDetail<
-            string
-          >[] = queryResultsCSVResponse.map(queryCSVResultResponse =>
+          const queryResultsCSV: ResponseDetail<string>[] = queryResultsCSVResponse.map(queryCSVResultResponse =>
             this.processQueryResponse(queryCSVResultResponse as IHttpResponse<
               ResponseData
             >)
@@ -343,27 +326,18 @@ export class Main extends React.Component<MainProps, MainState> {
             queryResults: queryResults,
             queryResultsJDBC: queryResultsJDBC,
             queryResultsCSV: queryResultsCSV,
-            selectedTabId:
-              queryResults &&
-              queryResults.length > 0 &&
-              queryResults[0].fulfilled
-                ? "0"
-                : MESSAGE_TAB_LABEL,
-            selectedTabName:
-              queryResults &&
-              queryResults.length > 0 &&
-              queryResults[0].fulfilled &&
-              queries.length > 0
-                ? getQueryIndex(queries[0])
-                : MESSAGE_TAB_LABEL,
+            selectedTabId: getDefaultTabId(queryResults),
+            selectedTabName: getDefaultTabLabel(queryResults, queries[0]),
             messages: this.getMessage(queryResultsForTable),
-            itemIdToExpandedRowMap: {
-              id: { nodes: {}, expandedRow: {}, selectedNodes: {} }
-            },
+            itemIdToExpandedRowMap: {},
             searchQuery: " "
           });
+
         }
       );
+    } else {
+      // If there are no queries, it cleans the editors from previous results
+      this.onClear();
     }
   };
 
@@ -392,9 +366,7 @@ export class Main extends React.Component<MainProps, MainState> {
           messages: [{ text: "", className: "" }],
           selectedTabId: MESSAGE_TAB_LABEL,
           selectedTabName: MESSAGE_TAB_LABEL,
-          itemIdToExpandedRowMap: {
-            id: { nodes: {}, expandedRow: {}, selectedNodes: {} }
-          }
+          itemIdToExpandedRowMap: {}
         });
       });
     }
@@ -407,17 +379,12 @@ export class Main extends React.Component<MainProps, MainState> {
       queryResults: [],
       queryResultsCSV: [],
       queryResultsJDBC: [],
-      messages: [{ text: "", className: "" }],
+      messages: [],
       selectedTabId: MESSAGE_TAB_LABEL,
       selectedTabName: MESSAGE_TAB_LABEL,
-      itemIdToExpandedRowMap: {
-        id: { nodes: {}, expandedRow: {}, selectedNodes: {} }
-      }
+      itemIdToExpandedRowMap: {}
     });
   };
-
-  // TODO
-  resize() {}
 
   render() {
     return (
@@ -429,6 +396,7 @@ export class Main extends React.Component<MainProps, MainState> {
               onRun={this.onRun}
               onTranslate={this.onTranslate}
               onClear={this.onClear}
+              sqlQueriesString={this.props.sqlQueriesString ? this.props.sqlQueriesString : '' }
               queryTranslations={this.state.queryTranslations}
             />
           </div>
@@ -438,9 +406,9 @@ export class Main extends React.Component<MainProps, MainState> {
             <QueryResults
               queries={this.state.queries}
               queryResults={this.state.queryResultsTable}
-              queryResultsRaw={this.state.queryResults}
-              queryResultsJDBC={this.state.queryResultsJDBC}
-              queryResultsCSV={this.state.queryResultsCSV}
+              queryResultsRaw={getSelectedResults(this.state.queryResults, this.state.selectedTabId)}
+              queryResultsJDBC={getSelectedResults(this.state.queryResultsJDBC, this.state.selectedTabId)}
+              queryResultsCSV={getSelectedResults(this.state.queryResultsCSV, this.state.selectedTabId)}
               messages={this.state.messages}
               selectedTabId={this.state.selectedTabId}
               selectedTabName={this.state.selectedTabName}
@@ -449,6 +417,7 @@ export class Main extends React.Component<MainProps, MainState> {
               onQueryChange={this.onQueryChange}
               updateExpandedMap={this.updateExpandedMap}
               searchQuery={this.state.searchQuery}
+              tabsOverflow={false}
             />
           </div>
         </div>
@@ -456,3 +425,5 @@ export class Main extends React.Component<MainProps, MainState> {
     );
   }
 }
+
+export default Main;

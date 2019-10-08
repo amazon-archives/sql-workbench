@@ -13,8 +13,8 @@
  *   permissions and limitations under the License.
  */
 
-import { QueryMessage, ItemIdToExpandedRowMap} from '../components/Main/main';
-
+import {QueryMessage, ItemIdToExpandedRowMap, ResponseDetail} from '../components/Main/main';
+import {MESSAGE_TAB_LABEL} from "./constants";
 
 // It returns an array of queries
 export const getQueries = (queriesString: string): string[] => {
@@ -33,16 +33,35 @@ export function getQueryIndex(query: string): string {
   if (query) {
     const queryFrom : string []= query.toLowerCase().split("from");
     
-    if (queryFrom.length > 0){
+    if (queryFrom.length > 1){
       return queryFrom[1].split(" ")[1];
     }
   }
  return query;
 }
 
+// Tabs utils
+export function getDefaultTabId ( queryResults: ResponseDetail<string>[]) : string {
+  return queryResults && queryResults.length > 0 && queryResults[0].fulfilled ? "0" : MESSAGE_TAB_LABEL
+}
+
+export function getDefaultTabLabel ( queryResults: ResponseDetail<string>[], queryString: string  ) : string {
+  return queryResults && queryResults.length > 0 && queryResults[0].fulfilled ? getQueryIndex(queryString) : MESSAGE_TAB_LABEL
+}
+
+// It returns the results for the selected tab
+export function getSelectedResults (results: ResponseDetail<any>[], selectedTabId: string ): any {
+  const selectedIndex: number = parseInt(selectedTabId);
+  if (!Number.isNaN(selectedIndex) && results) {
+    const selectedResult: ResponseDetail<any> = results[selectedIndex];
+    return selectedResult && selectedResult.fulfilled ? selectedResult.data : undefined;
+  }
+  return undefined;
+};
+
 export function isEmpty (obj: object) : boolean {
   for (const key in obj) {
-      if(obj.hasOwnProperty(key)) { return false; }       
+    if(obj.hasOwnProperty(key)) { return false; }
   }
   return true;
 }
@@ -57,7 +76,9 @@ export function getMessageString(messages: QueryMessage[], tabNames: string[]): 
 
 export function scrollToNode(nodeId: string): void {
   const element = document.getElementById(nodeId);
-  element.scrollIntoView();
+  if (element) {
+    element.scrollIntoView();
+  }
 }
 
 // Download functions
@@ -72,26 +93,27 @@ export function onDownloadFile(data: any, fileFormat: string, fileName: string) 
   document.body.removeChild(link);
 }
 
-// Tree functions
-export type NodeType = {
+export class Tree {
+  _root: Node;
+  constructor(data: any, rootId: string) {
+    this._root = new Node(data, rootId, '', this._root);
+  }
+}
+
+export class Node {
   data: any;
   name: string;
-  children: NodeType[];
-  parent: NodeType;
+  children: Node[];
+  parent: Node;
   nodeId: string;
-}
 
-export function Node(data: any, parentId: string, name = '', parent = {}) {
-  this.data = data;
-  this.name = name;
-  this.children = [];
-  this.parent = parent;
-  this.nodeId = name === '' ? parentId : parentId + '_' + name;
-}
-
-export function Tree(data: any, parentId: string) {
-  const node = new Node(data, parentId);
-  this._root = node;
+  constructor(data: any, parentId: string, name = '', parent: Node ) {
+    this.data = data;
+    this.name = name;
+    this.children = [];
+    this.parent = parent;
+    this.nodeId = name === '' ? parentId : parentId + '_' + name;
+  }
 }
 
 // It creates a tree of nested objects or arrays for the row, where rootId is the rowId and item is the field value
@@ -101,8 +123,9 @@ export function createRowTree(item: any, rootId: string) {
 
   if (typeof item === 'object') {
     for (let j = 0; j < Object.keys(item).length; j++) {
-      let data = Object.values(item)[j];
-      let name = Object.keys(item)[j];
+      const itemKey: string = Object.keys(item)[j];
+      let data = item[itemKey];
+      let name = itemKey;
 
       // If value of field is an array or an object it gets added to the tree
       if (data !== null && (Array.isArray(data) || typeof data === 'object')) {
@@ -121,7 +144,7 @@ export function getRowTree(nodeId: string, item: any, expandedRowMap: ItemIdToEx
     : createRowTree(item, nodeId);
 }
 
-export function findRootNode(node: NodeType, expandedRowMap: ItemIdToExpandedRowMap){
+export function findRootNode(node: Node, expandedRowMap: ItemIdToExpandedRowMap){
   const rootNodeId = node.nodeId.split('_')[0];
   const rootNode = expandedRowMap[rootNodeId].nodes._root;
   return rootNode;
@@ -134,5 +157,5 @@ export function needsScrolling(elementId: string){
   if (element === null) {
     return false;
   }
-  return element.scrollWidth > element.offsetWidth ;
+  return element.scrollWidth > element.offsetWidth;
 };

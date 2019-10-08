@@ -14,7 +14,7 @@
  */
 
 import { Server } from 'hapi-latest';
-import TranslateService from '../services/translate-service';
+import TranslateService from '../services/TranslateService';
 
 export default function translate(server: Server, service: TranslateService) {
   server.route({
