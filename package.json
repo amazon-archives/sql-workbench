@@ -1,5 +1,5 @@
 {
-  "name": "sql-kibana",
+  "name": "opendistro-sql-kibana",
   "version": "1.0.0.0",
   "description": "SQL Console",
   "main": "index.js",
@@ -23,13 +23,8 @@
     "test:jest": "NODE_PATH=../../kibana/node_modules ./node_modules/.bin/jest --config ./test/jest.config.js",
     "build": "plugin-helpers build"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "dependencies": {
-    "@elastic/eui": "^6.5.1",
+    "@elastic/eui": "^14.4.0",
     "@kbn/i18n": "link:../../kibana/packages/kbn-i18n",
     "@kbn/ui-framework": "link:../../kibana/packages/kbn-ui-framework",
     "react-dom": "^16.3.0",
