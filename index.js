@@ -15,8 +15,8 @@
 
 import query from './server/routes/query';
 import translate from './server/routes/translate';
-import QueryService from './server/services/query-service';
-import TranslateService from './server/services/translate-service';
+import QueryService from './server/services/QueryService';
+import TranslateService from './server/services/TranslateService';
 import { createSqlCluster } from './server/clusters';
 
 export const PLUGIN_NAME = 'opendistro-sql-kibana';
