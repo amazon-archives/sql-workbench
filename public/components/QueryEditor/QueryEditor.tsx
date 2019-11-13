@@ -64,7 +64,7 @@ class QueryEditor extends React.Component<QueryEditorProps, QueryEditorState> {
               mode="mysql"
               theme="sql_console"
               width="100%"
-              height="20em"
+              height="18.5rem"
               value={this.state.sqlQueriesString}
               onChange={this.updateSQLQueries}
               showPrintMargin={false}
@@ -89,7 +89,7 @@ class QueryEditor extends React.Component<QueryEditorProps, QueryEditorState> {
               mode="json"
               theme="sql_console"
               width="100%"
-              height="20em"
+              height="18.5rem"
               value={this.props.queryTranslations
                 .map((queryTranslation: any) =>
                   JSON.stringify(queryTranslation.data, null, 2)
@@ -107,8 +107,7 @@ class QueryEditor extends React.Component<QueryEditorProps, QueryEditorState> {
             />
           </EuiFlexItem>
         </EuiFlexGroup>
-
-        <div className="action-container">
+        <div>
           <EuiFlexGroup className="action-container" gutterSize="m">
             <EuiFlexItem
               grow={false}

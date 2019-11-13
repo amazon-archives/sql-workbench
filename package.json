@@ -6,7 +6,7 @@
   "license": "Apache-2.0",
   "homepage": "https://github.com/opendistro-for-elasticsearch/sql-kibana-plugin",
   "kibana": {
-    "version": "6.5.4",
+    "version": "7.3.3",
     "templateVersion": "1.0.0"
   },
   "repository": {
@@ -77,7 +77,7 @@
     "typescript": "3.0.3"
   },
   "engines": {
-    "node": "8.14.0",
+    "node": "10.15.2",
     "yarn": "^1.10.1"
   },
   "resolutions": {
