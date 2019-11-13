@@ -13,7 +13,6 @@
  *   permissions and limitations under the License.
  */
 
-
 import {QueryMessage, ItemIdToExpandedRowMap, ResponseDetail} from '../components/Main/main';
 import {MESSAGE_TAB_LABEL} from "./constants";
 
@@ -47,18 +46,18 @@ export function getDefaultTabId ( queryResults: ResponseDetail<string>[]) : stri
 }
 
 export function getDefaultTabLabel ( queryResults: ResponseDetail<string>[], queryString: string  ) : string {
-    return queryResults && queryResults.length > 0 && queryResults[0].fulfilled ? getQueryIndex(queryString) : MESSAGE_TAB_LABEL
-}
 
+  return queryResults && queryResults.length > 0 && queryResults[0].fulfilled ? getQueryIndex(queryString) : MESSAGE_TAB_LABEL
+}
 
 // It returns the results for the selected tab
 export function getSelectedResults (results: ResponseDetail<any>[], selectedTabId: string ): any {
-    const selectedIndex: number = parseInt(selectedTabId);
-    if (!Number.isNaN(selectedIndex) && results) {
-        const selectedResult: ResponseDetail<any> = results[selectedIndex];
-        return selectedResult && selectedResult.fulfilled ? selectedResult.data : undefined;
-    }
-    return undefined;
+  const selectedIndex: number = parseInt(selectedTabId);
+  if (!Number.isNaN(selectedIndex) && results) {
+    const selectedResult: ResponseDetail<any> = results[selectedIndex];
+    return selectedResult && selectedResult.fulfilled ? selectedResult.data : undefined;
+  }
+  return undefined;
 };
 
 export function isEmpty (obj: object) : boolean {
