@@ -84,13 +84,7 @@ describe("<QueryResultsBody /> spec", () => {
       ""
     );
 
-    const emptyQueryResult = {
-      fields: [''],
-      records: [{}],
-      message: ''
-    };
-
-    const { queryByTestId } = renderQueryResultsBody(emptyQueryResult, '', mockSortableProperties, mockErrorMessage, onSort, onQueryChange, updateExpandedMap, onChangeItemsPerPage);
+    const { queryByTestId } = renderQueryResultsBody(undefined, undefined, mockSortableProperties, mockErrorMessage, onSort, onQueryChange, updateExpandedMap, onChangeItemsPerPage);
 
     // Download buttons, pagination, search area, table should not be visible when there is no data
     expect(queryByTestId('Download')).toBeNull();

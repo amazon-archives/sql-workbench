@@ -40,21 +40,3 @@ window.URL = {
     return "";
   },
 };
-
-jest.mock("ui/notify", () => ({
-  toastNotifications: {
-    addDanger: jest.fn().mockName("addDanger"),
-    addSuccess: jest.fn().mockName("addSuccess"),
-  },
-}));
-
-jest.mock("ui/chrome", () => ({
-  breadcrumbs: (() => {
-    const breadcrumbs = () => {};
-    // @ts-ignore
-    breadcrumbs.set = jest.fn();
-    // @ts-ignore
-    breadcrumbs.push = jest.fn();
-    return breadcrumbs;
-  })(),
-}));
