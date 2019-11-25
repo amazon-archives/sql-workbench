@@ -156,7 +156,7 @@ export class Main extends React.Component<MainProps, MainState> {
     }
     return {
       fulfilled: true,
-      data: JSON.parse(response.data.resp),
+      data: response.data.resp,
     };
   }
 

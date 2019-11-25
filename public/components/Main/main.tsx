@@ -1,4 +1,4 @@
-/*
+  /*
  *   Copyright 2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  *   Licensed under the Apache License, Version 2.0 (the "License").
@@ -166,7 +166,7 @@ export class Main extends React.Component<MainProps, MainState> {
     }
     return {
       fulfilled: true,
-      data: JSON.parse(response.data.resp)
+      data: response.data.resp
     };
   }
 
