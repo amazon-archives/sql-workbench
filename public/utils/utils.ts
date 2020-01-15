@@ -46,6 +46,7 @@ export function getDefaultTabId ( queryResults: ResponseDetail<string>[]) : stri
 }
 
 export function getDefaultTabLabel ( queryResults: ResponseDetail<string>[], queryString: string  ) : string {
+
   return queryResults && queryResults.length > 0 && queryResults[0].fulfilled ? getQueryIndex(queryString) : MESSAGE_TAB_LABEL
 }
 
@@ -71,7 +72,7 @@ export function capitalizeFirstLetter(name: string): string {
 }
 
 export function getMessageString(messages: QueryMessage[], tabNames: string[]): string {
-  return messages && messages.length > 0 && tabNames ? messages.reduce( (finalMessage, message, currentIndex) => finalMessage.concat(capitalizeFirstLetter(tabNames[currentIndex]), ': ', messages[currentIndex].text, '\n\n'), '' ) : '';
+  return messages && messages.length > 0 && tabNames && tabNames.length > 0 ? messages.reduce( (finalMessage, message, currentIndex) => finalMessage.concat(capitalizeFirstLetter(tabNames[currentIndex]), ': ', messages[currentIndex].text, '\n\n'), '' ) : '';
 }
 
 export function scrollToNode(nodeId: string): void {
