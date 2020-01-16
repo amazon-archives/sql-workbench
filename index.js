@@ -19,7 +19,7 @@ import QueryService from './server/services/QueryService';
 import TranslateService from './server/services/TranslateService';
 import { createSqlCluster } from './server/clusters';
 
-export const PLUGIN_NAME = 'opendistro-sql-kibana';
+export const PLUGIN_NAME = 'sql-kibana';
 
 export default function (kibana) {
   return new kibana.Plugin({
@@ -45,7 +45,7 @@ export default function (kibana) {
       // Create Clusters
       createSqlCluster(server);
       const client = server.plugins.elasticsearch;
-      
+
       // Add server routes and initialize the plugin here
       query(server, new QueryService(client));
       translate(server, new TranslateService(client));
