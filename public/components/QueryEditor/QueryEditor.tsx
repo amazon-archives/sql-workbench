@@ -20,13 +20,16 @@ import { EuiPanel, EuiTitle, EuiButton, EuiText, EuiFlexGroup, EuiFlexItem, EuiC
 import "brace/mode/mysql";
 import "brace/mode/json";
 import "../../ace-themes/sql_console";
-import { ResponseDetail, TranslateResult } from "../Main/main";
+import {ResponseDetail} from "../Main/main";
 
 interface QueryEditorProps {
   onRun: (queriesString: string) => void;
+  onJdbc: (queriesString: string) => void;
+  onCsv: (queriesString: string) => void;
   onTranslate: (queriesString: string) => void;
   onClear: () => void;
-  queryTranslations: ResponseDetail<TranslateResult>[];
+  queryTranslations: ResponseDetail<string>[];
+  queryResults: ResponseDetail<string>[];
   sqlQueriesString: string;
 }
 
@@ -79,18 +82,18 @@ class QueryEditor extends React.Component<QueryEditorProps, QueryEditorState> {
           </EuiFlexItem>
           <EuiFlexItem
             grow={1}
-            className="translated-query-panel"
+            className="result-panel"
             paddingSize="none"
           >
             <EuiText className="translated-query-panel-header">
-              Elasticsearch query string
+              Result
             </EuiText>
             <EuiCodeEditor
               mode="json"
               theme="sql_console"
               width="100%"
               height="18.5rem"
-              value={this.props.queryTranslations
+              value={this.props.queryResults
                 .map((queryTranslation: any) =>
                   JSON.stringify(queryTranslation.data, null, 2)
                 )
@@ -115,6 +118,22 @@ class QueryEditor extends React.Component<QueryEditorProps, QueryEditorState> {
             >
               <EuiButton fill={true} className="sql-editor-button" >
                 Run
+              </EuiButton>
+            </EuiFlexItem>
+            <EuiFlexItem
+              grow={false}
+              onClick={() => this.props.onJdbc(this.state.sqlQueriesString)}
+            >
+              <EuiButton fill={true} className="sql-editor-button" >
+                JDBC
+              </EuiButton>
+            </EuiFlexItem>
+            <EuiFlexItem
+              grow={false}
+              onClick={() => this.props.onCsv(this.state.sqlQueriesString)}
+            >
+              <EuiButton fill={true} className="sql-editor-button" >
+                CSV
               </EuiButton>
             </EuiFlexItem>
             <EuiFlexItem

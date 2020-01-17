@@ -66,11 +66,11 @@ interface MainProps {
 
 interface MainState {
   queries: string[];
-  queryTranslations: Array<ResponseDetail<TranslateResult>>;
+  queryTranslations: Array<ResponseDetail<string>>;
   queryResultsTable: Array<ResponseDetail<QueryResult>>;
   queryResults: Array<ResponseDetail<string>>;
-  queryResultsJDBC: Array<ResponseDetail<string>>;
-  queryResultsCSV: Array<ResponseDetail<string>>;
+  // queryResultsJDBC: Array<ResponseDetail<string>>;
+  // queryResultsCSV: Array<ResponseDetail<string>>;
   selectedTabName: string;
   selectedTabId: string;
   searchQuery: string;
@@ -78,7 +78,7 @@ interface MainState {
   messages: Array<QueryMessage>;
 }
 
-const SUCCESS_MESSAGE = "Successfull";
+const SUCCESS_MESSAGE = "Successful";
 
 // It gets column names and row values to display in a Table from the json API response
 export function getQueryResultsForTable(queryResultsRaw: ResponseDetail<string>[]): ResponseDetail<QueryResult>[] {
@@ -137,8 +137,8 @@ export class Main extends React.Component<MainProps, MainState> {
       queryTranslations: [],
       queryResultsTable: [],
       queryResults: [],
-      queryResultsJDBC: [],
-      queryResultsCSV: [],
+      // queryResultsJDBC: [],
+      // queryResultsCSV: [],
       selectedTabName: MESSAGE_TAB_LABEL,
       selectedTabId: MESSAGE_TAB_LABEL,
       searchQuery: " ",
@@ -149,7 +149,7 @@ export class Main extends React.Component<MainProps, MainState> {
     this.httpClient = this.props.httpClient;
   }
 
-  processTranslateResponse(response: IHttpResponse<ResponseData>): ResponseDetail<TranslateResult> {
+  processTranslateResponse(response: IHttpResponse<ResponseData>): ResponseDetail<string> {
       if(!response){
         return{
           fulfilled: false,
@@ -227,26 +227,8 @@ export class Main extends React.Component<MainProps, MainState> {
 
   onRun = (queriesString: string): void => {
     const queries: string[] = getQueries(queriesString);
-
     if (queries.length > 0) {
-      const queryTranslationsPromise = Promise.all(
-        queries.map((query: string) =>
-          this.httpClient
-            .post("../api/sql_console/translate", { query })
-            .catch((error: any) => {
-              this.setState({
-                messages: [
-                  {
-                    text: error.message,
-                    className: "error-message"
-                  }
-                ]
-              });
-            })
-        )
-      );
-
-      const queryResultsPromise = Promise.all(
+      Promise.all(
         queries.map((query: string) =>
           this.httpClient
             .post("../api/sql_console/query", { query })
@@ -261,82 +243,110 @@ export class Main extends React.Component<MainProps, MainState> {
               });
             })
         )
-      );
+      ).then(
+        queryResultResponse => {
+          const queryResults: ResponseDetail<string>[] = queryResultResponse.map(queryResultResponse =>
+            this.processQueryResponse(queryResultResponse as IHttpResponse<ResponseData>));
+          const queryResultsTable: ResponseDetail<QueryResult>[] = getQueryResultsForTable(queryResults);
+          this.setState({
+            queries,
+            queryResults: queryResults,
+            queryResultsTable: queryResultsTable,
+            // queryResultsJDBC: [],
+            // queryResultsCSV: [],
+            selectedTabId: getDefaultTabId(queryResults),
+            selectedTabName: getDefaultTabLabel(queryResults, queries[0]),
+            messages: this.getMessage(queryResultsTable),
+            itemIdToExpandedRowMap: {},
+            searchQuery: " "
+          })
+        }
+      )
+    } else {
+      this.onClear();
+    }
+  };
 
-      const queryResultsJDBCPromise = Promise.all(
+  onJdbc = (queriesString: string): void => {
+    const queries: string[] = getQueries(queriesString);
+    if (queries.length > 0) {
+      Promise.all(
         queries.map((query: string) =>
           this.httpClient
             .post("../api/sql_console/queryjdbc", { query })
             .catch((error: any) => {
               this.setState({
-                messages: [{ text: error.message, className: "error-message" }]
+                messages: [
+                  {
+                    text: error.message,
+                    className: "error-message"
+                  }
+                ]
               });
             })
         )
-      );
+      ).then(
+        queryResultResponse => {
+          const queryResults: ResponseDetail<string>[] = queryResultResponse.map(queryResultResponse =>
+            this.processQueryResponse(queryResultResponse as IHttpResponse<ResponseData>));
+          const queryResultsTable: ResponseDetail<QueryResult>[] = getQueryResultsForTable(queryResults);
+          this.setState({
+            queries,
+            queryResults: queryResults,
+            queryResultsTable: queryResultsTable,
+            // queryResultsJDBC: queryResults,
+            // queryResultsCSV: [],
+            selectedTabId: getDefaultTabId(queryResults),
+            selectedTabName: getDefaultTabLabel(queryResults, queries[0]),
+            messages: this.getMessage(queryResultsTable),
+            itemIdToExpandedRowMap: {},
+            searchQuery: " "
+          })
+        }
+      )
+    } else {
+      this.onClear();
+    }
+  };
 
-      const queryResultsCSVPromise = Promise.all(
+  onCsv = (queriesString: string): void => {
+    const queries: string[] = getQueries(queriesString);
+    if (queries.length > 0) {
+      Promise.all(
         queries.map((query: string) =>
           this.httpClient
             .post("../api/sql_console/querycsv", { query })
             .catch((error: any) => {
               this.setState({
-                messages: [{ text: error.message, className: "error-message" }]
+                messages: [
+                  {
+                    text: error.message,
+                    className: "error-message"
+                  }
+                ]
               });
             })
         )
-      );
-
-      Promise.all([
-        queryTranslationsPromise,
-        queryResultsPromise,
-        queryResultsJDBCPromise,
-        queryResultsCSVPromise
-      ]).then(
-        ([
-          queryTranslationsResponse,
-          queryResultsResponse,
-          queryResultsJDBCResponse,
-          queryResultsCSVResponse
-        ]) => {
-          const queryResults: ResponseDetail<string>[] = queryResultsResponse.map(queryResultResponse =>
-            this.processQueryResponse(queryResultResponse as IHttpResponse<ResponseData>)
-          );
-          const queryResultsForTable: ResponseDetail<QueryResult>[] = getQueryResultsForTable(queryResults);
-          const queryResultsJDBC: ResponseDetail<string>[] = queryResultsJDBCResponse.map(queryJDBCResultResponse =>
-            this.processQueryResponse(queryJDBCResultResponse as IHttpResponse<
-              ResponseData
-            >)
-          );
-          const queryResultsCSV: ResponseDetail<string>[] = queryResultsCSVResponse.map(queryCSVResultResponse =>
-            this.processQueryResponse(queryCSVResultResponse as IHttpResponse<
-              ResponseData
-            >)
-          );
-
+      ).then(
+        queryResultResponse => {
+          const queryResults: ResponseDetail<string>[] = queryResultResponse.map(queryResultResponse =>
+            this.processQueryResponse(queryResultResponse as IHttpResponse<ResponseData>));
+          const queryResultsTable: ResponseDetail<QueryResult>[] = getQueryResultsForTable(queryResults);
           this.setState({
             queries,
-            queryTranslations: queryTranslationsResponse.map(
-              translatedQueryResponse =>
-                this.processTranslateResponse(
-                  translatedQueryResponse as IHttpResponse<ResponseData>
-                )
-            ),
-            queryResultsTable: queryResultsForTable,
             queryResults: queryResults,
-            queryResultsJDBC: queryResultsJDBC,
-            queryResultsCSV: queryResultsCSV,
+            queryResultsTable: queryResultsTable,
+            // queryResultsJDBC: [],
+            // queryResultsCSV: queryResults,
             selectedTabId: getDefaultTabId(queryResults),
             selectedTabName: getDefaultTabLabel(queryResults, queries[0]),
-            messages: this.getMessage(queryResultsForTable),
+            messages: this.getMessage(queryResultsTable),
             itemIdToExpandedRowMap: {},
             searchQuery: " "
-          });
-
+          })
         }
-      );
+      )
     } else {
-      // If there are no queries, it cleans the editors from previous results
       this.onClear();
     }
   };
@@ -361,8 +371,8 @@ export class Main extends React.Component<MainProps, MainState> {
           ),
           queryResultsTable: [],
           queryResults: [],
-          queryResultsJDBC: [],
-          queryResultsCSV: [],
+          // queryResultsJDBC: [],
+          // queryResultsCSV: [],
           messages: [{ text: "", className: "" }],
           selectedTabId: MESSAGE_TAB_LABEL,
           selectedTabName: MESSAGE_TAB_LABEL,
@@ -377,8 +387,8 @@ export class Main extends React.Component<MainProps, MainState> {
       queryTranslations: [],
       queryResultsTable: [],
       queryResults: [],
-      queryResultsCSV: [],
-      queryResultsJDBC: [],
+      // queryResultsCSV: [],
+      // queryResultsJDBC: [],
       messages: [],
       selectedTabId: MESSAGE_TAB_LABEL,
       selectedTabName: MESSAGE_TAB_LABEL,
@@ -394,10 +404,13 @@ export class Main extends React.Component<MainProps, MainState> {
           <div className="sql-console-query-editor">
             <QueryEditor
               onRun={this.onRun}
+              onJdbc={this.onJdbc}
+              onCsv={this.onCsv}
               onTranslate={this.onTranslate}
               onClear={this.onClear}
               sqlQueriesString={this.props.sqlQueriesString ? this.props.sqlQueriesString : '' }
               queryTranslations={this.state.queryTranslations}
+              queryResults={this.state.queryResults}
             />
           </div>
 
@@ -407,8 +420,8 @@ export class Main extends React.Component<MainProps, MainState> {
               queries={this.state.queries}
               queryResults={this.state.queryResultsTable}
               queryResultsRaw={getSelectedResults(this.state.queryResults, this.state.selectedTabId)}
-              queryResultsJDBC={getSelectedResults(this.state.queryResultsJDBC, this.state.selectedTabId)}
-              queryResultsCSV={getSelectedResults(this.state.queryResultsCSV, this.state.selectedTabId)}
+              // queryResultsJDBC={getSelectedResults(this.state.queryResultsJDBC, this.state.selectedTabId)}
+              // queryResultsCSV={getSelectedResults(this.state.queryResultsCSV, this.state.selectedTabId)}
               messages={this.state.messages}
               selectedTabId={this.state.selectedTabId}
               selectedTabName={this.state.selectedTabName}

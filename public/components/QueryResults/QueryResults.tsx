@@ -30,8 +30,8 @@ interface QueryResultsProps {
   queries: string[];
   queryResults: ResponseDetail<QueryResult>[];
   queryResultsRaw: string;
-  queryResultsJDBC: string;
-  queryResultsCSV: string;
+  // queryResultsJDBC: string;
+  // queryResultsCSV: string;
   messages: QueryMessage[];
   selectedTabName: string;
   selectedTabId: string;
@@ -81,7 +81,7 @@ class QueryResults extends React.Component<QueryResultsProps, QueryResultsState>
     this.tabNames = [];
     this.pager = new Pager(0, this.state.itemsPerPage);
   }
-  
+
   componentDidUpdate() {
     const showArrow = needsScrolling("tabsContainer");
     if (showArrow !== this.state.tabsOverflow) {
@@ -313,8 +313,8 @@ class QueryResults extends React.Component<QueryResultsProps, QueryResultsState>
           tabNames={this.tabNames}
           queryResultSelected={queryResultSelected}
           queryResultsRaw={this.props.queryResultsRaw}
-          queryResultsJDBC={this.props.queryResultsJDBC}
-          queryResultsCSV={this.props.queryResultsCSV}
+          // queryResultsJDBC={this.props.queryResultsJDBC}
+          // queryResultsCSV={this.props.queryResultsCSV}
           messages={this.props.messages}
           searchQuery={this.props.searchQuery}
           onQueryChange={this.props.onQueryChange}

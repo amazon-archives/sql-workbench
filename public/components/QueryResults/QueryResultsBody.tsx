@@ -58,8 +58,8 @@ const DoubleScrollbar = require('react-double-scrollbar');
 
 interface QueryResultsBodyProps {
   queryResultSelected: QueryResult;
-  queryResultsJDBC: string;
-  queryResultsCSV: string;
+  // queryResultsJDBC: string;
+  // queryResultsCSV: string;
   queryResultsRaw: string;
   tabNames: string[];
   selectedTabName: string;
