@@ -94,8 +94,8 @@ class QueryEditor extends React.Component<QueryEditorProps, QueryEditorState> {
               width="100%"
               height="18.5rem"
               value={this.props.queryResults
-                .map((queryTranslation: any) =>
-                  JSON.stringify(queryTranslation.data, null, 2)
+                .map((queryResults: any) =>
+                  queryResults.data
                 )
                 .join("\n")}
               showPrintMargin={false}
