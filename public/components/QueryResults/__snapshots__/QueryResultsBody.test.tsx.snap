@@ -38,27 +38,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                 <span
                   class="euiButton__content"
                 >
-                  <svg
-                    aria-hidden="true"
-                    class="euiIcon euiIcon--medium euiButton__icon"
-                    focusable="false"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                  >
-                    <defs>
-                      <path
-                        d="M13.069 5.157L8.384 9.768a.546.546 0 0 1-.768 0L2.93 5.158a.552.552 0 0 0-.771 0 .53.53 0 0 0 0 .759l4.684 4.61c.641.631 1.672.63 2.312 0l4.684-4.61a.53.53 0 0 0 0-.76.552.552 0 0 0-.771 0z"
-                        id="arrow_down-a"
-                      />
-                    </defs>
-                    <use
-                      fill-rule="nonzero"
-                      xlink:href="#arrow_down-a"
-                    />
-                  </svg>
+                  EuiIconMock
                   <span
                     class="euiButton__text"
                   >
@@ -81,10 +61,10 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
         class="search-bar"
       >
         <div
-          class="euiFlexGroup euiFlexGroup--gutterMedium euiFlexGroup--alignItemsCenter euiFlexGroup--directionRow euiFlexGroup--responsive"
+          class="euiFlexGroup euiFlexGroup--gutterMedium euiFlexGroup--alignItemsCenter euiFlexGroup--directionRow euiFlexGroup--responsive euiFlexGroup--wrap"
         >
           <div
-            class="euiFlexItem"
+            class="euiFlexItem euiSearchBar__searchHolder"
           >
             <div
               class="euiFormControlLayout euiFormControlLayout--fullWidth"
@@ -105,26 +85,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                   <span
                     class="euiFormControlLayoutCustomIcon"
                   >
-                    <svg
-                      aria-hidden="true"
-                      class="euiIcon euiIcon--medium euiFormControlLayoutCustomIcon__icon"
-                      focusable="false"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      width="16"
-                      xmlns="http://www.w3.org/2000/svg"
-                      xmlns:xlink="http://www.w3.org/1999/xlink"
-                    >
-                      <defs>
-                        <path
-                          d="M11.271 11.978l3.872 3.873a.502.502 0 0 0 .708 0 .502.502 0 0 0 0-.708l-3.565-3.564c2.38-2.747 2.267-6.923-.342-9.532-2.73-2.73-7.17-2.73-9.898 0-2.728 2.729-2.728 7.17 0 9.9a6.955 6.955 0 0 0 4.949 2.05.5.5 0 0 0 0-1 5.96 5.96 0 0 1-4.242-1.757 6.01 6.01 0 0 1 0-8.486c2.337-2.34 6.143-2.34 8.484 0a6.01 6.01 0 0 1 0 8.486.5.5 0 0 0 .034.738z"
-                          id="search-a"
-                        />
-                      </defs>
-                      <use
-                        xlink:href="#search-a"
-                      />
-                    </svg>
+                    EuiIconMock
                   </span>
                 </div>
               </div>
@@ -140,39 +101,19 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
         >
           <div
             class="euiPopover euiPopover--anchorUpRight euiPopover--withTitle"
-            id="customizablePagination"
           >
             <div
               class="euiPopover__anchor"
             >
               <button
                 class="euiButtonEmpty euiButtonEmpty--text euiButtonEmpty--xSmall euiButtonEmpty--iconRight"
+                data-test-subj="tablePaginationPopoverButton"
                 type="button"
               >
                 <span
                   class="euiButtonEmpty__content"
                 >
-                  <svg
-                    aria-hidden="true"
-                    class="euiIcon euiIcon--medium euiButtonEmpty__icon"
-                    focusable="false"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                  >
-                    <defs>
-                      <path
-                        d="M13.069 5.157L8.384 9.768a.546.546 0 0 1-.768 0L2.93 5.158a.552.552 0 0 0-.771 0 .53.53 0 0 0 0 .759l4.684 4.61c.641.631 1.672.63 2.312 0l4.684-4.61a.53.53 0 0 0 0-.76.552.552 0 0 0-.771 0z"
-                        id="arrow_down-a"
-                      />
-                    </defs>
-                    <use
-                      fill-rule="nonzero"
-                      xlink:href="#arrow_down-a"
-                    />
-                  </svg>
+                  EuiIconMock
                   <span
                     class="euiButtonEmpty__text"
                   >
@@ -225,12 +166,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                 >
                   <tr>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="60px"
+                      style="width: 60px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -252,12 +193,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="60px"
+                      style="width: 60px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -281,12 +222,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="155px"
+                      style="width: 155px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -310,12 +251,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="155px"
+                      style="width: 155px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -339,12 +280,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="155px"
+                      style="width: 155px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -368,12 +309,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="155px"
+                      style="width: 155px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -397,12 +338,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="155px"
+                      style="width: 155px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -426,12 +367,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="155px"
+                      style="width: 155px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -455,12 +396,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="155px"
+                      style="width: 155px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -484,12 +425,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="155px"
+                      style="width: 155px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -513,12 +454,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="155px"
+                      style="width: 155px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -542,12 +483,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="155px"
+                      style="width: 155px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -571,12 +512,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="155px"
+                      style="width: 155px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -600,12 +541,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="155px"
+                      style="width: 155px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -629,12 +570,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="155px"
+                      style="width: 155px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -658,12 +599,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="155px"
+                      style="width: 155px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -687,12 +628,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="155px"
+                      style="width: 155px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -716,12 +657,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="155px"
+                      style="width: 155px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -745,12 +686,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="155px"
+                      style="width: 155px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -774,12 +715,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="155px"
+                      style="width: 155px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -803,12 +744,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="155px"
+                      style="width: 155px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -832,12 +773,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="155px"
+                      style="width: 155px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -861,12 +802,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="155px"
+                      style="width: 155px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -890,12 +831,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="155px"
+                      style="width: 155px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -919,12 +860,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="155px"
+                      style="width: 155px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -969,20 +910,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                             class="euiButtonIcon euiButtonIcon--primary"
                             type="button"
                           >
-                            <svg
-                              aria-hidden="true"
-                              class="euiIcon euiIcon--medium euiButtonIcon__icon"
-                              focusable="false"
-                              height="16"
-                              viewBox="0 0 16 16"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M8 7h3.5a.5.5 0 1 1 0 1H8v3.5a.5.5 0 1 1-1 0V8H3.5a.5.5 0 0 1 0-1H7V3.5a.5.5 0 0 1 1 0V7zm-.5-7C11.636 0 15 3.364 15 7.5S11.636 15 7.5 15 0 11.636 0 7.5 3.364 0 7.5 0zm0 .882a6.618 6.618 0 1 0 0 13.236A6.618 6.618 0 0 0 7.5.882z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
+                            EuiIconMock
                           </button>
                         </span>
                       </div>
@@ -1363,20 +1291,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                             class="euiButtonIcon euiButtonIcon--primary"
                             type="button"
                           >
-                            <svg
-                              aria-hidden="true"
-                              class="euiIcon euiIcon--medium euiButtonIcon__icon"
-                              focusable="false"
-                              height="16"
-                              viewBox="0 0 16 16"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M8 7h3.5a.5.5 0 1 1 0 1H8v3.5a.5.5 0 1 1-1 0V8H3.5a.5.5 0 0 1 0-1H7V3.5a.5.5 0 0 1 1 0V7zm-.5-7C11.636 0 15 3.364 15 7.5S11.636 15 7.5 15 0 11.636 0 7.5 3.364 0 7.5 0zm0 .882a6.618 6.618 0 1 0 0 13.236A6.618 6.618 0 0 0 7.5.882z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
+                            EuiIconMock
                           </button>
                         </span>
                       </div>
@@ -1757,20 +1672,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                             class="euiButtonIcon euiButtonIcon--primary"
                             type="button"
                           >
-                            <svg
-                              aria-hidden="true"
-                              class="euiIcon euiIcon--medium euiButtonIcon__icon"
-                              focusable="false"
-                              height="16"
-                              viewBox="0 0 16 16"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M8 7h3.5a.5.5 0 1 1 0 1H8v3.5a.5.5 0 1 1-1 0V8H3.5a.5.5 0 0 1 0-1H7V3.5a.5.5 0 0 1 1 0V7zm-.5-7C11.636 0 15 3.364 15 7.5S11.636 15 7.5 15 0 11.636 0 7.5 3.364 0 7.5 0zm0 .882a6.618 6.618 0 1 0 0 13.236A6.618 6.618 0 0 0 7.5.882z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
+                            EuiIconMock
                           </button>
                         </span>
                       </div>
@@ -2151,20 +2053,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                             class="euiButtonIcon euiButtonIcon--primary"
                             type="button"
                           >
-                            <svg
-                              aria-hidden="true"
-                              class="euiIcon euiIcon--medium euiButtonIcon__icon"
-                              focusable="false"
-                              height="16"
-                              viewBox="0 0 16 16"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M8 7h3.5a.5.5 0 1 1 0 1H8v3.5a.5.5 0 1 1-1 0V8H3.5a.5.5 0 0 1 0-1H7V3.5a.5.5 0 0 1 1 0V7zm-.5-7C11.636 0 15 3.364 15 7.5S11.636 15 7.5 15 0 11.636 0 7.5 3.364 0 7.5 0zm0 .882a6.618 6.618 0 1 0 0 13.236A6.618 6.618 0 0 0 7.5.882z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
+                            EuiIconMock
                           </button>
                         </span>
                       </div>
@@ -2545,20 +2434,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                             class="euiButtonIcon euiButtonIcon--primary"
                             type="button"
                           >
-                            <svg
-                              aria-hidden="true"
-                              class="euiIcon euiIcon--medium euiButtonIcon__icon"
-                              focusable="false"
-                              height="16"
-                              viewBox="0 0 16 16"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M8 7h3.5a.5.5 0 1 1 0 1H8v3.5a.5.5 0 1 1-1 0V8H3.5a.5.5 0 0 1 0-1H7V3.5a.5.5 0 0 1 1 0V7zm-.5-7C11.636 0 15 3.364 15 7.5S11.636 15 7.5 15 0 11.636 0 7.5 3.364 0 7.5 0zm0 .882a6.618 6.618 0 1 0 0 13.236A6.618 6.618 0 0 0 7.5.882z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
+                            EuiIconMock
                           </button>
                         </span>
                       </div>
@@ -2939,20 +2815,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                             class="euiButtonIcon euiButtonIcon--primary"
                             type="button"
                           >
-                            <svg
-                              aria-hidden="true"
-                              class="euiIcon euiIcon--medium euiButtonIcon__icon"
-                              focusable="false"
-                              height="16"
-                              viewBox="0 0 16 16"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M8 7h3.5a.5.5 0 1 1 0 1H8v3.5a.5.5 0 1 1-1 0V8H3.5a.5.5 0 0 1 0-1H7V3.5a.5.5 0 0 1 1 0V7zm-.5-7C11.636 0 15 3.364 15 7.5S11.636 15 7.5 15 0 11.636 0 7.5 3.364 0 7.5 0zm0 .882a6.618 6.618 0 1 0 0 13.236A6.618 6.618 0 0 0 7.5.882z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
+                            EuiIconMock
                           </button>
                         </span>
                       </div>
@@ -3333,20 +3196,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                             class="euiButtonIcon euiButtonIcon--primary"
                             type="button"
                           >
-                            <svg
-                              aria-hidden="true"
-                              class="euiIcon euiIcon--medium euiButtonIcon__icon"
-                              focusable="false"
-                              height="16"
-                              viewBox="0 0 16 16"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M8 7h3.5a.5.5 0 1 1 0 1H8v3.5a.5.5 0 1 1-1 0V8H3.5a.5.5 0 0 1 0-1H7V3.5a.5.5 0 0 1 1 0V7zm-.5-7C11.636 0 15 3.364 15 7.5S11.636 15 7.5 15 0 11.636 0 7.5 3.364 0 7.5 0zm0 .882a6.618 6.618 0 1 0 0 13.236A6.618 6.618 0 0 0 7.5.882z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
+                            EuiIconMock
                           </button>
                         </span>
                       </div>
@@ -3727,20 +3577,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                             class="euiButtonIcon euiButtonIcon--primary"
                             type="button"
                           >
-                            <svg
-                              aria-hidden="true"
-                              class="euiIcon euiIcon--medium euiButtonIcon__icon"
-                              focusable="false"
-                              height="16"
-                              viewBox="0 0 16 16"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M8 7h3.5a.5.5 0 1 1 0 1H8v3.5a.5.5 0 1 1-1 0V8H3.5a.5.5 0 0 1 0-1H7V3.5a.5.5 0 0 1 1 0V7zm-.5-7C11.636 0 15 3.364 15 7.5S11.636 15 7.5 15 0 11.636 0 7.5 3.364 0 7.5 0zm0 .882a6.618 6.618 0 1 0 0 13.236A6.618 6.618 0 0 0 7.5.882z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
+                            EuiIconMock
                           </button>
                         </span>
                       </div>
@@ -4121,20 +3958,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                             class="euiButtonIcon euiButtonIcon--primary"
                             type="button"
                           >
-                            <svg
-                              aria-hidden="true"
-                              class="euiIcon euiIcon--medium euiButtonIcon__icon"
-                              focusable="false"
-                              height="16"
-                              viewBox="0 0 16 16"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M8 7h3.5a.5.5 0 1 1 0 1H8v3.5a.5.5 0 1 1-1 0V8H3.5a.5.5 0 0 1 0-1H7V3.5a.5.5 0 0 1 1 0V7zm-.5-7C11.636 0 15 3.364 15 7.5S11.636 15 7.5 15 0 11.636 0 7.5 3.364 0 7.5 0zm0 .882a6.618 6.618 0 1 0 0 13.236A6.618 6.618 0 0 0 7.5.882z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
+                            EuiIconMock
                           </button>
                         </span>
                       </div>
@@ -4515,20 +4339,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                             class="euiButtonIcon euiButtonIcon--primary"
                             type="button"
                           >
-                            <svg
-                              aria-hidden="true"
-                              class="euiIcon euiIcon--medium euiButtonIcon__icon"
-                              focusable="false"
-                              height="16"
-                              viewBox="0 0 16 16"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M8 7h3.5a.5.5 0 1 1 0 1H8v3.5a.5.5 0 1 1-1 0V8H3.5a.5.5 0 0 1 0-1H7V3.5a.5.5 0 0 1 1 0V7zm-.5-7C11.636 0 15 3.364 15 7.5S11.636 15 7.5 15 0 11.636 0 7.5 3.364 0 7.5 0zm0 .882a6.618 6.618 0 1 0 0 13.236A6.618 6.618 0 0 0 7.5.882z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
+                            EuiIconMock
                           </button>
                         </span>
                       </div>
@@ -4909,20 +4720,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                             class="euiButtonIcon euiButtonIcon--primary"
                             type="button"
                           >
-                            <svg
-                              aria-hidden="true"
-                              class="euiIcon euiIcon--medium euiButtonIcon__icon"
-                              focusable="false"
-                              height="16"
-                              viewBox="0 0 16 16"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M8 7h3.5a.5.5 0 1 1 0 1H8v3.5a.5.5 0 1 1-1 0V8H3.5a.5.5 0 0 1 0-1H7V3.5a.5.5 0 0 1 1 0V7zm-.5-7C11.636 0 15 3.364 15 7.5S11.636 15 7.5 15 0 11.636 0 7.5 3.364 0 7.5 0zm0 .882a6.618 6.618 0 1 0 0 13.236A6.618 6.618 0 0 0 7.5.882z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
+                            EuiIconMock
                           </button>
                         </span>
                       </div>
@@ -5302,39 +5100,19 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
         >
           <div
             class="euiPopover euiPopover--anchorUpRight euiPopover--withTitle"
-            id="customizablePagination"
           >
             <div
               class="euiPopover__anchor"
             >
               <button
                 class="euiButtonEmpty euiButtonEmpty--text euiButtonEmpty--xSmall euiButtonEmpty--iconRight"
+                data-test-subj="tablePaginationPopoverButton"
                 type="button"
               >
                 <span
                   class="euiButtonEmpty__content"
                 >
-                  <svg
-                    aria-hidden="true"
-                    class="euiIcon euiIcon--medium euiButtonEmpty__icon"
-                    focusable="false"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                  >
-                    <defs>
-                      <path
-                        d="M13.069 5.157L8.384 9.768a.546.546 0 0 1-.768 0L2.93 5.158a.552.552 0 0 0-.771 0 .53.53 0 0 0 0 .759l4.684 4.61c.641.631 1.672.63 2.312 0l4.684-4.61a.53.53 0 0 0 0-.76.552.552 0 0 0-.771 0z"
-                        id="arrow_down-a"
-                      />
-                    </defs>
-                    <use
-                      fill-rule="nonzero"
-                      xlink:href="#arrow_down-a"
-                    />
-                  </svg>
+                  EuiIconMock
                   <span
                     class="euiButtonEmpty__text"
                   >
@@ -5396,27 +5174,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                 <span
                   class="euiButton__content"
                 >
-                  <svg
-                    aria-hidden="true"
-                    class="euiIcon euiIcon--medium euiButton__icon"
-                    focusable="false"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                  >
-                    <defs>
-                      <path
-                        d="M13.069 5.157L8.384 9.768a.546.546 0 0 1-.768 0L2.93 5.158a.552.552 0 0 0-.771 0 .53.53 0 0 0 0 .759l4.684 4.61c.641.631 1.672.63 2.312 0l4.684-4.61a.53.53 0 0 0 0-.76.552.552 0 0 0-.771 0z"
-                        id="arrow_down-a"
-                      />
-                    </defs>
-                    <use
-                      fill-rule="nonzero"
-                      xlink:href="#arrow_down-a"
-                    />
-                  </svg>
+                  EuiIconMock
                   <span
                     class="euiButton__text"
                   >
@@ -5439,10 +5197,10 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
         class="search-bar"
       >
         <div
-          class="euiFlexGroup euiFlexGroup--gutterMedium euiFlexGroup--alignItemsCenter euiFlexGroup--directionRow euiFlexGroup--responsive"
+          class="euiFlexGroup euiFlexGroup--gutterMedium euiFlexGroup--alignItemsCenter euiFlexGroup--directionRow euiFlexGroup--responsive euiFlexGroup--wrap"
         >
           <div
-            class="euiFlexItem"
+            class="euiFlexItem euiSearchBar__searchHolder"
           >
             <div
               class="euiFormControlLayout euiFormControlLayout--fullWidth"
@@ -5463,26 +5221,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                   <span
                     class="euiFormControlLayoutCustomIcon"
                   >
-                    <svg
-                      aria-hidden="true"
-                      class="euiIcon euiIcon--medium euiFormControlLayoutCustomIcon__icon"
-                      focusable="false"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      width="16"
-                      xmlns="http://www.w3.org/2000/svg"
-                      xmlns:xlink="http://www.w3.org/1999/xlink"
-                    >
-                      <defs>
-                        <path
-                          d="M11.271 11.978l3.872 3.873a.502.502 0 0 0 .708 0 .502.502 0 0 0 0-.708l-3.565-3.564c2.38-2.747 2.267-6.923-.342-9.532-2.73-2.73-7.17-2.73-9.898 0-2.728 2.729-2.728 7.17 0 9.9a6.955 6.955 0 0 0 4.949 2.05.5.5 0 0 0 0-1 5.96 5.96 0 0 1-4.242-1.757 6.01 6.01 0 0 1 0-8.486c2.337-2.34 6.143-2.34 8.484 0a6.01 6.01 0 0 1 0 8.486.5.5 0 0 0 .034.738z"
-                          id="search-a"
-                        />
-                      </defs>
-                      <use
-                        xlink:href="#search-a"
-                      />
-                    </svg>
+                    EuiIconMock
                   </span>
                 </div>
               </div>
@@ -5498,39 +5237,19 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
         >
           <div
             class="euiPopover euiPopover--anchorUpRight euiPopover--withTitle"
-            id="customizablePagination"
           >
             <div
               class="euiPopover__anchor"
             >
               <button
                 class="euiButtonEmpty euiButtonEmpty--text euiButtonEmpty--xSmall euiButtonEmpty--iconRight"
+                data-test-subj="tablePaginationPopoverButton"
                 type="button"
               >
                 <span
                   class="euiButtonEmpty__content"
                 >
-                  <svg
-                    aria-hidden="true"
-                    class="euiIcon euiIcon--medium euiButtonEmpty__icon"
-                    focusable="false"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                  >
-                    <defs>
-                      <path
-                        d="M13.069 5.157L8.384 9.768a.546.546 0 0 1-.768 0L2.93 5.158a.552.552 0 0 0-.771 0 .53.53 0 0 0 0 .759l4.684 4.61c.641.631 1.672.63 2.312 0l4.684-4.61a.53.53 0 0 0 0-.76.552.552 0 0 0-.771 0z"
-                        id="arrow_down-a"
-                      />
-                    </defs>
-                    <use
-                      fill-rule="nonzero"
-                      xlink:href="#arrow_down-a"
-                    />
-                  </svg>
+                  EuiIconMock
                   <span
                     class="euiButtonEmpty__text"
                   >
@@ -5583,12 +5302,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                 >
                   <tr>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="60px"
+                      style="width: 60px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -5610,12 +5329,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="60px"
+                      style="width: 60px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -5639,12 +5358,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="155px"
+                      style="width: 155px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -5668,12 +5387,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="155px"
+                      style="width: 155px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -5697,12 +5416,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="155px"
+                      style="width: 155px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -5726,12 +5445,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="155px"
+                      style="width: 155px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -5755,12 +5474,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="155px"
+                      style="width: 155px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -5784,12 +5503,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="155px"
+                      style="width: 155px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -5813,12 +5532,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="155px"
+                      style="width: 155px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -5842,12 +5561,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="155px"
+                      style="width: 155px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -5871,12 +5590,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="155px"
+                      style="width: 155px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -5900,12 +5619,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="155px"
+                      style="width: 155px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -5929,12 +5648,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="155px"
+                      style="width: 155px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -5958,12 +5677,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="155px"
+                      style="width: 155px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -5987,12 +5706,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="155px"
+                      style="width: 155px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -6016,12 +5735,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="155px"
+                      style="width: 155px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -6045,12 +5764,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="155px"
+                      style="width: 155px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -6074,12 +5793,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="155px"
+                      style="width: 155px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -6103,12 +5822,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="155px"
+                      style="width: 155px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -6132,12 +5851,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="155px"
+                      style="width: 155px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -6161,12 +5880,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="155px"
+                      style="width: 155px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -6190,12 +5909,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="155px"
+                      style="width: 155px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -6219,12 +5938,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="155px"
+                      style="width: 155px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -6248,12 +5967,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="155px"
+                      style="width: 155px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -6277,12 +5996,12 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       </button>
                     </th>
                     <th
-                      aria-live="true"
+                      aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
                       role="columnheader"
                       scope="col"
-                      width="155px"
+                      style="width: 155px;"
                     >
                       <button
                         class="euiTableHeaderButton"
@@ -6326,20 +6045,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                             class="euiButtonIcon euiButtonIcon--primary"
                             type="button"
                           >
-                            <svg
-                              aria-hidden="true"
-                              class="euiIcon euiIcon--medium euiButtonIcon__icon"
-                              focusable="false"
-                              height="16"
-                              viewBox="0 0 16 16"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M7.5 0C11.636 0 15 3.364 15 7.5S11.636 15 7.5 15 0 11.636 0 7.5 3.364 0 7.5 0zm0 .882a6.618 6.618 0 1 0 0 13.236A6.618 6.618 0 0 0 7.5.882zM3.5 7h8a.5.5 0 1 1 0 1h-8a.5.5 0 0 1 0-1z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
+                            EuiIconMock
                           </button>
                         </span>
                       </div>
@@ -6724,38 +6430,18 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                             >
                               Navigate within $APP_NAME
                             </span>
-                            <svg
-                              aria-hidden="true"
-                              class="euiIcon euiIcon--medium euiSideNav__mobileIcon"
-                              focusable="false"
-                              height="16"
-                              viewBox="0 0 16 16"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
-                              xmlns:xlink="http://www.w3.org/1999/xlink"
-                            >
-                              <defs>
-                                <path
-                                  d="M2 4V2h2v2H2zm5 0V2h2v2H7zm5 0V2h2v2h-2zM2 9V7h2v2H2zm5 0V7h2v2H7zm5 0V7h2v2h-2zM2 14v-2h2v2H2zm5 0v-2h2v2H7zm5 0v-2h2v2h-2z"
-                                  id="apps-a"
-                                />
-                              </defs>
-                              <use
-                                xlink:href="#apps-a"
-                              />
-                            </svg>
+                            EuiIconMock
                           </span>
                         </button>
                         <div
                           class="euiSideNav__content"
-                          role="menubar"
                         >
                           <div
                             class="euiSideNavItem euiSideNavItem--root euiSideNavItem--hasChildItems"
                           >
                             <button
                               class="euiSideNavItemButton euiSideNavItemButton--isClickable"
-                              role="menuitem"
+                              type="button"
                             >
                               <span
                                 class="euiSideNavItemButton__content"
@@ -6773,7 +6459,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                               >
                                 <button
                                   class="euiSideNavItemButton euiSideNavItemButton--isClickable"
-                                  role="menuitem"
+                                  type="button"
                                 >
                                   <span
                                     class="euiSideNavItemButton__content"
@@ -6783,46 +6469,14 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                                       class="euiButtonIcon euiButtonIcon--primary euiSideNavItemButton__icon"
                                       type="button"
                                     >
-                                      <svg
-                                        aria-hidden="true"
-                                        class="euiIcon euiIcon--medium euiButtonIcon__icon"
-                                        focusable="false"
-                                        height="16"
-                                        viewBox="0 0 16 16"
-                                        width="16"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                      >
-                                        <path
-                                          d="M8 7h3.5a.5.5 0 1 1 0 1H8v3.5a.5.5 0 1 1-1 0V8H3.5a.5.5 0 0 1 0-1H7V3.5a.5.5 0 0 1 1 0V7zm-.5-7C11.636 0 15 3.364 15 7.5S11.636 15 7.5 15 0 11.636 0 7.5 3.364 0 7.5 0zm0 .882a6.618 6.618 0 1 0 0 13.236A6.618 6.618 0 0 0 7.5.882z"
-                                          fill-rule="evenodd"
-                                        />
-                                      </svg>
+                                      EuiIconMock
                                     </button>
                                     <span
                                       class="euiSideNavItemButton__label"
                                     >
                                       category
                                     </span>
-                                    <svg
-                                      class="euiIcon euiIcon--small euiIcon--subdued"
-                                      focusable="false"
-                                      height="16"
-                                      viewBox="0 0 16 16"
-                                      width="16"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                      xmlns:xlink="http://www.w3.org/1999/xlink"
-                                    >
-                                      <defs>
-                                        <path
-                                          d="M13.069 5.157L8.384 9.768a.546.546 0 0 1-.768 0L2.93 5.158a.552.552 0 0 0-.771 0 .53.53 0 0 0 0 .759l4.684 4.61c.641.631 1.672.63 2.312 0l4.684-4.61a.53.53 0 0 0 0-.76.552.552 0 0 0-.771 0z"
-                                          id="arrow_down-a"
-                                        />
-                                      </defs>
-                                      <use
-                                        fill-rule="nonzero"
-                                        xlink:href="#arrow_down-a"
-                                      />
-                                    </svg>
+                                    EuiIconMock
                                   </span>
                                 </button>
                               </div>
@@ -6831,7 +6485,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                               >
                                 <button
                                   class="euiSideNavItemButton euiSideNavItemButton--isClickable euiSideNavItemButton-isSelected"
-                                  role="menuitem"
+                                  type="button"
                                 >
                                   <span
                                     class="euiSideNavItemButton__content"
@@ -6841,20 +6495,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                                       class="euiButtonIcon euiButtonIcon--primary euiSideNavItemButton__icon"
                                       type="button"
                                     >
-                                      <svg
-                                        aria-hidden="true"
-                                        class="euiIcon euiIcon--medium euiButtonIcon__icon"
-                                        focusable="false"
-                                        height="16"
-                                        viewBox="0 0 16 16"
-                                        width="16"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                      >
-                                        <path
-                                          d="M7.5 0C11.636 0 15 3.364 15 7.5S11.636 15 7.5 15 0 11.636 0 7.5 3.364 0 7.5 0zm0 .882a6.618 6.618 0 1 0 0 13.236A6.618 6.618 0 0 0 7.5.882zM3.5 7h8a.5.5 0 1 1 0 1h-8a.5.5 0 0 1 0-1z"
-                                          fill-rule="evenodd"
-                                        />
-                                      </svg>
+                                      EuiIconMock
                                     </button>
                                     <span
                                       class="euiSideNavItemButton__label"
@@ -6871,7 +6512,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                                   >
                                     <button
                                       class="euiSideNavItemButton euiSideNavItemButton--isClickable euiSideNavItemButton-isSelected"
-                                      role="menuitem"
+                                      type="button"
                                     >
                                       <span
                                         class="euiSideNavItemButton__content"
@@ -6944,7 +6585,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                               >
                                 <button
                                   class="euiSideNavItemButton euiSideNavItemButton--isClickable"
-                                  role="menuitem"
+                                  type="button"
                                 >
                                   <span
                                     class="euiSideNavItemButton__content"
@@ -6954,46 +6595,14 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                                       class="euiButtonIcon euiButtonIcon--primary euiSideNavItemButton__icon"
                                       type="button"
                                     >
-                                      <svg
-                                        aria-hidden="true"
-                                        class="euiIcon euiIcon--medium euiButtonIcon__icon"
-                                        focusable="false"
-                                        height="16"
-                                        viewBox="0 0 16 16"
-                                        width="16"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                      >
-                                        <path
-                                          d="M8 7h3.5a.5.5 0 1 1 0 1H8v3.5a.5.5 0 1 1-1 0V8H3.5a.5.5 0 0 1 0-1H7V3.5a.5.5 0 0 1 1 0V7zm-.5-7C11.636 0 15 3.364 15 7.5S11.636 15 7.5 15 0 11.636 0 7.5 3.364 0 7.5 0zm0 .882a6.618 6.618 0 1 0 0 13.236A6.618 6.618 0 0 0 7.5.882z"
-                                          fill-rule="evenodd"
-                                        />
-                                      </svg>
+                                      EuiIconMock
                                     </button>
                                     <span
                                       class="euiSideNavItemButton__label"
                                     >
                                       products
                                     </span>
-                                    <svg
-                                      class="euiIcon euiIcon--small euiIcon--subdued"
-                                      focusable="false"
-                                      height="16"
-                                      viewBox="0 0 16 16"
-                                      width="16"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                      xmlns:xlink="http://www.w3.org/1999/xlink"
-                                    >
-                                      <defs>
-                                        <path
-                                          d="M13.069 5.157L8.384 9.768a.546.546 0 0 1-.768 0L2.93 5.158a.552.552 0 0 0-.771 0 .53.53 0 0 0 0 .759l4.684 4.61c.641.631 1.672.63 2.312 0l4.684-4.61a.53.53 0 0 0 0-.76.552.552 0 0 0-.771 0z"
-                                          id="arrow_down-a"
-                                        />
-                                      </defs>
-                                      <use
-                                        fill-rule="nonzero"
-                                        xlink:href="#arrow_down-a"
-                                      />
-                                    </svg>
+                                    EuiIconMock
                                   </span>
                                 </button>
                               </div>
@@ -7002,7 +6611,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                               >
                                 <button
                                   class="euiSideNavItemButton euiSideNavItemButton--isClickable"
-                                  role="menuitem"
+                                  type="button"
                                 >
                                   <span
                                     class="euiSideNavItemButton__content"
@@ -7012,46 +6621,14 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                                       class="euiButtonIcon euiButtonIcon--primary euiSideNavItemButton__icon"
                                       type="button"
                                     >
-                                      <svg
-                                        aria-hidden="true"
-                                        class="euiIcon euiIcon--medium euiButtonIcon__icon"
-                                        focusable="false"
-                                        height="16"
-                                        viewBox="0 0 16 16"
-                                        width="16"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                      >
-                                        <path
-                                          d="M8 7h3.5a.5.5 0 1 1 0 1H8v3.5a.5.5 0 1 1-1 0V8H3.5a.5.5 0 0 1 0-1H7V3.5a.5.5 0 0 1 1 0V7zm-.5-7C11.636 0 15 3.364 15 7.5S11.636 15 7.5 15 0 11.636 0 7.5 3.364 0 7.5 0zm0 .882a6.618 6.618 0 1 0 0 13.236A6.618 6.618 0 0 0 7.5.882z"
-                                          fill-rule="evenodd"
-                                        />
-                                      </svg>
+                                      EuiIconMock
                                     </button>
                                     <span
                                       class="euiSideNavItemButton__label"
                                     >
                                       sku
                                     </span>
-                                    <svg
-                                      class="euiIcon euiIcon--small euiIcon--subdued"
-                                      focusable="false"
-                                      height="16"
-                                      viewBox="0 0 16 16"
-                                      width="16"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                      xmlns:xlink="http://www.w3.org/1999/xlink"
-                                    >
-                                      <defs>
-                                        <path
-                                          d="M13.069 5.157L8.384 9.768a.546.546 0 0 1-.768 0L2.93 5.158a.552.552 0 0 0-.771 0 .53.53 0 0 0 0 .759l4.684 4.61c.641.631 1.672.63 2.312 0l4.684-4.61a.53.53 0 0 0 0-.76.552.552 0 0 0-.771 0z"
-                                          id="arrow_down-a"
-                                        />
-                                      </defs>
-                                      <use
-                                        fill-rule="nonzero"
-                                        xlink:href="#arrow_down-a"
-                                      />
-                                    </svg>
+                                    EuiIconMock
                                   </span>
                                 </button>
                               </div>
@@ -7060,7 +6637,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                               >
                                 <button
                                   class="euiSideNavItemButton euiSideNavItemButton--isClickable"
-                                  role="menuitem"
+                                  type="button"
                                 >
                                   <span
                                     class="euiSideNavItemButton__content"
@@ -7070,46 +6647,14 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                                       class="euiButtonIcon euiButtonIcon--primary euiSideNavItemButton__icon"
                                       type="button"
                                     >
-                                      <svg
-                                        aria-hidden="true"
-                                        class="euiIcon euiIcon--medium euiButtonIcon__icon"
-                                        focusable="false"
-                                        height="16"
-                                        viewBox="0 0 16 16"
-                                        width="16"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                      >
-                                        <path
-                                          d="M8 7h3.5a.5.5 0 1 1 0 1H8v3.5a.5.5 0 1 1-1 0V8H3.5a.5.5 0 0 1 0-1H7V3.5a.5.5 0 0 1 1 0V7zm-.5-7C11.636 0 15 3.364 15 7.5S11.636 15 7.5 15 0 11.636 0 7.5 3.364 0 7.5 0zm0 .882a6.618 6.618 0 1 0 0 13.236A6.618 6.618 0 0 0 7.5.882z"
-                                          fill-rule="evenodd"
-                                        />
-                                      </svg>
+                                      EuiIconMock
                                     </button>
                                     <span
                                       class="euiSideNavItemButton__label"
                                     >
                                       geoip
                                     </span>
-                                    <svg
-                                      class="euiIcon euiIcon--small euiIcon--subdued"
-                                      focusable="false"
-                                      height="16"
-                                      viewBox="0 0 16 16"
-                                      width="16"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                      xmlns:xlink="http://www.w3.org/1999/xlink"
-                                    >
-                                      <defs>
-                                        <path
-                                          d="M13.069 5.157L8.384 9.768a.546.546 0 0 1-.768 0L2.93 5.158a.552.552 0 0 0-.771 0 .53.53 0 0 0 0 .759l4.684 4.61c.641.631 1.672.63 2.312 0l4.684-4.61a.53.53 0 0 0 0-.76.552.552 0 0 0-.771 0z"
-                                          id="arrow_down-a"
-                                        />
-                                      </defs>
-                                      <use
-                                        fill-rule="nonzero"
-                                        xlink:href="#arrow_down-a"
-                                      />
-                                    </svg>
+                                    EuiIconMock
                                   </span>
                                 </button>
                               </div>
@@ -7138,20 +6683,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                             class="euiButtonIcon euiButtonIcon--primary"
                             type="button"
                           >
-                            <svg
-                              aria-hidden="true"
-                              class="euiIcon euiIcon--medium euiButtonIcon__icon"
-                              focusable="false"
-                              height="16"
-                              viewBox="0 0 16 16"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M8 7h3.5a.5.5 0 1 1 0 1H8v3.5a.5.5 0 1 1-1 0V8H3.5a.5.5 0 0 1 0-1H7V3.5a.5.5 0 0 1 1 0V7zm-.5-7C11.636 0 15 3.364 15 7.5S11.636 15 7.5 15 0 11.636 0 7.5 3.364 0 7.5 0zm0 .882a6.618 6.618 0 1 0 0 13.236A6.618 6.618 0 0 0 7.5.882z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
+                            EuiIconMock
                           </button>
                         </span>
                       </div>
@@ -7532,20 +7064,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                             class="euiButtonIcon euiButtonIcon--primary"
                             type="button"
                           >
-                            <svg
-                              aria-hidden="true"
-                              class="euiIcon euiIcon--medium euiButtonIcon__icon"
-                              focusable="false"
-                              height="16"
-                              viewBox="0 0 16 16"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M8 7h3.5a.5.5 0 1 1 0 1H8v3.5a.5.5 0 1 1-1 0V8H3.5a.5.5 0 0 1 0-1H7V3.5a.5.5 0 0 1 1 0V7zm-.5-7C11.636 0 15 3.364 15 7.5S11.636 15 7.5 15 0 11.636 0 7.5 3.364 0 7.5 0zm0 .882a6.618 6.618 0 1 0 0 13.236A6.618 6.618 0 0 0 7.5.882z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
+                            EuiIconMock
                           </button>
                         </span>
                       </div>
@@ -7926,20 +7445,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                             class="euiButtonIcon euiButtonIcon--primary"
                             type="button"
                           >
-                            <svg
-                              aria-hidden="true"
-                              class="euiIcon euiIcon--medium euiButtonIcon__icon"
-                              focusable="false"
-                              height="16"
-                              viewBox="0 0 16 16"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M8 7h3.5a.5.5 0 1 1 0 1H8v3.5a.5.5 0 1 1-1 0V8H3.5a.5.5 0 0 1 0-1H7V3.5a.5.5 0 0 1 1 0V7zm-.5-7C11.636 0 15 3.364 15 7.5S11.636 15 7.5 15 0 11.636 0 7.5 3.364 0 7.5 0zm0 .882a6.618 6.618 0 1 0 0 13.236A6.618 6.618 0 0 0 7.5.882z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
+                            EuiIconMock
                           </button>
                         </span>
                       </div>
@@ -8320,20 +7826,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                             class="euiButtonIcon euiButtonIcon--primary"
                             type="button"
                           >
-                            <svg
-                              aria-hidden="true"
-                              class="euiIcon euiIcon--medium euiButtonIcon__icon"
-                              focusable="false"
-                              height="16"
-                              viewBox="0 0 16 16"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M8 7h3.5a.5.5 0 1 1 0 1H8v3.5a.5.5 0 1 1-1 0V8H3.5a.5.5 0 0 1 0-1H7V3.5a.5.5 0 0 1 1 0V7zm-.5-7C11.636 0 15 3.364 15 7.5S11.636 15 7.5 15 0 11.636 0 7.5 3.364 0 7.5 0zm0 .882a6.618 6.618 0 1 0 0 13.236A6.618 6.618 0 0 0 7.5.882z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
+                            EuiIconMock
                           </button>
                         </span>
                       </div>
@@ -8714,20 +8207,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                             class="euiButtonIcon euiButtonIcon--primary"
                             type="button"
                           >
-                            <svg
-                              aria-hidden="true"
-                              class="euiIcon euiIcon--medium euiButtonIcon__icon"
-                              focusable="false"
-                              height="16"
-                              viewBox="0 0 16 16"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M8 7h3.5a.5.5 0 1 1 0 1H8v3.5a.5.5 0 1 1-1 0V8H3.5a.5.5 0 0 1 0-1H7V3.5a.5.5 0 0 1 1 0V7zm-.5-7C11.636 0 15 3.364 15 7.5S11.636 15 7.5 15 0 11.636 0 7.5 3.364 0 7.5 0zm0 .882a6.618 6.618 0 1 0 0 13.236A6.618 6.618 0 0 0 7.5.882z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
+                            EuiIconMock
                           </button>
                         </span>
                       </div>
@@ -9108,20 +8588,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                             class="euiButtonIcon euiButtonIcon--primary"
                             type="button"
                           >
-                            <svg
-                              aria-hidden="true"
-                              class="euiIcon euiIcon--medium euiButtonIcon__icon"
-                              focusable="false"
-                              height="16"
-                              viewBox="0 0 16 16"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M8 7h3.5a.5.5 0 1 1 0 1H8v3.5a.5.5 0 1 1-1 0V8H3.5a.5.5 0 0 1 0-1H7V3.5a.5.5 0 0 1 1 0V7zm-.5-7C11.636 0 15 3.364 15 7.5S11.636 15 7.5 15 0 11.636 0 7.5 3.364 0 7.5 0zm0 .882a6.618 6.618 0 1 0 0 13.236A6.618 6.618 0 0 0 7.5.882z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
+                            EuiIconMock
                           </button>
                         </span>
                       </div>
@@ -9502,20 +8969,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                             class="euiButtonIcon euiButtonIcon--primary"
                             type="button"
                           >
-                            <svg
-                              aria-hidden="true"
-                              class="euiIcon euiIcon--medium euiButtonIcon__icon"
-                              focusable="false"
-                              height="16"
-                              viewBox="0 0 16 16"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M8 7h3.5a.5.5 0 1 1 0 1H8v3.5a.5.5 0 1 1-1 0V8H3.5a.5.5 0 0 1 0-1H7V3.5a.5.5 0 0 1 1 0V7zm-.5-7C11.636 0 15 3.364 15 7.5S11.636 15 7.5 15 0 11.636 0 7.5 3.364 0 7.5 0zm0 .882a6.618 6.618 0 1 0 0 13.236A6.618 6.618 0 0 0 7.5.882z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
+                            EuiIconMock
                           </button>
                         </span>
                       </div>
@@ -9896,20 +9350,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                             class="euiButtonIcon euiButtonIcon--primary"
                             type="button"
                           >
-                            <svg
-                              aria-hidden="true"
-                              class="euiIcon euiIcon--medium euiButtonIcon__icon"
-                              focusable="false"
-                              height="16"
-                              viewBox="0 0 16 16"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M8 7h3.5a.5.5 0 1 1 0 1H8v3.5a.5.5 0 1 1-1 0V8H3.5a.5.5 0 0 1 0-1H7V3.5a.5.5 0 0 1 1 0V7zm-.5-7C11.636 0 15 3.364 15 7.5S11.636 15 7.5 15 0 11.636 0 7.5 3.364 0 7.5 0zm0 .882a6.618 6.618 0 1 0 0 13.236A6.618 6.618 0 0 0 7.5.882z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
+                            EuiIconMock
                           </button>
                         </span>
                       </div>
@@ -10290,20 +9731,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                             class="euiButtonIcon euiButtonIcon--primary"
                             type="button"
                           >
-                            <svg
-                              aria-hidden="true"
-                              class="euiIcon euiIcon--medium euiButtonIcon__icon"
-                              focusable="false"
-                              height="16"
-                              viewBox="0 0 16 16"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M8 7h3.5a.5.5 0 1 1 0 1H8v3.5a.5.5 0 1 1-1 0V8H3.5a.5.5 0 0 1 0-1H7V3.5a.5.5 0 0 1 1 0V7zm-.5-7C11.636 0 15 3.364 15 7.5S11.636 15 7.5 15 0 11.636 0 7.5 3.364 0 7.5 0zm0 .882a6.618 6.618 0 1 0 0 13.236A6.618 6.618 0 0 0 7.5.882z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
+                            EuiIconMock
                           </button>
                         </span>
                       </div>
@@ -10684,20 +10112,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                             class="euiButtonIcon euiButtonIcon--primary"
                             type="button"
                           >
-                            <svg
-                              aria-hidden="true"
-                              class="euiIcon euiIcon--medium euiButtonIcon__icon"
-                              focusable="false"
-                              height="16"
-                              viewBox="0 0 16 16"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M8 7h3.5a.5.5 0 1 1 0 1H8v3.5a.5.5 0 1 1-1 0V8H3.5a.5.5 0 0 1 0-1H7V3.5a.5.5 0 0 1 1 0V7zm-.5-7C11.636 0 15 3.364 15 7.5S11.636 15 7.5 15 0 11.636 0 7.5 3.364 0 7.5 0zm0 .882a6.618 6.618 0 1 0 0 13.236A6.618 6.618 0 0 0 7.5.882z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
+                            EuiIconMock
                           </button>
                         </span>
                       </div>
@@ -11077,39 +10492,19 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
         >
           <div
             class="euiPopover euiPopover--anchorUpRight euiPopover--withTitle"
-            id="customizablePagination"
           >
             <div
               class="euiPopover__anchor"
             >
               <button
                 class="euiButtonEmpty euiButtonEmpty--text euiButtonEmpty--xSmall euiButtonEmpty--iconRight"
+                data-test-subj="tablePaginationPopoverButton"
                 type="button"
               >
                 <span
                   class="euiButtonEmpty__content"
                 >
-                  <svg
-                    aria-hidden="true"
-                    class="euiIcon euiIcon--medium euiButtonEmpty__icon"
-                    focusable="false"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                  >
-                    <defs>
-                      <path
-                        d="M13.069 5.157L8.384 9.768a.546.546 0 0 1-.768 0L2.93 5.158a.552.552 0 0 0-.771 0 .53.53 0 0 0 0 .759l4.684 4.61c.641.631 1.672.63 2.312 0l4.684-4.61a.53.53 0 0 0 0-.76.552.552 0 0 0-.771 0z"
-                        id="arrow_down-a"
-                      />
-                    </defs>
-                    <use
-                      fill-rule="nonzero"
-                      xlink:href="#arrow_down-a"
-                    />
-                  </svg>
+                  EuiIconMock
                   <span
                     class="euiButtonEmpty__text"
                   >
@@ -11135,324 +10530,117 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
 
 exports[`<QueryResultsBody /> spec renders the component 1`] = `
 <div>
-  <div>
+  <div
+    class="euiCodeEditorWrapper"
+    data-test-subj="codeEditorContainer"
+    style="width: 100%;"
+  >
     <div
-      class="euiSpacer euiSpacer--m"
-    />
-    <div
-      class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--justifyContentSpaceBetween euiFlexGroup--directionRow euiFlexGroup--responsive"
+      class="euiCodeEditorKeyboardHint"
+      data-test-subj="codeEditorHint"
+      id="some_html_id"
+      role="button"
+      tabindex="0"
     >
-      <div
-        class="euiFlexItem euiFlexItem--flexGrow7"
+      <p
+        class="euiText"
       >
-        <div
-          class="euiText euiText--medium table-name"
-        >
-          Messages
-        </div>
-      </div>
-      <div
-        class="euiFlexItem euiFlexItem--flexGrow1"
+        Press Enter to start editing.
+      </p>
+      <p
+        class="euiText"
       >
-        <div
-          class="download-container"
-        >
-          <div
-            class="euiPopover euiPopover--anchorDownLeft download-button-container"
-            id="singlePanel"
-          >
-            <div
-              class="euiPopover__anchor"
-            >
-              <button
-                class="euiButton euiButton--primary euiButton--iconRight"
-                type="button"
-              >
-                <span
-                  class="euiButton__content"
-                >
-                  <svg
-                    aria-hidden="true"
-                    class="euiIcon euiIcon--medium euiButton__icon"
-                    focusable="false"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                  >
-                    <defs>
-                      <path
-                        d="M13.069 5.157L8.384 9.768a.546.546 0 0 1-.768 0L2.93 5.158a.552.552 0 0 0-.771 0 .53.53 0 0 0 0 .759l4.684 4.61c.641.631 1.672.63 2.312 0l4.684-4.61a.53.53 0 0 0 0-.76.552.552 0 0 0-.771 0z"
-                        id="arrow_down-a"
-                      />
-                    </defs>
-                    <use
-                      fill-rule="nonzero"
-                      xlink:href="#arrow_down-a"
-                    />
-                  </svg>
-                  <span
-                    class="euiButton__text"
-                  >
-                    Download
-                  </span>
-                </span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <hr
-      class="euiHorizontalRule euiHorizontalRule--full"
-    />
-    <div
-      class="search-panel"
-    >
-      <div
-        class="search-bar"
-      >
-        <div
-          class="euiFlexGroup euiFlexGroup--gutterMedium euiFlexGroup--alignItemsCenter euiFlexGroup--directionRow euiFlexGroup--responsive"
-        >
-          <div
-            class="euiFlexItem"
-          >
-            <div
-              class="euiFormControlLayout euiFormControlLayout--fullWidth"
-            >
-              <div
-                class="euiFormControlLayout__childrenWrapper"
-              >
-                <input
-                  aria-label="This is a search bar. As you type, the results lower in the page will automatically filter."
-                  class="euiFieldSearch euiFieldSearch--fullWidth"
-                  placeholder="Search"
-                  type="search"
-                  value=""
-                />
-                <div
-                  class="euiFormControlLayoutIcons"
-                >
-                  <span
-                    class="euiFormControlLayoutCustomIcon"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      class="euiIcon euiIcon--medium euiFormControlLayoutCustomIcon__icon"
-                      focusable="false"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      width="16"
-                      xmlns="http://www.w3.org/2000/svg"
-                      xmlns:xlink="http://www.w3.org/1999/xlink"
-                    >
-                      <defs>
-                        <path
-                          d="M11.271 11.978l3.872 3.873a.502.502 0 0 0 .708 0 .502.502 0 0 0 0-.708l-3.565-3.564c2.38-2.747 2.267-6.923-.342-9.532-2.73-2.73-7.17-2.73-9.898 0-2.728 2.729-2.728 7.17 0 9.9a6.955 6.955 0 0 0 4.949 2.05.5.5 0 0 0 0-1 5.96 5.96 0 0 1-4.242-1.757 6.01 6.01 0 0 1 0-8.486c2.337-2.34 6.143-2.34 8.484 0a6.01 6.01 0 0 1 0 8.486.5.5 0 0 0 .034.738z"
-                          id="search-a"
-                        />
-                      </defs>
-                      <use
-                        xlink:href="#search-a"
-                      />
-                    </svg>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--alignItemsCenter euiFlexGroup--justifyContentSpaceBetween euiFlexGroup--directionRow"
-      >
-        <div
-          class="euiFlexItem euiFlexItem--flexGrowZero"
-        >
-          <div
-            class="euiPopover euiPopover--anchorUpRight euiPopover--withTitle"
-            id="customizablePagination"
-          >
-            <div
-              class="euiPopover__anchor"
-            >
-              <button
-                class="euiButtonEmpty euiButtonEmpty--text euiButtonEmpty--xSmall euiButtonEmpty--iconRight"
-                type="button"
-              >
-                <span
-                  class="euiButtonEmpty__content"
-                >
-                  <svg
-                    aria-hidden="true"
-                    class="euiIcon euiIcon--medium euiButtonEmpty__icon"
-                    focusable="false"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                  >
-                    <defs>
-                      <path
-                        d="M13.069 5.157L8.384 9.768a.546.546 0 0 1-.768 0L2.93 5.158a.552.552 0 0 0-.771 0 .53.53 0 0 0 0 .759l4.684 4.61c.641.631 1.672.63 2.312 0l4.684-4.61a.53.53 0 0 0 0-.76.552.552 0 0 0-.771 0z"
-                        id="arrow_down-a"
-                      />
-                    </defs>
-                    <use
-                      fill-rule="nonzero"
-                      xlink:href="#arrow_down-a"
-                    />
-                  </svg>
-                  <span
-                    class="euiButtonEmpty__text"
-                  >
-                    Rows per page
-                    : 
-                    10
-                  </span>
-                </span>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div
-          class="euiFlexItem euiFlexItem--flexGrowZero"
-        >
-          <span />
-        </div>
-      </div>
+        When you're done, press Escape to stop editing.
+      </p>
     </div>
     <div
-      class="euiSpacer euiSpacer--m"
-    />
-    <div
-      class="sql-console-results-container"
+      class=" ace_editor ace-sql-console successful-message"
+      id="some_html_id"
+      style="width: 100%; height: 500px; font-size: 14px;"
     >
-      <div>
+      <textarea
+        aria-label="Code Editor"
+        autocapitalize="off"
+        autocorrect="off"
+        class="ace_text-input"
+        spellcheck="false"
+        style="opacity: 0;"
+        tabindex="-1"
+        wrap="off"
+      />
+      <div
+        aria-hidden="true"
+        class="ace_gutter"
+      >
         <div
-          style="overflow-x: auto; overflow-y: hidden;"
+          class="ace_layer ace_gutter-layer ace_folding-enabled"
+        />
+        <div
+          class="ace_gutter-active-line"
+          style="display: none;"
+        />
+      </div>
+      <div
+        class="ace_scroller"
+      >
+        <div
+          class="ace_content"
         >
           <div
-            style="padding-top: 1px; width: auto;"
-          >
-             
-          </div>
-        </div>
-        <div
-          style="overflow: auto; overflow-y: hidden;"
-        >
-          <div
-            class="euiFlexGroup euiFlexGroup--directionRow euiFlexGroup--responsive"
+            class="ace_layer ace_print-margin-layer"
           >
             <div
-              class="euiFlexItem"
-            >
-              <table
-                class="euiTable euiTable--responsive"
-              >
-                <thead
-                  class="table-header"
-                >
-                  <tr>
-                    <th
-                      aria-live="true"
-                      aria-sort="none"
-                      class="euiTableHeaderCell"
-                      role="columnheader"
-                      scope="col"
-                      width="60px"
-                    >
-                      <button
-                        class="euiTableHeaderButton"
-                        data-test-subj="tableHeaderSortButton"
-                        type="button"
-                      >
-                        <span
-                          class="euiTableCellContent"
-                        >
-                          <span
-                            class="euiTableCellContent__text"
-                          />
-                          <span
-                            class="euiScreenReaderOnly"
-                          >
-                            Click to sort in ascending order
-                          </span>
-                        </span>
-                      </button>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody />
-              </table>
-            </div>
+              class="ace_print-margin"
+              style="left: 4px; visibility: hidden;"
+            />
+          </div>
+          <div
+            class="ace_layer ace_marker-layer"
+          />
+          <div
+            class="ace_layer ace_text-layer"
+            style="padding: 0px 4px;"
+          />
+          <div
+            class="ace_layer ace_marker-layer"
+          />
+          <div
+            class="ace_layer ace_cursor-layer ace_hidden-cursors"
+          >
+            <div
+              class="ace_cursor"
+            />
           </div>
         </div>
       </div>
-    </div>
-    <div
-      class="pagination-container"
-    >
       <div
-        class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--alignItemsCenter euiFlexGroup--justifyContentSpaceBetween euiFlexGroup--directionRow"
+        class="ace_scrollbar ace_scrollbar-v"
+        style="display: none; width: 20px;"
       >
         <div
-          class="euiFlexItem euiFlexItem--flexGrowZero"
-        >
-          <div
-            class="euiPopover euiPopover--anchorUpRight euiPopover--withTitle"
-            id="customizablePagination"
-          >
-            <div
-              class="euiPopover__anchor"
-            >
-              <button
-                class="euiButtonEmpty euiButtonEmpty--text euiButtonEmpty--xSmall euiButtonEmpty--iconRight"
-                type="button"
-              >
-                <span
-                  class="euiButtonEmpty__content"
-                >
-                  <svg
-                    aria-hidden="true"
-                    class="euiIcon euiIcon--medium euiButtonEmpty__icon"
-                    focusable="false"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                  >
-                    <defs>
-                      <path
-                        d="M13.069 5.157L8.384 9.768a.546.546 0 0 1-.768 0L2.93 5.158a.552.552 0 0 0-.771 0 .53.53 0 0 0 0 .759l4.684 4.61c.641.631 1.672.63 2.312 0l4.684-4.61a.53.53 0 0 0 0-.76.552.552 0 0 0-.771 0z"
-                        id="arrow_down-a"
-                      />
-                    </defs>
-                    <use
-                      fill-rule="nonzero"
-                      xlink:href="#arrow_down-a"
-                    />
-                  </svg>
-                  <span
-                    class="euiButtonEmpty__text"
-                  >
-                    Rows per page
-                    : 
-                    10
-                  </span>
-                </span>
-              </button>
-            </div>
-          </div>
-        </div>
+          class="ace_scrollbar-inner"
+          style="width: 20px;"
+        />
+      </div>
+      <div
+        class="ace_scrollbar ace_scrollbar-h"
+        style="display: none; height: 20px;"
+      >
         <div
-          class="euiFlexItem euiFlexItem--flexGrowZero"
+          class="ace_scrollbar-inner"
+          style="height: 20px;"
+        />
+      </div>
+      <div
+        style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: hidden;"
+      >
+        <div
+          style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: visible;"
+        />
+        <div
+          style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: visible;"
         >
-          <span />
+          XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
         </div>
       </div>
     </div>
