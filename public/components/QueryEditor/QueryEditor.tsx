@@ -20,15 +20,13 @@ import { EuiPanel, EuiTitle, EuiButton, EuiText, EuiFlexGroup, EuiFlexItem, EuiC
 import "brace/mode/mysql";
 import "brace/mode/json";
 import "../../ace-themes/sql_console";
-import {ResponseDetail} from "../Main/main";
+import {ResponseDetail, TranslateResult} from "../Main/main";
 
 interface QueryEditorProps {
   onRun: (queriesString: string) => void;
-  onJdbc: (queriesString: string) => void;
-  onCsv: (queriesString: string) => void;
   onTranslate: (queriesString: string) => void;
   onClear: () => void;
-  queryTranslations: ResponseDetail<string>[];
+  queryTranslations: ResponseDetail<TranslateResult>[];
   queryResults: ResponseDetail<string>[];
   sqlQueriesString: string;
 }
@@ -93,9 +91,9 @@ class QueryEditor extends React.Component<QueryEditorProps, QueryEditorState> {
               theme="sql_console"
               width="100%"
               height="18.5rem"
-              value={this.props.queryResults
+              value={this.props.queryTranslations
                 .map((queryResults: any) =>
-                  queryResults.data
+                  JSON.stringify(queryResults.data, null, 2)
                 )
                 .join("\n")}
               showPrintMargin={false}
@@ -122,27 +120,13 @@ class QueryEditor extends React.Component<QueryEditorProps, QueryEditorState> {
             </EuiFlexItem>
             <EuiFlexItem
               grow={false}
-              onClick={() => this.props.onJdbc(this.state.sqlQueriesString)}
-            >
-              <EuiButton fill={true} className="sql-editor-button" >
-                JDBC
-              </EuiButton>
-            </EuiFlexItem>
-            <EuiFlexItem
-              grow={false}
-              onClick={() => this.props.onCsv(this.state.sqlQueriesString)}
-            >
-              <EuiButton fill={true} className="sql-editor-button" >
-                CSV
-              </EuiButton>
-            </EuiFlexItem>
-            <EuiFlexItem
-              grow={false}
               onClick={() =>
                 this.props.onTranslate(this.state.sqlQueriesString)
               }
             >
-              <EuiButton className="sql-editor-button">Translate</EuiButton>
+              <EuiButton className="sql-editor-button">
+                Translate
+              </EuiButton>
             </EuiFlexItem>
             <EuiFlexItem
               grow={false}

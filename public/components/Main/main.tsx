@@ -66,11 +66,11 @@ interface MainProps {
 
 interface MainState {
   queries: string[];
-  queryTranslations: Array<ResponseDetail<string>>;
+  queryTranslations: Array<ResponseDetail<TranslateResult>>;
   queryResultsTable: Array<ResponseDetail<QueryResult>>;
   queryResults: Array<ResponseDetail<string>>;
-  // queryResultsJDBC: Array<ResponseDetail<string>>;
-  // queryResultsCSV: Array<ResponseDetail<string>>;
+  queryResultsJDBC: Array<ResponseDetail<string>>;
+  queryResultsCSV: Array<ResponseDetail<string>>;
   selectedTabName: string;
   selectedTabId: string;
   searchQuery: string;
@@ -78,7 +78,7 @@ interface MainState {
   messages: Array<QueryMessage>;
 }
 
-const SUCCESS_MESSAGE = "Successful";
+const SUCCESS_MESSAGE = "Success";
 
 // It gets column names and row values to display in a Table from the json API response
 export function getQueryResultsForTable(queryResultsRaw: ResponseDetail<string>[]): ResponseDetail<QueryResult>[] {
@@ -137,8 +137,8 @@ export class Main extends React.Component<MainProps, MainState> {
       queryTranslations: [],
       queryResultsTable: [],
       queryResults: [],
-      // queryResultsJDBC: [],
-      // queryResultsCSV: [],
+      queryResultsJDBC: [],
+      queryResultsCSV: [],
       selectedTabName: MESSAGE_TAB_LABEL,
       selectedTabId: MESSAGE_TAB_LABEL,
       searchQuery: " ",
@@ -149,7 +149,7 @@ export class Main extends React.Component<MainProps, MainState> {
     this.httpClient = this.props.httpClient;
   }
 
-  processTranslateResponse(response: IHttpResponse<ResponseData>): ResponseDetail<string> {
+  processTranslateResponse(response: IHttpResponse<ResponseData>): ResponseDetail<TranslateResult> {
       if(!response){
         return{
           fulfilled: false,
@@ -213,7 +213,7 @@ export class Main extends React.Component<MainProps, MainState> {
     this.setState({ itemIdToExpandedRowMap: map });
   };
 
-  // It returns the error or successfull message to display in the Message Tab
+  // It returns the error or successful message to display in the Message Tab
   getMessage( queryResultsForTable: ResponseDetail<QueryResult>[] ): Array<QueryMessage> {
     const messages = queryResultsForTable.map(queryResult => {
       return {
@@ -225,97 +225,25 @@ export class Main extends React.Component<MainProps, MainState> {
     return messages;
   }
 
+  getTranslateMessage( translationResult: ResponseDetail<TranslateResult>[] ): Array<QueryMessage> {
+    const message = translationResult.map(translation => {
+      return {
+        text: translation.data ? SUCCESS_MESSAGE : translation.errorMessage,
+        className: translation.fulfilled ? "successful-message" : "error-message"
+      }
+    });
+    return message;
+  }
+
   onRun = (queriesString: string): void => {
     const queries: string[] = getQueries(queriesString);
-    if (queries.length > 0) {
-      Promise.all(
-        queries.map((query: string) =>
-          this.httpClient
-            .post("../api/sql_console/query", { query })
-            .catch((error: any) => {
-              this.setState({
-                messages: [
-                  {
-                    text: error.message,
-                    className: "error-message"
-                  }
-                ]
-              });
-            })
-        )
-      ).then(
-        queryResultResponse => {
-          const queryResults: ResponseDetail<string>[] = queryResultResponse.map(queryResultResponse =>
-            this.processQueryResponse(queryResultResponse as IHttpResponse<ResponseData>));
-          const queryResultsTable: ResponseDetail<QueryResult>[] = getQueryResultsForTable(queryResults);
-          this.setState({
-            queries,
-            queryResults: queryResults,
-            queryResultsTable: queryResultsTable,
-            // queryResultsJDBC: [],
-            // queryResultsCSV: [],
-            selectedTabId: getDefaultTabId(queryResults),
-            selectedTabName: getDefaultTabLabel(queryResults, queries[0]),
-            messages: this.getMessage(queryResultsTable),
-            itemIdToExpandedRowMap: {},
-            searchQuery: " "
-          })
-        }
-      )
-    } else {
-      this.onClear();
-    }
-  };
 
-  onJdbc = (queriesString: string): void => {
-    const queries: string[] = getQueries(queriesString);
     if (queries.length > 0) {
-      Promise.all(
-        queries.map((query: string) =>
-          this.httpClient
-            .post("../api/sql_console/queryjdbc", { query })
-            .catch((error: any) => {
-              this.setState({
-                messages: [
-                  {
-                    text: error.message,
-                    className: "error-message"
-                  }
-                ]
-              });
-            })
-        )
-      ).then(
-        queryResultResponse => {
-          const queryResults: ResponseDetail<string>[] = queryResultResponse.map(queryResultResponse =>
-            this.processQueryResponse(queryResultResponse as IHttpResponse<ResponseData>));
-          const queryResultsTable: ResponseDetail<QueryResult>[] = getQueryResultsForTable(queryResults);
-          this.setState({
-            queries,
-            queryResults: queryResults,
-            queryResultsTable: queryResultsTable,
-            // queryResultsJDBC: queryResults,
-            // queryResultsCSV: [],
-            selectedTabId: getDefaultTabId(queryResults),
-            selectedTabName: getDefaultTabLabel(queryResults, queries[0]),
-            messages: this.getMessage(queryResultsTable),
-            itemIdToExpandedRowMap: {},
-            searchQuery: " "
-          })
-        }
-      )
-    } else {
-      this.onClear();
-    }
-  };
 
-  onCsv = (queriesString: string): void => {
-    const queries: string[] = getQueries(queriesString);
-    if (queries.length > 0) {
-      Promise.all(
+      const dslResultPromise = Promise.all(
         queries.map((query: string) =>
           this.httpClient
-            .post("../api/sql_console/querycsv", { query })
+            .post("../api/sql_console/query", {query})
             .catch((error: any) => {
               this.setState({
                 messages: [
@@ -327,60 +255,273 @@ export class Main extends React.Component<MainProps, MainState> {
               });
             })
         )
-      ).then(
-        queryResultResponse => {
-          const queryResults: ResponseDetail<string>[] = queryResultResponse.map(queryResultResponse =>
-            this.processQueryResponse(queryResultResponse as IHttpResponse<ResponseData>));
-          const queryResultsTable: ResponseDetail<QueryResult>[] = getQueryResultsForTable(queryResults);
-          this.setState({
-            queries,
-            queryResults: queryResults,
-            queryResultsTable: queryResultsTable,
-            // queryResultsJDBC: [],
-            // queryResultsCSV: queryResults,
-            selectedTabId: getDefaultTabId(queryResults),
-            selectedTabName: getDefaultTabLabel(queryResults, queries[0]),
-            messages: this.getMessage(queryResultsTable),
-            itemIdToExpandedRowMap: {},
-            searchQuery: " "
-          })
-        }
-      )
-    } else {
-      this.onClear();
+      );
+
+      const translationPromise = Promise.all(
+        queries.map((query: string) =>
+          this.httpClient
+            .post("../api/sql_console/translate", {query})
+            .catch((error: any) => {
+              this.setState({
+                messages: [
+                  {
+                    text: error.message,
+                    className: "error-message"
+                  }
+                ]
+              });
+            })
+        )
+      );
+
+      Promise.all([dslResultPromise, translationPromise]).then(([dslResponse, translationResponse]) => {
+        const dslResult: ResponseDetail<string>[] = dslResponse.map(dslResponse =>
+          this.processQueryResponse(dslResponse as IHttpResponse<ResponseData>));
+        const resultTable: ResponseDetail<QueryResult>[] = getQueryResultsForTable(dslResult);
+        const translationResult: ResponseDetail<TranslateResult>[] = translationResponse.map(translationResponse =>
+          this.processTranslateResponse(translationResponse as IHttpResponse<ResponseData>));
+
+        this.setState({
+          queries,
+          queryResults: dslResult,
+          queryTranslations: translationResult,
+          queryResultsTable: resultTable,
+          queryResultsJDBC: [],
+          queryResultsCSV: [],
+          selectedTabId: getDefaultTabId(dslResult),
+          selectedTabName: getDefaultTabLabel(dslResult, queries[0]),
+          messages: this.getMessage(resultTable),
+          itemIdToExpandedRowMap: {},
+          searchQuery: " "
+        });
+      })
+
     }
-  };
+  }
 
   onTranslate = (queriesString: string): void => {
     const queries: string[] = getQueries(queriesString);
+
     if (queries.length > 0) {
-      Promise.all(
+
+      const translationPromise = Promise.all(
         queries.map((query: string) =>
           this.httpClient
-            .post("../api/sql_console/translate", { query })
-            .catch((error: any) => ({ ok: false, resp: error.message }))
+            .post("../api/sql_console/translate", {query})
+            .catch((error: any) => {
+              this.setState({
+                messages: [
+                  {
+                    text: error.message,
+                    className: "error-message"
+                  }
+                ]
+              });
+            })
         )
-      ).then(queryTranslationsResponse => {
+      );
+
+      Promise.all([translationPromise]).then(([translationResponse]) => {
+        const translationResult: ResponseDetail<TranslateResult>[] = translationResponse.map(translationResponse =>
+          this.processTranslateResponse(translationResponse as IHttpResponse<ResponseData>));
+
         this.setState({
           queries,
-          queryTranslations: queryTranslationsResponse.map(
-            translatedQueryResponse =>
-              this.processTranslateResponse(
-                translatedQueryResponse as IHttpResponse<ResponseData>
-              )
-          ),
-          queryResultsTable: [],
           queryResults: [],
-          // queryResultsJDBC: [],
-          // queryResultsCSV: [],
-          messages: [{ text: "", className: "" }],
-          selectedTabId: MESSAGE_TAB_LABEL,
-          selectedTabName: MESSAGE_TAB_LABEL,
-          itemIdToExpandedRowMap: {}
+          queryTranslations: translationResult,
+          queryResultsTable: [],
+          queryResultsJDBC: [],
+          queryResultsCSV: [],
+          selectedTabId: '',
+          selectedTabName: '',
+          messages: this.getTranslateMessage(translationResult),
+          itemIdToExpandedRowMap: {},
+          searchQuery: " "
         });
       });
     }
   };
+
+  getDsl = (queriesString: string): void => {
+    const queries: string[] = getQueries(queriesString);
+    if (queries.length > 0) {
+      Promise.all(
+        queries.map((query: string) =>
+          this.httpClient
+            .post("../api/sql_console/query", {query})
+            .catch((error: any) => {
+              this.setState({
+                messages: [
+                  {
+                    text: error.message,
+                    className: "error-message"
+                  }
+                ]
+              });
+            })
+        )
+      ).then(
+        dslResponse => {
+          const dslResult: ResponseDetail<string>[] = dslResponse.map(dslResponse =>
+            this.processQueryResponse(dslResponse as IHttpResponse<ResponseData>));
+          this.setState({
+            queryResults: dslResult,
+            queries,
+            queryTranslations: this.state.queryTranslations,
+            queryResultsTable: this.state.queryResultsTable,
+            queryResultsJDBC: this.state.queryResultsJDBC,
+            queryResultsCSV: this.state.queryResultsCSV,
+            selectedTabId: this.state.selectedTabId,
+            selectedTabName: this.state.selectedTabName,
+            messages: this.state.messages,
+            itemIdToExpandedRowMap: this.state.itemIdToExpandedRowMap,
+            searchQuery: this.state.searchQuery
+          });
+        }
+      )
+    }
+  };
+
+  getJdbc = (queriesString: string): void => {
+    const queries: string[] = getQueries(queriesString);
+    if (queries.length > 0) {
+      Promise.all(
+        queries.map((query: string) =>
+          this.httpClient
+            .post("../api/sql_console/queryjdbc", {query})
+            .catch((error: any) => {
+              this.setState({
+                messages: [
+                  {
+                    text: error.message,
+                    className: "error-message"
+                  }
+                ]
+              });
+            })
+        )
+      ).then(
+        jdbcResponse => {
+          const jdbcResult: ResponseDetail<string>[] = jdbcResponse.map(jdbcResponse =>
+            this.processQueryResponse(jdbcResponse as IHttpResponse<ResponseData>));
+          this.setState({
+            queryResultsJDBC: jdbcResult,
+            queries,
+            queryResults: this.state.queryResults,
+            queryTranslations: this.state.queryTranslations,
+            queryResultsTable: this.state.queryResultsTable,
+            queryResultsCSV: this.state.queryResultsCSV,
+            selectedTabId: this.state.selectedTabId,
+            selectedTabName: this.state.selectedTabName,
+            messages: this.state.messages,
+            itemIdToExpandedRowMap: this.state.itemIdToExpandedRowMap,
+            searchQuery: this.state.searchQuery
+          });
+        }
+      )
+    }
+  };
+
+  getCsv = (queriesString: string): void => {
+    const queries: string[] = getQueries(queriesString);
+    if (queries.length > 0) {
+      Promise.all(
+        queries.map((query: string) =>
+          this.httpClient
+            .post("../api/sql_console/querycsv", {query})
+            .catch((error: any) => {
+              this.setState({
+                messages: [
+                  {
+                    text: error.message,
+                    className: "error-message"
+                  }
+                ]
+              });
+            })
+        )
+      ).then(
+        csvResponse => {
+          const csvResult: ResponseDetail<string>[] = csvResponse.map(csvResponse =>
+            this.processQueryResponse(csvResponse as IHttpResponse<ResponseData>));
+          this.setState({
+            queryResultsCSV: csvResult,
+            queries,
+            queryResults: this.state.queryResults,
+            queryTranslations: this.state.queryTranslations,
+            queryResultsTable: this.state.queryResultsTable,
+            queryResultsJDBC: this.state.queryResultsJDBC,
+            selectedTabId: this.state.selectedTabId,
+            selectedTabName: this.state.selectedTabName,
+            messages: this.state.messages,
+            itemIdToExpandedRowMap: this.state.itemIdToExpandedRowMap,
+            searchQuery: this.state.searchQuery
+          });
+        }
+      )
+    }
+  };
+  //
+  // onJdbc = (queriesString: string): void => {
+  //   const queries: string[] = getQueries(queriesString);
+  //   if (queries.length > 0) {
+  //     const jdbcResultPromise = Promise.all(
+  //       queries.map((query: string) =>
+  //         this.httpClient
+  //           .post("../api/sql_console/queryjdbc", { query })
+  //           .catch((error: any) => {
+  //             this.setState({
+  //               messages: [
+  //                 {
+  //                   text: error.message,
+  //                   className: "error-message"
+  //                 }
+  //               ]
+  //             });
+  //           })
+  //       )
+  //     )
+  // }
+  //
+  // onCsv = (queriesString: string): void => {
+  //   const queries: string[] = getQueries(queriesString);
+  //   if (queries.length > 0) {
+  //     const csvResultPromise = Promise.all(
+  //       queries.map((query: string) =>
+  //         this.httpClient
+  //           .post("../api/sql_console/querycsv", { query })
+  //           .catch((error: any) => {
+  //             this.setState({
+  //               messages: [
+  //                 {
+  //                   text: error.message,
+  //                   className: "error-message"
+  //                 }
+  //               ]
+  //             });
+  //           })
+  //       )
+  //     ).then(
+  //       queryResultResponse => {
+  //         const queryResults: ResponseDetail<string>[] = queryResultResponse.map(queryResultResponse =>
+  //           this.processQueryResponse(queryResultResponse as IHttpResponse<ResponseData>));
+  //         const queryResultsTable: ResponseDetail<QueryResult>[] = getQueryResultsForTable(queryResults);
+  //         this.setState({
+  //           queries,
+  //           queryResults: queryResults,
+  //           queryResultsTable: queryResultsTable,
+  //           // queryResultsJDBC: [],
+  //           // queryResultsCSV: queryResults,
+  //           selectedTabId: getDefaultTabId(queryResults),
+  //           selectedTabName: getDefaultTabLabel(queryResults, queries[0]),
+  //           messages: this.getMessage(queryResultsTable),
+  //           itemIdToExpandedRowMap: {},
+  //           searchQuery: " "
+  //         })
+  //       }
+  //     )
+  // }
+
 
   onClear = (): void => {
     this.setState({
@@ -404,8 +545,6 @@ export class Main extends React.Component<MainProps, MainState> {
           <div className="sql-console-query-editor">
             <QueryEditor
               onRun={this.onRun}
-              onJdbc={this.onJdbc}
-              onCsv={this.onCsv}
               onTranslate={this.onTranslate}
               onClear={this.onClear}
               sqlQueriesString={this.props.sqlQueriesString ? this.props.sqlQueriesString : '' }
@@ -418,10 +557,11 @@ export class Main extends React.Component<MainProps, MainState> {
           <div className="sql-console-query-result">
             <QueryResults
               queries={this.state.queries}
+              queryString={this.props.sqlQueriesString}
               queryResults={this.state.queryResultsTable}
-              queryResultsRaw={getSelectedResults(this.state.queryResults, this.state.selectedTabId)}
-              // queryResultsJDBC={getSelectedResults(this.state.queryResultsJDBC, this.state.selectedTabId)}
-              // queryResultsCSV={getSelectedResults(this.state.queryResultsCSV, this.state.selectedTabId)}
+              queryResultsDSL={getSelectedResults(this.state.queryResults, this.state.selectedTabId)}
+              queryResultsJDBC={getSelectedResults(this.state.queryResultsJDBC, this.state.selectedTabId)}
+              queryResultsCSV={getSelectedResults(this.state.queryResultsCSV, this.state.selectedTabId)}
               messages={this.state.messages}
               selectedTabId={this.state.selectedTabId}
               selectedTabName={this.state.selectedTabName}
@@ -431,6 +571,9 @@ export class Main extends React.Component<MainProps, MainState> {
               updateExpandedMap={this.updateExpandedMap}
               searchQuery={this.state.searchQuery}
               tabsOverflow={false}
+              getDsl={this.getDsl}
+              getJdbc={this.getJdbc}
+              getCsv={this.getCsv}
             />
           </div>
         </div>

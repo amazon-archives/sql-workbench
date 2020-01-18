@@ -28,10 +28,11 @@ import {DEFAULT_NUM_RECORDS_PER_PAGE, MESSAGE_TAB_LABEL, TAB_CONTAINER_ID} from 
 
 interface QueryResultsProps {
   queries: string[];
+  queryString: string;
   queryResults: ResponseDetail<QueryResult>[];
-  queryResultsRaw: string;
-  // queryResultsJDBC: string;
-  // queryResultsCSV: string;
+  queryResultsDSL: string;
+  queryResultsJDBC: string;
+  queryResultsCSV: string;
   messages: QueryMessage[];
   selectedTabName: string;
   selectedTabId: string;
@@ -41,6 +42,9 @@ interface QueryResultsProps {
   onQueryChange: (object:any) => void;
   updateExpandedMap: (map: ItemIdToExpandedRowMap) => void;
   itemIdToExpandedRowMap: ItemIdToExpandedRowMap;
+  getDsl: (queryString: string) => void;
+  getJdbc: (queryString: string) => void;
+  getCsv: (queryString: string) => void;
 }
 
 interface QueryResultsState {
@@ -311,10 +315,11 @@ class QueryResults extends React.Component<QueryResultsProps, QueryResultsState>
           selectedTabId={this.props.selectedTabId}
           selectedTabName={this.props.selectedTabName}
           tabNames={this.tabNames}
+          queryString={this.props.queryString}
           queryResultSelected={queryResultSelected}
-          queryResultsRaw={this.props.queryResultsRaw}
-          // queryResultsJDBC={this.props.queryResultsJDBC}
-          // queryResultsCSV={this.props.queryResultsCSV}
+          queryResultsDSL={this.props.queryResultsDSL}
+          queryResultsJDBC={this.props.queryResultsJDBC}
+          queryResultsCSV={this.props.queryResultsCSV}
           messages={this.props.messages}
           searchQuery={this.props.searchQuery}
           onQueryChange={this.props.onQueryChange}
@@ -329,6 +334,9 @@ class QueryResults extends React.Component<QueryResultsProps, QueryResultsState>
           sortableProperties={this.sortableProperties}
           itemIdToExpandedRowMap={this.props.itemIdToExpandedRowMap}
           updateExpandedMap={this.props.updateExpandedMap}
+          getDsl={this.props.getDsl}
+          getJdbc={this.props.getJdbc}
+          getCsv={this.props.getCsv}
         />
       </EuiPanel>
     );
