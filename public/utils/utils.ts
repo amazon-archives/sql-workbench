@@ -32,7 +32,7 @@ export const getQueries = (queriesString: string): string[] => {
 export function getQueryIndex(query: string): string {
   if (query) {
     const queryFrom : string []= query.toLowerCase().split("from");
-    
+
     if (queryFrom.length > 1){
       return queryFrom[1].split(" ")[1];
     }
@@ -84,10 +84,10 @@ export function scrollToNode(nodeId: string): void {
 
 // Download functions
 export function onDownloadFile(data: any, fileFormat: string, fileName: string) {
-  const content = 'data:text/'+fileFormat+'json;charset=utf-8,' + data;
-  const encodedUri = encodeURI(content);
+  const encodedUri = encodeURI(data);
+  const content = 'data:text/'+fileFormat+';charset=utf-8,' + encodedUri;
   const link = document.createElement("a");
-  link.setAttribute('href', encodedUri);
+  link.setAttribute('href', content);
   link.setAttribute('download', fileName);
   document.body.appendChild(link);
   link.click();
