@@ -25,10 +25,13 @@ describe("<QueryEditor /> spec", () => {
     render(
       <QueryEditor
         onRun={() => {}}
+        onJdbc={() => {}}
+        onCsv={() => {}}
         onTranslate={() => {}}
         onClear={() => {}}
         queryTranslations={[]}
         sqlQueriesString={''}
+        queryResults={[]}
       />
     );
     expect(document.body.children[0]).toMatchSnapshot();
@@ -37,21 +40,32 @@ describe("<QueryEditor /> spec", () => {
 
   it('tests the action buttons', async() => {
     const onRun = jest.fn();
+    const onJdbc = jest.fn();
+    const onCsv = jest.fn();
     const onTranslate = jest.fn();
     const onClean = jest.fn();
 
     const { getByText } = render(
       <QueryEditor
             onRun= { onRun }
+            onJdbc={ onJdbc }
+            onCsv={ onCsv }
             onTranslate={ onTranslate }
             onClear={ onClean }
             queryTranslations={[]}
             sqlQueriesString={''}
+            queryResults={[]}
           />
       );
 
     fireEvent.click(getByText('Run'));
     expect(onRun).toHaveBeenCalledTimes(1);
+
+    fireEvent.click(getByText('JDBC'));
+    expect(onJdbc).toHaveBeenCalledTimes(1);
+
+    fireEvent.click(getByText('CSV'));
+    expect(onCsv).toHaveBeenCalledTimes(1);
 
     fireEvent.click(getByText('Translate'));
     expect(onTranslate).toHaveBeenCalledTimes(1);

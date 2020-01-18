@@ -20,13 +20,14 @@ import { EuiPanel, EuiTitle, EuiButton, EuiText, EuiFlexGroup, EuiFlexItem, EuiC
 import "brace/mode/mysql";
 import "brace/mode/json";
 import "../../ace-themes/sql_console";
-import { ResponseDetail, TranslateResult } from "../Main/main";
+import {ResponseDetail, TranslateResult} from "../Main/main";
 
 interface QueryEditorProps {
   onRun: (queriesString: string) => void;
   onTranslate: (queriesString: string) => void;
   onClear: () => void;
   queryTranslations: ResponseDetail<TranslateResult>[];
+  queryResults: ResponseDetail<string>[];
   sqlQueriesString: string;
 }
 
@@ -79,11 +80,11 @@ class QueryEditor extends React.Component<QueryEditorProps, QueryEditorState> {
           </EuiFlexItem>
           <EuiFlexItem
             grow={1}
-            className="translated-query-panel"
+            className="result-panel"
             paddingSize="none"
           >
             <EuiText className="translated-query-panel-header">
-              Elasticsearch query string
+              Result
             </EuiText>
             <EuiCodeEditor
               mode="json"
@@ -91,8 +92,8 @@ class QueryEditor extends React.Component<QueryEditorProps, QueryEditorState> {
               width="100%"
               height="18.5rem"
               value={this.props.queryTranslations
-                .map((queryTranslation: any) =>
-                  JSON.stringify(queryTranslation.data, null, 2)
+                .map((queryResults: any) =>
+                  JSON.stringify(queryResults.data, null, 2)
                 )
                 .join("\n")}
               showPrintMargin={false}
@@ -123,7 +124,9 @@ class QueryEditor extends React.Component<QueryEditorProps, QueryEditorState> {
                 this.props.onTranslate(this.state.sqlQueriesString)
               }
             >
-              <EuiButton className="sql-editor-button">Translate</EuiButton>
+              <EuiButton className="sql-editor-button">
+                Translate
+              </EuiButton>
             </EuiFlexItem>
             <EuiFlexItem
               grow={false}

@@ -57,10 +57,11 @@ import {QueryResult, QueryMessage, ItemIdToExpandedRowMap} from "../Main/main";
 const DoubleScrollbar = require('react-double-scrollbar');
 
 interface QueryResultsBodyProps {
+  queries: string[]
   queryResultSelected: QueryResult;
   queryResultsJDBC: string;
   queryResultsCSV: string;
-  queryResultsRaw: string;
+  queryResultsDSL: string;
   tabNames: string[];
   selectedTabName: string;
   selectedTabId: string;
@@ -78,6 +79,9 @@ interface QueryResultsBodyProps {
   onSort: (prop: string) => void;
   onQueryChange: (query: object) => void;
   updateExpandedMap: (map: ItemIdToExpandedRowMap) => void;
+  getDsl: (queryString: string[]) => void;
+  getJdbc: (queryString: string[]) => void;
+  getCsv: (queryString: string[]) => void;
 }
 
 interface QueryResultsBodyState {
@@ -138,8 +142,8 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
         title: "Download",
         items: [
           {
-            name: "Download JSON",
-            onClick: () => {this.onDownloadJSON();}
+            name: "Download DSL",
+            onClick: () => {this.onDownloadDSL();}
           },
           {
             name: "Download JDBC",
@@ -157,27 +161,30 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
   }
 
   // Actions for Download files
-  onDownloadJSON = (): void => {
-    if (this.props.queryResultsRaw) {
-      const jsonObject = JSON.parse(this.props.queryResultsRaw);
-      const data = JSON.stringify(jsonObject, undefined, 4);
-      onDownloadFile(data, "json", this.props.selectedTabName + ".json");
+  onDownloadDSL = (): void => {
+    if (!this.props.queryResultsDSL) {
+      this.props.getDsl(this.props.queries);
     }
+    const jsonObject = JSON.parse(this.props.queryResultsDSL);
+    const data = JSON.stringify(jsonObject, undefined, 4);
+    onDownloadFile(data, "json", this.props.selectedTabName + ".json");
   };
 
   onDownloadJDBC = (): void => {
-    if (this.props.queryResultsJDBC) {
-      const jsonObject = JSON.parse(this.props.queryResultsJDBC);
-      const data = JSON.stringify(jsonObject, undefined, 4);
-      onDownloadFile(data, "json", this.props.selectedTabName + ".json");
+    if (!this.props.queryResultsJDBC) {
+      this.props.getJdbc(this.props.queries);
     }
+    const jsonObject = JSON.parse(this.props.queryResultsJDBC);
+    const data = JSON.stringify(jsonObject, undefined, 4);
+    onDownloadFile(data, "json", this.props.selectedTabName + ".json");
   };
 
   onDownloadCSV = (): void => {
-    if (this.props.queryResultsCSV) {
-      const data = this.props.queryResultsCSV;
-      onDownloadFile(data, "csv", this.props.selectedTabName + ".csv");
+    if (!this.props.queryResultsCSV) {
+      this.props.getCsv(this.props.queries);
     }
+    const data = this.props.queryResultsCSV;
+    onDownloadFile(data, "csv", this.props.selectedTabName + ".csv");
   };
 
   // Actions for Downloads Button
