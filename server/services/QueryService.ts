@@ -63,4 +63,18 @@ export default class QueryService {
       return h.response({ ok: false, resp: err.message });
     }
   };
+
+  describeQueryText = async (request: Request, h: ResponseToolkit, err?: Error) => {
+    try {
+      const params = {
+        body: JSON.stringify(request.payload),
+      };
+      const { callWithRequest } = await this.client.getCluster(CLUSTER.SQL);
+      const createResponse = await callWithRequest(request, 'sql.getText', params);
+      return h.response({ ok: true, resp: JSON.stringify(createResponse) });
+
+    } catch (err) {
+      return h.response({ ok: false, resp: err.message });
+    }
+  };
 }
