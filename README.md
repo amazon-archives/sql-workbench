@@ -1,6 +1,6 @@
 # Open Distro for Elasticsearch SQL Kibana
 
-The Open Distro for Elasticsearch SQL Kibana plugin lets you query your Elasticsearch data using SQL syntax from a dedicated Kibana UI. You can then download data in JSON, JDBC, or CSV format.
+The Open Distro for Elasticsearch SQL Kibana plugin lets you query your Elasticsearch data using SQL syntax from a dedicated Kibana UI. You can then download data in JSON, JDBC, CSV and raw format.
 
 
 ## Documentation
@@ -26,8 +26,8 @@ Ultimately, your directory structure should look like this:
 ```md
 .
 ├── kibana
-├── kibana-extra
-│   └── sql-kibana-plugin
+│   └── plugins
+│       └── sql-kibana-plugin
 ```
 
 
