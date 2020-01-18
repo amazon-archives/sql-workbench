@@ -297,7 +297,7 @@ export class Main extends React.Component<MainProps, MainState> {
       })
 
     }
-  }
+  };
 
   onTranslate = (queriesString: string): void => {
     const queries: string[] = getQueries(queriesString);
@@ -342,8 +342,7 @@ export class Main extends React.Component<MainProps, MainState> {
     }
   };
 
-  getDsl = (queriesString: string): void => {
-    const queries: string[] = getQueries(queriesString);
+  getDsl = (queries: string[]): void => {
     if (queries.length > 0) {
       Promise.all(
         queries.map((query: string) =>
@@ -382,8 +381,7 @@ export class Main extends React.Component<MainProps, MainState> {
     }
   };
 
-  getJdbc = (queriesString: string): void => {
-    const queries: string[] = getQueries(queriesString);
+  getJdbc = (queries: string[]): void => {
     if (queries.length > 0) {
       Promise.all(
         queries.map((query: string) =>
@@ -422,8 +420,7 @@ export class Main extends React.Component<MainProps, MainState> {
     }
   };
 
-  getCsv = (queriesString: string): void => {
-    const queries: string[] = getQueries(queriesString);
+  getCsv = (queries: string[]): void => {
     if (queries.length > 0) {
       Promise.all(
         queries.map((query: string) =>
@@ -461,67 +458,6 @@ export class Main extends React.Component<MainProps, MainState> {
       )
     }
   };
-  //
-  // onJdbc = (queriesString: string): void => {
-  //   const queries: string[] = getQueries(queriesString);
-  //   if (queries.length > 0) {
-  //     const jdbcResultPromise = Promise.all(
-  //       queries.map((query: string) =>
-  //         this.httpClient
-  //           .post("../api/sql_console/queryjdbc", { query })
-  //           .catch((error: any) => {
-  //             this.setState({
-  //               messages: [
-  //                 {
-  //                   text: error.message,
-  //                   className: "error-message"
-  //                 }
-  //               ]
-  //             });
-  //           })
-  //       )
-  //     )
-  // }
-  //
-  // onCsv = (queriesString: string): void => {
-  //   const queries: string[] = getQueries(queriesString);
-  //   if (queries.length > 0) {
-  //     const csvResultPromise = Promise.all(
-  //       queries.map((query: string) =>
-  //         this.httpClient
-  //           .post("../api/sql_console/querycsv", { query })
-  //           .catch((error: any) => {
-  //             this.setState({
-  //               messages: [
-  //                 {
-  //                   text: error.message,
-  //                   className: "error-message"
-  //                 }
-  //               ]
-  //             });
-  //           })
-  //       )
-  //     ).then(
-  //       queryResultResponse => {
-  //         const queryResults: ResponseDetail<string>[] = queryResultResponse.map(queryResultResponse =>
-  //           this.processQueryResponse(queryResultResponse as IHttpResponse<ResponseData>));
-  //         const queryResultsTable: ResponseDetail<QueryResult>[] = getQueryResultsForTable(queryResults);
-  //         this.setState({
-  //           queries,
-  //           queryResults: queryResults,
-  //           queryResultsTable: queryResultsTable,
-  //           // queryResultsJDBC: [],
-  //           // queryResultsCSV: queryResults,
-  //           selectedTabId: getDefaultTabId(queryResults),
-  //           selectedTabName: getDefaultTabLabel(queryResults, queries[0]),
-  //           messages: this.getMessage(queryResultsTable),
-  //           itemIdToExpandedRowMap: {},
-  //           searchQuery: " "
-  //         })
-  //       }
-  //     )
-  // }
-
 
   onClear = (): void => {
     this.setState({
@@ -557,7 +493,6 @@ export class Main extends React.Component<MainProps, MainState> {
           <div className="sql-console-query-result">
             <QueryResults
               queries={this.state.queries}
-              queryString={this.props.sqlQueriesString}
               queryResults={this.state.queryResultsTable}
               queryResultsDSL={getSelectedResults(this.state.queryResults, this.state.selectedTabId)}
               queryResultsJDBC={getSelectedResults(this.state.queryResultsJDBC, this.state.selectedTabId)}

@@ -57,7 +57,7 @@ import {QueryResult, QueryMessage, ItemIdToExpandedRowMap} from "../Main/main";
 const DoubleScrollbar = require('react-double-scrollbar');
 
 interface QueryResultsBodyProps {
-  queryString: string;
+  queries: string[]
   queryResultSelected: QueryResult;
   queryResultsJDBC: string;
   queryResultsCSV: string;
@@ -79,9 +79,9 @@ interface QueryResultsBodyProps {
   onSort: (prop: string) => void;
   onQueryChange: (query: object) => void;
   updateExpandedMap: (map: ItemIdToExpandedRowMap) => void;
-  getDsl: (queryString: string) => void;
-  getJdbc: (queryString: string) => void;
-  getCsv: (queryString: string) => void;
+  getDsl: (queryString: string[]) => void;
+  getJdbc: (queryString: string[]) => void;
+  getCsv: (queryString: string[]) => void;
 }
 
 interface QueryResultsBodyState {
@@ -163,8 +163,7 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
   // Actions for Download files
   onDownloadDSL = (): void => {
     if (!this.props.queryResultsDSL) {
-      this.props.getDsl(this.props.queryString);
-      this.shouldComponentUpdate(this.props, this.state, this.context);
+      this.props.getDsl(this.props.queries);
     }
     const jsonObject = JSON.parse(this.props.queryResultsDSL);
     const data = JSON.stringify(jsonObject, undefined, 4);
@@ -173,8 +172,7 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
 
   onDownloadJDBC = (): void => {
     if (!this.props.queryResultsJDBC) {
-      this.props.getJdbc(this.props.queryString);
-      this.shouldComponentUpdate(this.props, this.state, this.context);
+      this.props.getJdbc(this.props.queries);
     }
     const jsonObject = JSON.parse(this.props.queryResultsJDBC);
     const data = JSON.stringify(jsonObject, undefined, 4);
@@ -183,8 +181,7 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
 
   onDownloadCSV = (): void => {
     if (!this.props.queryResultsCSV) {
-      this.props.getCsv(this.props.queryString);
-      this.shouldComponentUpdate(this.props, this.state, this.context);
+      this.props.getCsv(this.props.queries);
     }
     const data = this.props.queryResultsCSV;
     onDownloadFile(data, "csv", this.props.selectedTabName + ".csv");

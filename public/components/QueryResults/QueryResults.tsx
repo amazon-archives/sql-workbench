@@ -28,7 +28,6 @@ import {DEFAULT_NUM_RECORDS_PER_PAGE, MESSAGE_TAB_LABEL, TAB_CONTAINER_ID} from 
 
 interface QueryResultsProps {
   queries: string[];
-  queryString: string;
   queryResults: ResponseDetail<QueryResult>[];
   queryResultsDSL: string;
   queryResultsJDBC: string;
@@ -42,9 +41,9 @@ interface QueryResultsProps {
   onQueryChange: (object:any) => void;
   updateExpandedMap: (map: ItemIdToExpandedRowMap) => void;
   itemIdToExpandedRowMap: ItemIdToExpandedRowMap;
-  getDsl: (queryString: string) => void;
-  getJdbc: (queryString: string) => void;
-  getCsv: (queryString: string) => void;
+  getDsl: (queryString: string[]) => void;
+  getJdbc: (queryString: string[]) => void;
+  getCsv: (queryString: string[]) => void;
 }
 
 interface QueryResultsState {
@@ -312,10 +311,10 @@ class QueryResults extends React.Component<QueryResultsProps, QueryResultsState>
 
         {/*RESULTS TABLE*/}
         <QueryResultsBody
+          queries={this.props.queries}
           selectedTabId={this.props.selectedTabId}
           selectedTabName={this.props.selectedTabName}
           tabNames={this.tabNames}
-          queryString={this.props.queryString}
           queryResultSelected={queryResultSelected}
           queryResultsDSL={this.props.queryResultsDSL}
           queryResultsJDBC={this.props.queryResultsJDBC}
