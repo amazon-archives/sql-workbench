@@ -29,9 +29,10 @@ import {DEFAULT_NUM_RECORDS_PER_PAGE, MESSAGE_TAB_LABEL, TAB_CONTAINER_ID} from 
 interface QueryResultsProps {
   queries: string[];
   queryResults: ResponseDetail<QueryResult>[];
-  queryResultsDSL: string;
+  queryRawResponse: string;
   queryResultsJDBC: string;
   queryResultsCSV: string;
+  queryResultsTEXT: string;
   messages: QueryMessage[];
   selectedTabName: string;
   selectedTabId: string;
@@ -41,9 +42,10 @@ interface QueryResultsProps {
   onQueryChange: (object:any) => void;
   updateExpandedMap: (map: ItemIdToExpandedRowMap) => void;
   itemIdToExpandedRowMap: ItemIdToExpandedRowMap;
-  getDsl: (queryString: string[]) => void;
-  getJdbc: (queryString: string[]) => void;
-  getCsv: (queryString: string[]) => void;
+  getRawResponse: (queries: string[]) => void;
+  getJdbc: (queries: string[]) => void;
+  getCsv: (queries: string[]) => void;
+  getText: (queries: string[]) => void;
 }
 
 interface QueryResultsState {
@@ -316,9 +318,10 @@ class QueryResults extends React.Component<QueryResultsProps, QueryResultsState>
           selectedTabName={this.props.selectedTabName}
           tabNames={this.tabNames}
           queryResultSelected={queryResultSelected}
-          queryResultsDSL={this.props.queryResultsDSL}
+          queryRawResponse={this.props.queryRawResponse}
           queryResultsJDBC={this.props.queryResultsJDBC}
           queryResultsCSV={this.props.queryResultsCSV}
+          queryResultsTEXT={this.props.queryResultsTEXT}
           messages={this.props.messages}
           searchQuery={this.props.searchQuery}
           onQueryChange={this.props.onQueryChange}
@@ -333,9 +336,10 @@ class QueryResults extends React.Component<QueryResultsProps, QueryResultsState>
           sortableProperties={this.sortableProperties}
           itemIdToExpandedRowMap={this.props.itemIdToExpandedRowMap}
           updateExpandedMap={this.props.updateExpandedMap}
-          getDsl={this.props.getDsl}
+          getRawResponse={this.props.getRawResponse}
           getJdbc={this.props.getJdbc}
           getCsv={this.props.getCsv}
+          getText={this.props.getText}
         />
       </EuiPanel>
     );

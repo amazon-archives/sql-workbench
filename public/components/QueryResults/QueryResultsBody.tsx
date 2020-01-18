@@ -36,7 +36,7 @@ import {
   EuiHorizontalRule,
   EuiPopover,
   EuiButton,
-  EuiContextMenu
+  EuiContextMenu, sleep
 } from "@elastic/eui";
 import {
   isEmpty,
@@ -61,7 +61,8 @@ interface QueryResultsBodyProps {
   queryResultSelected: QueryResult;
   queryResultsJDBC: string;
   queryResultsCSV: string;
-  queryResultsDSL: string;
+  queryRawResponse: string;
+  queryResultsTEXT: string;
   tabNames: string[];
   selectedTabName: string;
   selectedTabId: string;
@@ -79,9 +80,10 @@ interface QueryResultsBodyProps {
   onSort: (prop: string) => void;
   onQueryChange: (query: object) => void;
   updateExpandedMap: (map: ItemIdToExpandedRowMap) => void;
-  getDsl: (queryString: string[]) => void;
-  getJdbc: (queryString: string[]) => void;
-  getCsv: (queryString: string[]) => void;
+  getRawResponse: (queries: string[]) => void;
+  getJdbc: (queries: string[]) => void;
+  getCsv: (queries: string[]) => void;
+  getText: (queries: string[]) => void;
 }
 
 interface QueryResultsBodyState {
@@ -142,8 +144,8 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
         title: "Download",
         items: [
           {
-            name: "Download DSL",
-            onClick: () => {this.onDownloadDSL();}
+            name: "Download ES Response",
+            onClick: () => {this.onDownloadRawResponse();}
           },
           {
             name: "Download JDBC",
@@ -152,6 +154,10 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
           {
             name: "Download CSV",
             onClick: () => {this.onDownloadCSV();}
+          },
+          {
+            name: "Download Text",
+            onClick: () => {this.onDownloadText();}
           }
         ]
       }
@@ -161,11 +167,12 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
   }
 
   // Actions for Download files
-  onDownloadDSL = (): void => {
-    if (!this.props.queryResultsDSL) {
-      this.props.getDsl(this.props.queries);
+  onDownloadRawResponse = (): void => {
+    if (!this.props.queryRawResponse) {
+      this.props.getRawResponse(this.props.queries);
+      sleep(10)
     }
-    const jsonObject = JSON.parse(this.props.queryResultsDSL);
+    const jsonObject = JSON.parse(this.props.queryRawResponse);
     const data = JSON.stringify(jsonObject, undefined, 4);
     onDownloadFile(data, "json", this.props.selectedTabName + ".json");
   };
@@ -173,6 +180,7 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
   onDownloadJDBC = (): void => {
     if (!this.props.queryResultsJDBC) {
       this.props.getJdbc(this.props.queries);
+      sleep(10)
     }
     const jsonObject = JSON.parse(this.props.queryResultsJDBC);
     const data = JSON.stringify(jsonObject, undefined, 4);
@@ -182,10 +190,20 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
   onDownloadCSV = (): void => {
     if (!this.props.queryResultsCSV) {
       this.props.getCsv(this.props.queries);
+      sleep(10)
     }
     const data = this.props.queryResultsCSV;
     onDownloadFile(data, "csv", this.props.selectedTabName + ".csv");
   };
+
+  onDownloadText = (): void => {
+    if (!this.props.queryResultsTEXT) {
+      this.props.getText(this.props.queries);
+      sleep(10)
+    }
+    const data = this.props.queryResultsTEXT;
+    onDownloadFile(data, "plain", this.props.selectedTabName + "");
+  }
 
   // Actions for Downloads Button
   onDownloadButtonClick = (): void => {
