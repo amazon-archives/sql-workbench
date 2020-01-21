@@ -170,7 +170,7 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
   onDownloadRawResponse = (): void => {
     if (!this.props.queryRawResponse) {
       this.props.getRawResponse(this.props.queries);
-      sleep(10)
+      sleep(10).then(() => this.render())
     }
     const jsonObject = JSON.parse(this.props.queryRawResponse);
     const data = JSON.stringify(jsonObject, undefined, 4);
@@ -180,7 +180,7 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
   onDownloadJDBC = (): void => {
     if (!this.props.queryResultsJDBC) {
       this.props.getJdbc(this.props.queries);
-      sleep(10)
+      sleep(10).then(() => this.render())
     }
     const jsonObject = JSON.parse(this.props.queryResultsJDBC);
     const data = JSON.stringify(jsonObject, undefined, 4);
@@ -190,7 +190,7 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
   onDownloadCSV = (): void => {
     if (!this.props.queryResultsCSV) {
       this.props.getCsv(this.props.queries);
-      sleep(10)
+      sleep(10).then(() => this.render())
     }
     const data = this.props.queryResultsCSV;
     onDownloadFile(data, "csv", this.props.selectedTabName + ".csv");
@@ -199,11 +199,11 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
   onDownloadText = (): void => {
     if (!this.props.queryResultsTEXT) {
       this.props.getText(this.props.queries);
-      sleep(10)
+      sleep(10).then(() => this.render())
     }
     const data = this.props.queryResultsTEXT;
     onDownloadFile(data, "plain", this.props.selectedTabName + "");
-  }
+  };
 
   // Actions for Downloads Button
   onDownloadButtonClick = (): void => {
