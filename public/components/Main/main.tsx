@@ -95,6 +95,29 @@ export function getQueryResultsForTable(queryResultsRaw: ResponseDetail<string>[
         const responseObj = queryResultResponseDetail.data ? JSON.parse(queryResultResponseDetail.data) : '';
         const hits = _.get(responseObj, "hits[hits]", []);
         let databaseFields: string[] = [];
+
+        if (_.has(responseObj, "aggregations")) {
+          const aggregations = _.get(responseObj, "aggregations", {});
+          let databaseRecord: { [key: string]: any } = {};
+          databaseFields = Object.keys(aggregations);
+          databaseFields.unshift("id");
+
+          databaseRecord["id"] = "value";
+          for (let i = 1; i < databaseFields.length; i++) {
+            const field: string = databaseFields[i];
+            databaseRecord[field] = _.get(responseObj, "aggregations[" + field + "][value]");
+          }
+          databaseRecords.push(databaseRecord);
+          return {
+            fulfilled: queryResultResponseDetail.fulfilled,
+            data: {
+              fields: databaseFields,
+              records: databaseRecords,
+              message: SUCCESS_MESSAGE
+            }
+          }
+        }
+
         if (hits.length > 0) {
           databaseFields=(Object.keys(hits[0]["_source"]));
           databaseFields.unshift("id");
@@ -354,6 +377,7 @@ export class Main extends React.Component<MainProps, MainState> {
           const rawResponseResult: ResponseDetail<string>[] = rawResponse.map(rawResponse =>
             this.processQueryResponse(rawResponse as IHttpResponse<ResponseData>));
           this.setState({
+            queries: queries,
             queryResults: rawResponseResult
           });
         }
@@ -383,6 +407,7 @@ export class Main extends React.Component<MainProps, MainState> {
           const jdbcResult: ResponseDetail<string>[] = jdbcResponse.map(jdbcResponse =>
             this.processQueryResponse(jdbcResponse as IHttpResponse<ResponseData>));
           this.setState({
+            queries: queries,
             queryResultsJDBC: jdbcResult
           });
         }
@@ -412,6 +437,7 @@ export class Main extends React.Component<MainProps, MainState> {
           const csvResult: ResponseDetail<string>[] = csvResponse.map(csvResponse =>
             this.processQueryResponse(csvResponse as IHttpResponse<ResponseData>));
           this.setState({
+            queries: queries,
             queryResultsCSV: csvResult
           });
         }
@@ -441,6 +467,7 @@ export class Main extends React.Component<MainProps, MainState> {
           const textResult: ResponseDetail<string>[] = textResponse.map(textResponse =>
             this.processQueryResponse(textResponse as IHttpResponse<ResponseData>));
           this.setState({
+            queries: queries,
             queryResultsTEXT: textResult
           });
         }

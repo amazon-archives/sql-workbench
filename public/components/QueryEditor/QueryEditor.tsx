@@ -60,7 +60,7 @@ class QueryEditor extends React.Component<QueryEditorProps, QueryEditorState> {
 
         <EuiFlexGroup gutterSize="none">
           <EuiFlexItem grow={1} className="sql-query-panel" paddingSize="none">
-            <EuiText className="sql-query-panel-header">SQL</EuiText>
+            <EuiText className="sql-query-panel-header">SQL Query</EuiText>
             <EuiCodeEditor
               mode="mysql"
               theme="sql_console"
@@ -84,7 +84,7 @@ class QueryEditor extends React.Component<QueryEditorProps, QueryEditorState> {
             paddingSize="none"
           >
             <EuiText className="translated-query-panel-header">
-              Result
+              Translation
             </EuiText>
             <EuiCodeEditor
               mode="json"
