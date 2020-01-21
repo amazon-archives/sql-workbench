@@ -36,7 +36,7 @@ function renderQueryResults(mockQueryResults : ResponseDetail<QueryResult>[],
         queries={mockQueries}
         queryResults={mockQueryResults}
         queryResultsJDBC={''}
-        queryResultsRaw={''}
+        queryRawResponse={''}
         queryResultsCSV={''}
         messages={[]}
         selectedTabId={'0'}
@@ -47,6 +47,9 @@ function renderQueryResults(mockQueryResults : ResponseDetail<QueryResult>[],
         updateExpandedMap={updateExpandedMap}
         searchQuery={mockSearchQuery}
         tabsOverflow={true}
+        getRawResponse={}
+        getJdbc={}
+        getCsv={}
       />
         ),
     };

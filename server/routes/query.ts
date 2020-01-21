@@ -15,7 +15,7 @@
 
 import { Server } from 'hapi-latest';
 import QueryService from '../services/QueryService';
-import { ROUTE_PATH_QUERY, ROUTE_PATH_QUERY_CSV, ROUTE_PATH_QUERY_JDBC } from "../utils/constants";
+import {ROUTE_PATH_QUERY, ROUTE_PATH_QUERY_CSV, ROUTE_PATH_QUERY_JDBC, ROUTE_PATH_QUERY_TEXT} from "../utils/constants";
 
 export default function query(server: Server, service: QueryService) {
   server.route({
@@ -32,5 +32,10 @@ export default function query(server: Server, service: QueryService) {
     path: ROUTE_PATH_QUERY_JDBC,
     method: 'POST',
     handler: service.describeQueryJdbc
+  });
+  server.route({
+    path: ROUTE_PATH_QUERY_TEXT,
+    method: 'POST',
+    handler: service.describeQueryText
   });
 }

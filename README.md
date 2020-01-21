@@ -26,8 +26,8 @@ Ultimately, your directory structure should look like this:
 ```md
 .
 ├── kibana
-├── kibana-extra
-│   └── sql-kibana-plugin
+│   └── plugins
+│       └── sql-kibana-plugin
 ```
 
 
