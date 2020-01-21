@@ -20,7 +20,7 @@ exports[`<QueryEditor /> spec renders the component 1`] = `
         <div
           class="euiText euiText--medium sql-query-panel-header"
         >
-          SQL
+          SQL Query
         </div>
         <div
           class="euiCodeEditorWrapper"
@@ -138,13 +138,13 @@ exports[`<QueryEditor /> spec renders the component 1`] = `
         </div>
       </div>
       <div
-        class="euiFlexItem euiFlexItem--flexGrow1 translated-query-panel"
+        class="euiFlexItem euiFlexItem--flexGrow1 result-panel"
         paddingsize="none"
       >
         <div
           class="euiText euiText--medium translated-query-panel-header"
         >
-          Elasticsearch query string
+          Translation
         </div>
         <div
           class="euiCodeEditorWrapper"
