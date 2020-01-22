@@ -345,11 +345,36 @@ export class Main extends React.Component<MainProps, MainState> {
       Promise.all([translationPromise]).then(([translationResponse]) => {
         const translationResult: ResponseDetail<TranslateResult>[] = translationResponse.map(translationResponse =>
           this.processTranslateResponse(translationResponse as IHttpResponse<ResponseData>));
+        const shouldCleanResults = queries == this.state.queries;
+        if (shouldCleanResults) {
+          this.setState({
+            queries: queries,
+            queryTranslations: translationResult,
+            messages: this.getTranslateMessage(translationResult)
+          })
+        } else {
+          this.setState({
+            queries: queries,
+            queryTranslations: translationResult,
+            messages: this.getTranslateMessage(translationResult),
 
+            // clean all the results generated from the last cached query
+            queryResults: [],
+            queryResultsTable: [],
+            selectedTabName: MESSAGE_TAB_LABEL,
+            selectedTabId: MESSAGE_TAB_LABEL,
+            itemIdToExpandedRowMap: {},
+            queryResultsJDBC: [],
+            queryResultsCSV: [],
+            queryResultsTEXT: [],
+            searchQuery: "",
+
+          })
+        }
         this.setState({
           queries: queries,
           queryTranslations: translationResult,
-          messages: this.getTranslateMessage(translationResult)
+          messages: this.getTranslateMessage(translationResult),
         });
       });
     }
