@@ -19,7 +19,7 @@
     "lint": "tslint .",
     "start": "plugin-helpers start",
     "test:server": "plugin-helpers test:server",
-    "test:browser": "testcafe chrome public/__tests__",
+    "test:browser": "plugin-helpers test:browser",
     "test:jest": "NODE_PATH=../../node_modules ../../node_modules/.bin/jest --config ./test/jest.config.js",
     "build": "plugin-helpers build"
   },
@@ -67,6 +67,7 @@
     "jest-cli": "24.9.0",
     "jest-raw-loader": "^1.0.1",
     "lint-staged": "^9.2.0",
+    "mutationobserver-shim": "^0.3.3",
     "prettier": "1.18.2",
     "ts-jest": "^23.1.4",
     "ts-loader": "^3.5.0",
