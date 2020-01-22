@@ -29,7 +29,6 @@ describe("<QueryEditor /> spec", () => {
         onClear={() => {}}
         queryTranslations={[]}
         sqlQueriesString={''}
-        queryResults={[]}
       />
     );
     expect(document.body.children[0]).toMatchSnapshot();
@@ -48,7 +47,6 @@ describe("<QueryEditor /> spec", () => {
             onClear={ onClean }
             queryTranslations={[]}
             sqlQueriesString={''}
-            queryResults={[]}
           />
       );
 
