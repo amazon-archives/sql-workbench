@@ -205,13 +205,13 @@ class QueryResults extends React.Component<QueryResultsProps, QueryResultsState>
       <EuiIcon
         onClick={this.showTabsMenu}
         type={"arrowDown"}
-        data-test-subj={"slide-down"}
+        data-test-subj="slide-down"
       />
     );
     const tabArrowRight = (
       <EuiIcon
         onClick={this.slideTabsRight}
-        data-test-subj={"slide-right"}
+        data-test-subj="slide-right"
         type={"arrowRight"}
         disabled={false}
       />
@@ -219,7 +219,7 @@ class QueryResults extends React.Component<QueryResultsProps, QueryResultsState>
     const tabArrowLeft = (
       <EuiIcon
         onClick={this.slideTabsLeft}
-        data-test-subj={"slide-left"}
+        data-test-subj="slide-left"
         type={"arrowLeft"}
         disabled={false}
       />

@@ -13,6 +13,7 @@
  *   permissions and limitations under the License.
  */
 
+import 'regenerator-runtime';
 import { Request, ResponseToolkit } from 'hapi-latest';
 import { CLUSTER } from './utils/constants';
 
