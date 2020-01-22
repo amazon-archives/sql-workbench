@@ -265,7 +265,7 @@ export class Main extends React.Component<MainProps, MainState> {
 
     if (queries.length > 0) {
 
-      const dslResultPromise = Promise.all(
+      const esRawResponsePromise = Promise.all(
         queries.map((query: string) =>
           this.httpClient
             .post("../api/sql_console/query", {query})
@@ -299,20 +299,20 @@ export class Main extends React.Component<MainProps, MainState> {
         )
       );
 
-      Promise.all([dslResultPromise, translationPromise]).then(([dslResponse, translationResponse]) => {
-        const dslResult: ResponseDetail<string>[] = dslResponse.map(dslResponse =>
-          this.processQueryResponse(dslResponse as IHttpResponse<ResponseData>));
-        const resultTable: ResponseDetail<QueryResult>[] = getQueryResultsForTable(dslResult);
+      Promise.all([esRawResponsePromise, translationPromise]).then(([esRawResponse, translationResponse]) => {
+        const esRawResult: ResponseDetail<string>[] = esRawResponse.map(esRawResponse =>
+          this.processQueryResponse(esRawResponse as IHttpResponse<ResponseData>));
+        const resultTable: ResponseDetail<QueryResult>[] = getQueryResultsForTable(esRawResult);
         const translationResult: ResponseDetail<TranslateResult>[] = translationResponse.map(translationResponse =>
           this.processTranslateResponse(translationResponse as IHttpResponse<ResponseData>));
 
         this.setState({
           queries: queries,
-          queryResults: dslResult,
+          queryResults: esRawResult,
           queryTranslations: translationResult,
           queryResultsTable: resultTable,
-          selectedTabId: getDefaultTabId(dslResult),
-          selectedTabName: getDefaultTabLabel(dslResult, queries[0]),
+          selectedTabId: getDefaultTabId(esRawResult),
+          selectedTabName: getDefaultTabLabel(esRawResult, queries[0]),
           messages: this.getMessage(resultTable)
         });
       })
