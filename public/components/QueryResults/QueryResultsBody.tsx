@@ -36,7 +36,7 @@ import {
   EuiHorizontalRule,
   EuiPopover,
   EuiButton,
-  EuiContextMenu, sleep
+  EuiContextMenu
 } from "@elastic/eui";
 import {
   isEmpty,

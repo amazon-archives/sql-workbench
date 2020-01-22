@@ -353,13 +353,13 @@ export class Main extends React.Component<MainProps, MainState> {
         const shouldCleanResults = queries == this.state.queries;
         if (shouldCleanResults) {
           this.setState({
-            queries: queries,
+            queries,
             queryTranslations: translationResult,
             messages: this.getTranslateMessage(translationResult)
           })
         } else {
           this.setState({
-            queries: queries,
+            queries,
             queryTranslations: translationResult,
             messages: this.getTranslateMessage(translationResult),
 
@@ -401,7 +401,7 @@ export class Main extends React.Component<MainProps, MainState> {
           const rawResponseResult: ResponseDetail<string>[] = rawResponse.map(rawResponse =>
             this.processQueryResponse(rawResponse as IHttpResponse<ResponseData>));
           this.setState({
-            queries: queries,
+            queries,
             queryResults: rawResponseResult
           }, () => console.log("Successfully updated the states"));
         }
@@ -431,7 +431,7 @@ export class Main extends React.Component<MainProps, MainState> {
           const jdbcResult: ResponseDetail<string>[] = jdbcResponse.map(jdbcResponse =>
             this.processQueryResponse(jdbcResponse as IHttpResponse<ResponseData>));
           this.setState({
-            queries: queries,
+            queries,
             queryResultsJDBC: jdbcResult
           }, () => console.log("Successfully updated the states"));
         }
@@ -461,7 +461,7 @@ export class Main extends React.Component<MainProps, MainState> {
           const csvResult: ResponseDetail<string>[] = csvResponse.map(csvResponse =>
             this.processQueryResponse(csvResponse as IHttpResponse<ResponseData>));
           this.setState({
-            queries: queries,
+            queries,
             queryResultsCSV: csvResult
           }, () => console.log("Successfully updated the states"));
         }
@@ -491,7 +491,7 @@ export class Main extends React.Component<MainProps, MainState> {
           const textResult: ResponseDetail<string>[] = textResponse.map(textResponse =>
             this.processQueryResponse(textResponse as IHttpResponse<ResponseData>));
           this.setState({
-            queries: queries,
+            queries,
             queryResultsTEXT: textResult
           }, () => console.log("Successfully updated the states"));
         }
@@ -527,7 +527,6 @@ export class Main extends React.Component<MainProps, MainState> {
               onClear={this.onClear}
               sqlQueriesString={this.props.sqlQueriesString ? this.props.sqlQueriesString : '' }
               queryTranslations={this.state.queryTranslations}
-              queryResults={this.state.queryResults}
             />
           </div>
 

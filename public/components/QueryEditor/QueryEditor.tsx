@@ -27,7 +27,6 @@ interface QueryEditorProps {
   onTranslate: (queriesString: string) => void;
   onClear: () => void;
   queryTranslations: ResponseDetail<TranslateResult>[];
-  queryResults: ResponseDetail<string>[];
   sqlQueriesString: string;
 }
 
