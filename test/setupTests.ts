@@ -13,8 +13,4 @@
  * permissions and limitations under the License.
  */
 
-//import '@testing-library/react';
-//import '@testing-library/jest-dom/extend-expect';
-
 require("babel-polyfill");
-

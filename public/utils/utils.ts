@@ -13,7 +13,7 @@
  *   permissions and limitations under the License.
  */
 
-import {QueryMessage, ItemIdToExpandedRowMap, ResponseDetail} from '../components/Main/main';
+import {ItemIdToExpandedRowMap, QueryMessage, ResponseDetail} from '../components/Main/main';
 import {MESSAGE_TAB_LABEL} from "./constants";
 
 // It returns an array of queries
@@ -26,7 +26,7 @@ export const getQueries = (queriesString: string): string[] => {
     .split(';')
     .map((query: string) => query.trim())
     .filter((query: string) => query != '');
-}
+};
 
 // It retrieves the index from the query. The index is used to label the query results tab
 export function getQueryIndex(query: string): string {
@@ -58,7 +58,7 @@ export function getSelectedResults (results: ResponseDetail<any>[], selectedTabI
     return selectedResult && selectedResult.fulfilled ? selectedResult.data : undefined;
   }
   return undefined;
-};
+}
 
 export function isEmpty (obj: object) : boolean {
   for (const key in obj) {
@@ -126,11 +126,9 @@ export function createRowTree(item: any, rootId: string) {
     for (let j = 0; j < Object.keys(item).length; j++) {
       const itemKey: string = Object.keys(item)[j];
       let data = item[itemKey];
-      let name = itemKey;
-
       // If value of field is an array or an object it gets added to the tree
       if (data !== null && (Array.isArray(data) || typeof data === 'object')) {
-        const firstNode = new Node(data, rootId, name, root);
+        const firstNode = new Node(data, rootId, itemKey, root);
         root.children.push(firstNode);
       }
     }
@@ -147,9 +145,8 @@ export function getRowTree(nodeId: string, item: any, expandedRowMap: ItemIdToEx
 
 export function findRootNode(node: Node, expandedRowMap: ItemIdToExpandedRowMap){
   const rootNodeId = node.nodeId.split('_')[0];
-  const rootNode = expandedRowMap[rootNodeId].nodes._root;
-  return rootNode;
-};
+  return expandedRowMap[rootNodeId].nodes._root;
+}
 
 /********* TABS Functions *********/
 //It checks if an element needs a scrolling
@@ -159,4 +156,4 @@ export function needsScrolling(elementId: string){
     return false;
   }
   return element.scrollWidth > element.offsetWidth;
-};
+}

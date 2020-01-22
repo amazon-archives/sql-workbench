@@ -17,42 +17,42 @@ import React, {Fragment} from "react";
 // @ts-ignore
 import {SortableProperties} from "@elastic/eui/lib/services";
 //@ts-ignore
-import {EuiSideNav,EuiSearchBar,EuiCodeEditor} from "@elastic/eui/lib";
+import {EuiCodeEditor, EuiSearchBar, EuiSideNav} from "@elastic/eui/lib";
 import {
+  EuiButton,
+  EuiButtonIcon,
+  EuiContextMenu,
+  EuiFlexGroup,
+  EuiFlexItem,
+  EuiHorizontalRule,
+  EuiLink,
+  EuiPopover,
+  EuiSpacer,
   EuiTable,
   EuiTableBody,
   EuiTableHeader,
   EuiTableHeaderCell,
+  EuiTablePagination,
   EuiTableRow,
   EuiTableRowCell,
-  Pager,
-  EuiTablePagination,
-  EuiSpacer,
-  EuiFlexItem,
-  EuiFlexGroup,
-  EuiButtonIcon,
   EuiText,
-  EuiLink,
-  EuiHorizontalRule,
-  EuiPopover,
-  EuiButton,
-  EuiContextMenu
+  Pager
 } from "@elastic/eui";
 import {
-  isEmpty,
   capitalizeFirstLetter,
+  findRootNode,
   getMessageString,
-  scrollToNode,
-  onDownloadFile,
   getRowTree,
-  findRootNode
+  isEmpty,
+  Node,
+  onDownloadFile,
+  scrollToNode
 } from "../../utils/utils";
 import "brace/mode/mysql";
 import "brace/mode/json";
 import "../../ace-themes/sql_console";
-import {PAGE_OPTIONS, SMALL_COLUMN_WIDTH, COLUMN_WIDTH} from "../../utils/constants";
-import { Node } from "../../utils/utils";
-import {QueryResult, QueryMessage, ItemIdToExpandedRowMap} from "../Main/main";
+import {COLUMN_WIDTH, PAGE_OPTIONS, SMALL_COLUMN_WIDTH} from "../../utils/constants";
+import {ItemIdToExpandedRowMap, QueryMessage, QueryResult} from "../Main/main";
 
 const DoubleScrollbar = require('react-double-scrollbar');
 
@@ -138,32 +138,38 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
     this.panels = [];
 
     // Downloads Action button
-    const panelTree = [
+    this.panels = [
       {
         id: 0,
         title: "Download",
         items: [
           {
             name: "Download ES Response",
-            onClick: () => {this.onDownloadRawResponse();}
+            onClick: () => {
+              this.onDownloadRawResponse();
+            }
           },
           {
             name: "Download JDBC",
-            onClick: () => {this.onDownloadJDBC();}
+            onClick: () => {
+              this.onDownloadJDBC();
+            }
           },
           {
             name: "Download CSV",
-            onClick: () => {this.onDownloadCSV();}
+            onClick: () => {
+              this.onDownloadCSV();
+            }
           },
           {
             name: "Download Text",
-            onClick: () => {this.onDownloadText();}
+            onClick: () => {
+              this.onDownloadText();
+            }
           }
         ]
       }
     ];
-
-    this.panels = panelTree;
   }
 
   // Actions for Download files
@@ -666,7 +672,7 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
       columns = this.addExpandingIconColumn(Object.keys(data));
     }
 
-    const dataTable = (
+    return (
       <div>
         <EuiTable className="sideNav-table">
           <EuiTableHeader className="table-header">
@@ -679,8 +685,6 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
         </EuiTable>
       </div>
     );
-
-    return dataTable;
   };
 
     renderNav(node: Node, table_name: string, expandedRowMap: ItemIdToExpandedRowMap) {

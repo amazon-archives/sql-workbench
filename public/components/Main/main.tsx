@@ -1,27 +1,27 @@
-  /*
- *   Copyright 2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- *   Licensed under the Apache License, Version 2.0 (the "License").
- *   You may not use this file except in compliance with the License.
- *   A copy of the License is located at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- *   or in the "license" file accompanying this file. This file is distributed
- *   on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- *   express or implied. See the License for the specific language governing
- *   permissions and limitations under the License.
- */
+/*
+*   Copyright 2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+*
+*   Licensed under the Apache License, Version 2.0 (the "License").
+*   You may not use this file except in compliance with the License.
+*   A copy of the License is located at
+*
+*       http://www.apache.org/licenses/LICENSE-2.0
+*
+*   or in the "license" file accompanying this file. This file is distributed
+*   on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+*   express or implied. See the License for the specific language governing
+*   permissions and limitations under the License.
+*/
 
 import React from "react";
-import { EuiSpacer } from "@elastic/eui";
-import { IHttpResponse, IHttpService } from "angular";
+import {EuiSpacer} from "@elastic/eui";
+import {IHttpResponse, IHttpService} from "angular";
 import _ from "lodash";
 import Header from "../Header/Header";
 import QueryEditor from "../QueryEditor/QueryEditor";
 import QueryResults from "../QueryResults/QueryResults";
-import { getQueries, getDefaultTabId, getDefaultTabLabel, getSelectedResults, Tree } from "../../utils/utils";
-import { MESSAGE_TAB_LABEL } from "../../utils/constants";
+import {getDefaultTabId, getDefaultTabLabel, getQueries, getSelectedResults, Tree} from "../../utils/utils";
+import {MESSAGE_TAB_LABEL} from "../../utils/constants";
 
 interface ResponseData {
   ok: boolean;
@@ -240,24 +240,22 @@ export class Main extends React.Component<MainProps, MainState> {
 
   // It returns the error or successful message to display in the Message Tab
   getMessage( queryResultsForTable: ResponseDetail<QueryResult>[] ): Array<QueryMessage> {
-    const messages = queryResultsForTable.map(queryResult => {
+    return queryResultsForTable.map(queryResult => {
       return {
 
-        text: queryResult.fulfilled && queryResult.data ? queryResult.data.message : queryResult.errorMessage ,
+        text: queryResult.fulfilled && queryResult.data ? queryResult.data.message : queryResult.errorMessage,
         className: queryResult.fulfilled ? "successful-message" : "error-message"
       };
     });
-    return messages;
   }
 
   getTranslateMessage( translationResult: ResponseDetail<TranslateResult>[] ): Array<QueryMessage> {
-    const message = translationResult.map(translation => {
+    return translationResult.map(translation => {
       return {
         text: translation.data ? SUCCESS_MESSAGE : translation.errorMessage,
         className: translation.fulfilled ? "successful-message" : "error-message"
       }
     });
-    return message;
   }
 
   onRun = (queriesString: string): void => {
