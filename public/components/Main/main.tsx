@@ -313,8 +313,13 @@ export class Main extends React.Component<MainProps, MainState> {
           queryResultsTable: resultTable,
           selectedTabId: getDefaultTabId(esRawResult),
           selectedTabName: getDefaultTabLabel(esRawResult, queries[0]),
-          messages: this.getMessage(resultTable)
-        });
+          messages: this.getMessage(resultTable),
+          itemIdToExpandedRowMap: {},
+          queryResultsJDBC: [],
+          queryResultsCSV: [],
+          queryResultsTEXT: [],
+          searchQuery: ""
+        }, () => console.log("Successfully updated the states")); // added callback function to handle async issues
       })
 
     }
@@ -367,15 +372,9 @@ export class Main extends React.Component<MainProps, MainState> {
             queryResultsJDBC: [],
             queryResultsCSV: [],
             queryResultsTEXT: [],
-            searchQuery: "",
-
-          })
+            searchQuery: ""
+          }, () => console.log("Successfully updated the states"))
         }
-        this.setState({
-          queries: queries,
-          queryTranslations: translationResult,
-          messages: this.getTranslateMessage(translationResult),
-        });
       });
     }
   };
@@ -404,7 +403,7 @@ export class Main extends React.Component<MainProps, MainState> {
           this.setState({
             queries: queries,
             queryResults: rawResponseResult
-          });
+          }, () => console.log("Successfully updated the states"));
         }
       )
     }
@@ -434,7 +433,7 @@ export class Main extends React.Component<MainProps, MainState> {
           this.setState({
             queries: queries,
             queryResultsJDBC: jdbcResult
-          });
+          }, () => console.log("Successfully updated the states"));
         }
       )
     }
@@ -464,7 +463,7 @@ export class Main extends React.Component<MainProps, MainState> {
           this.setState({
             queries: queries,
             queryResultsCSV: csvResult
-          });
+          }, () => console.log("Successfully updated the states"));
         }
       )
     }
@@ -494,7 +493,7 @@ export class Main extends React.Component<MainProps, MainState> {
           this.setState({
             queries: queries,
             queryResultsTEXT: textResult
-          });
+          }, () => console.log("Successfully updated the states"));
         }
       )
     }
