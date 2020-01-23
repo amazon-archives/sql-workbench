@@ -204,7 +204,7 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
       this.props.getText(this.props.queries);
     }
     const data = this.props.queryResultsTEXT;
-    onDownloadFile(data, "plain", this.props.selectedTabName + "");
+    onDownloadFile(data, "plain", this.props.selectedTabName + ".txt");
   };
 
   // Actions for Downloads Button
