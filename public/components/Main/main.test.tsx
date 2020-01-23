@@ -103,5 +103,6 @@ describe("<Main /> spec", () => {
     };
     await asyncTest();
     expect(client.post).not.toHaveBeenCalled();
+    expect(document.body.children[0]).toMatchSnapshot();
   });
 });

@@ -205,13 +205,11 @@ class QueryResults extends React.Component<QueryResultsProps, QueryResultsState>
       <EuiIcon
         onClick={this.showTabsMenu}
         type={"arrowDown"}
-        data-test-subj="slide-down"
       />
     );
     const tabArrowRight = (
       <EuiIcon
         onClick={this.slideTabsRight}
-        data-test-subj="slide-right"
         type={"arrowRight"}
         disabled={false}
       />
@@ -268,7 +266,14 @@ class QueryResults extends React.Component<QueryResultsProps, QueryResultsState>
           {/*ARROW LEFT*/}
           {this.state.tabsOverflow && (
             <div className="tab-arrow-down-container">
-              <EuiFlexItem grow={false}>{tabArrowLeft}</EuiFlexItem>
+              <EuiFlexItem grow={false}>
+                <EuiPopover
+                  button={tabArrowLeft}
+                  data-test-subj="slide-left"
+                >
+                  <EuiContextMenuPanel items={tabsItems} />
+                </EuiPopover>
+              </EuiFlexItem>
             </div>
           )}
 
@@ -291,11 +296,19 @@ class QueryResults extends React.Component<QueryResultsProps, QueryResultsState>
           {this.state.tabsOverflow && (
             <div className="tab-arrow-down-container">
               <EuiFlexGroup>
-                <EuiFlexItem grow={false}>{tabArrowRight}</EuiFlexItem>
+                <EuiFlexItem grow={false}>
+                  <EuiPopover
+                    button={tabArrowRight}
+                    data-test-subj="slide-right"
+                  >
+                    <EuiContextMenuPanel items={tabsItems} />
+                  </EuiPopover>
+                </EuiFlexItem>
                 <EuiFlexItem grow={false}>
                   <EuiPopover
                     id="singlePanel"
                     button={tabArrowDown}
+                    data-test-subj="slide-down"
                     isOpen={this.state.isPopoverOpen}
                     closePopover={this.closePopover}
                     panelPaddingSize="none"

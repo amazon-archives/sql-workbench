@@ -50,6 +50,8 @@ describe("<QueryEditor /> spec", () => {
           />
       );
 
+    expect(document.body.children[0]).toMatchSnapshot();
+
     fireEvent.click(getByText('Run'));
     expect(onRun).toHaveBeenCalledTimes(1);
 
