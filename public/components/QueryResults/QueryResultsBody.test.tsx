@@ -156,11 +156,11 @@ describe("<QueryResultsBody /> spec", () => {
     expect(getByText("Download ES Response"));
     expect(getByText("Download JDBC"));
     expect(getByText("Download CSV"));
-    expect(getByText("Download TEXT"));
-    await fireEvent.click(getByText("Download JSON"));
+    expect(getByText("Download Text"));
+    await fireEvent.click(getByText("Download ES Response"));
     await fireEvent.click(getByText("Download JDBC"));
     await fireEvent.click(getByText("Download CSV"));
-    await fireEvent.click(getByText("Download TEXT"));
+    await fireEvent.click(getByText("Download Text"));
 
     // Test search field
     const searchField = getByPlaceholderText('Search');

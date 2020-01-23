@@ -102,6 +102,8 @@ describe("<QueryResults with data/> spec", () => {
       renderQueryResults(mockQueryResults, mockQueries, mockSearchQuery, onSelectedTabIdChange, onQueryChange,
         updateExpandedMap, getRawResponse, getJdbc, getCsv, getText);
 
+    expect(document.body.children[0]).toMatchSnapshot();
+
     // It tests scrolling arrows
     expect(getAllByTestId('slide-right'));
     await fireEvent.click(getAllByTestId('slide-right')[0]);
@@ -136,6 +138,8 @@ describe("<QueryResults with data/> spec", () => {
     const {getAllByTestId} = renderQueryResults(mockQueryResults, mockQueries, mockSearchQuery, onSelectedTabIdChange,
       onQueryChange, updateExpandedMap, getRawResponse, getJdbc, getCsv, getText);
 
+    expect(document.body.children[0]).toMatchSnapshot();
+
     // It tests right scrolling arrows
     expect(getAllByTestId('slide-right'));
     await fireEvent.click(getAllByTestId('slide-right')[0]);
@@ -144,6 +148,8 @@ describe("<QueryResults with data/> spec", () => {
   it("renders the component to test tabs down arrow", async () => {
     const {getAllByTestId} = renderQueryResults(mockQueryResults, mockQueries, mockSearchQuery, onSelectedTabIdChange,
       onQueryChange, updateExpandedMap, getRawResponse, getJdbc, getCsv, getText);
+
+    expect(document.body.children[0]).toMatchSnapshot();
 
     // It tests right scrolling arrows
     expect(getAllByTestId('slide-down'));
