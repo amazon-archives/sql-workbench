@@ -15,6 +15,7 @@
 
 import "@testing-library/react/cleanup-after-each";
 import "@testing-library/jest-dom/extend-expect";
+import 'mutationobserver-shim';
 import { configure } from "@testing-library/react";
 
 configure({ testIdAttribute: "data-test-subj" });
@@ -40,3 +41,12 @@ window.URL = {
     return "";
   },
 };
+
+jest.mock("@elastic/eui/lib/components/icon", () => ({
+  EuiIcon: () => "EuiIconMock",
+  __esModule: true,
+  IconPropType: require("@elastic/eui/lib/components/icon/icon").IconPropType,
+  ICON_TYPES: require("@elastic/eui/lib/components/icon/icon").TYPES,
+  ICON_SIZES: require("@elastic/eui/lib/components/icon/icon").SIZES,
+  ICON_COLORS: require("@elastic/eui/lib/components/icon/icon").COLORS,
+}));

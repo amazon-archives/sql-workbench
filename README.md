@@ -1,6 +1,6 @@
 # Open Distro for Elasticsearch SQL Kibana
 
-The Open Distro for Elasticsearch SQL Kibana plugin lets you query your Elasticsearch data using SQL syntax from a dedicated Kibana UI. You can then download data in JSON, JDBC, or CSV format.
+The Open Distro for Elasticsearch SQL Kibana plugin lets you query your Elasticsearch data using SQL syntax from a dedicated Kibana UI. You can then download data in JSON, JDBC, CSV and raw text formats.
 
 
 ## Documentation
@@ -17,17 +17,17 @@ Please see our [documentation](https://opendistro.github.io/for-elasticsearch-do
    See the [Kibana contributing guide](https://github.com/elastic/kibana/blob/master/CONTRIBUTING.md#setting-up-your-development-environment) for more instructions on setting up your development environment.
    
 1. Change your node version to the version specified in `.node-version` inside the Kibana root directory.
-1. Create a `kibana-extra` directory as a sibling directory to the Kibana source code directory.
-1. Check out this package from version control into the `kibana-extra` directory.
-1. Run `yarn kbn bootstrap` inside `kibana-extra/opendistro-elasticsearch-sql-kibana`.
+1. cd into `plugins` directory in the Kibana source code directory.
+1. Check out this package from version control into the `plugins` directory.
+1. Run `yarn kbn bootstrap` inside `kibana/plugins/sql-kibana-plugin`.
 
 Ultimately, your directory structure should look like this:
 
 ```md
 .
 ├── kibana
-├── kibana-extra
-│   └── opendistro-elasticsearch-sql-kibana
+│   └── plugins
+│       └── sql-kibana-plugin
 ```
 
 
@@ -35,7 +35,7 @@ Ultimately, your directory structure should look like this:
 
 To build the plugin's distributable zip simply run `yarn build`.
 
-Example output: `./build/opendistro-kibana-sql-1.0.0.0.zip`
+Example output: `./build/opendistro_sql_kibana-1.0.0.0.zip`
 
 
 ## Run
@@ -44,7 +44,7 @@ Example output: `./build/opendistro-kibana-sql-1.0.0.0.zip`
 
   Starts Kibana and includes this plugin. Kibana will be available on `localhost:5601`.
 
-- `NODE_PATH=../../kibana/node_modules yarn test:jest`
+- `NODE_PATH=../../node_modules yarn test:jest`
 
   Runs the plugin tests.
 

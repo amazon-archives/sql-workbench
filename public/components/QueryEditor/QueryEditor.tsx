@@ -20,7 +20,7 @@ import { EuiPanel, EuiTitle, EuiButton, EuiText, EuiFlexGroup, EuiFlexItem, EuiC
 import "brace/mode/mysql";
 import "brace/mode/json";
 import "../../ace-themes/sql_console";
-import { ResponseDetail, TranslateResult } from "../Main/main";
+import {ResponseDetail, TranslateResult} from "../Main/main";
 
 interface QueryEditorProps {
   onRun: (queriesString: string) => void;
@@ -59,7 +59,7 @@ class QueryEditor extends React.Component<QueryEditorProps, QueryEditorState> {
 
         <EuiFlexGroup gutterSize="none">
           <EuiFlexItem grow={1} className="sql-query-panel" paddingSize="none">
-            <EuiText className="sql-query-panel-header">SQL</EuiText>
+            <EuiText className="sql-query-panel-header">SQL Query</EuiText>
             <EuiCodeEditor
               mode="mysql"
               theme="sql_console"
@@ -79,11 +79,11 @@ class QueryEditor extends React.Component<QueryEditorProps, QueryEditorState> {
           </EuiFlexItem>
           <EuiFlexItem
             grow={1}
-            className="translated-query-panel"
+            className="result-panel"
             paddingSize="none"
           >
             <EuiText className="translated-query-panel-header">
-              Elasticsearch query string
+              Translation
             </EuiText>
             <EuiCodeEditor
               mode="json"
@@ -123,7 +123,9 @@ class QueryEditor extends React.Component<QueryEditorProps, QueryEditorState> {
                 this.props.onTranslate(this.state.sqlQueriesString)
               }
             >
-              <EuiButton className="sql-editor-button">Translate</EuiButton>
+              <EuiButton className="sql-editor-button">
+                Translate
+              </EuiButton>
             </EuiFlexItem>
             <EuiFlexItem
               grow={false}

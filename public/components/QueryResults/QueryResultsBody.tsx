@@ -17,50 +17,52 @@ import React, {Fragment} from "react";
 // @ts-ignore
 import {SortableProperties} from "@elastic/eui/lib/services";
 //@ts-ignore
-import {EuiSideNav,EuiSearchBar,EuiCodeEditor} from "@elastic/eui/lib";
+import {EuiCodeEditor, EuiSearchBar, EuiSideNav} from "@elastic/eui/lib";
 import {
+  EuiButton,
+  EuiButtonIcon,
+  EuiContextMenu,
+  EuiFlexGroup,
+  EuiFlexItem,
+  EuiHorizontalRule,
+  EuiLink,
+  EuiPopover,
+  EuiSpacer,
   EuiTable,
   EuiTableBody,
   EuiTableHeader,
   EuiTableHeaderCell,
+  EuiTablePagination,
   EuiTableRow,
   EuiTableRowCell,
-  Pager,
-  EuiTablePagination,
-  EuiSpacer,
-  EuiFlexItem,
-  EuiFlexGroup,
-  EuiButtonIcon,
   EuiText,
-  EuiLink,
-  EuiHorizontalRule,
-  EuiPopover,
-  EuiButton,
-  EuiContextMenu
+  Pager
 } from "@elastic/eui";
 import {
-  isEmpty,
   capitalizeFirstLetter,
+  findRootNode,
   getMessageString,
-  scrollToNode,
-  onDownloadFile,
   getRowTree,
-  findRootNode
+  isEmpty,
+  Node,
+  onDownloadFile,
+  scrollToNode
 } from "../../utils/utils";
 import "brace/mode/mysql";
 import "brace/mode/json";
 import "../../ace-themes/sql_console";
-import {PAGE_OPTIONS, SMALL_COLUMN_WIDTH, COLUMN_WIDTH} from "../../utils/constants";
-import { Node } from "../../utils/utils";
-import {QueryResult, QueryMessage, ItemIdToExpandedRowMap} from "../Main/main";
+import {COLUMN_WIDTH, PAGE_OPTIONS, SMALL_COLUMN_WIDTH} from "../../utils/constants";
+import {ItemIdToExpandedRowMap, QueryMessage, QueryResult} from "../Main/main";
 
 const DoubleScrollbar = require('react-double-scrollbar');
 
 interface QueryResultsBodyProps {
+  queries: string[]
   queryResultSelected: QueryResult;
   queryResultsJDBC: string;
   queryResultsCSV: string;
-  queryResultsRaw: string;
+  queryRawResponse: string;
+  queryResultsTEXT: string;
   tabNames: string[];
   selectedTabName: string;
   selectedTabId: string;
@@ -78,6 +80,10 @@ interface QueryResultsBodyProps {
   onSort: (prop: string) => void;
   onQueryChange: (query: object) => void;
   updateExpandedMap: (map: ItemIdToExpandedRowMap) => void;
+  getRawResponse: (queries: string[]) => void;
+  getJdbc: (queries: string[]) => void;
+  getCsv: (queries: string[]) => void;
+  getText: (queries: string[]) => void;
 }
 
 interface QueryResultsBodyState {
@@ -132,52 +138,73 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
     this.panels = [];
 
     // Downloads Action button
-    const panelTree = [
+    this.panels = [
       {
         id: 0,
         title: "Download",
         items: [
           {
             name: "Download JSON",
-            onClick: () => {this.onDownloadJSON();}
+            onClick: () => {
+              this.onDownloadRawResponse();
+            }
           },
           {
             name: "Download JDBC",
-            onClick: () => {this.onDownloadJDBC();}
+            onClick: () => {
+              this.onDownloadJDBC();
+            }
           },
           {
             name: "Download CSV",
-            onClick: () => {this.onDownloadCSV();}
+            onClick: () => {
+              this.onDownloadCSV();
+            }
+          },
+          {
+            name: "Download Text",
+            onClick: () => {
+              this.onDownloadText();
+            }
           }
         ]
       }
     ];
-
-    this.panels = panelTree;
   }
 
   // Actions for Download files
-  onDownloadJSON = (): void => {
-    if (this.props.queryResultsRaw) {
-      const jsonObject = JSON.parse(this.props.queryResultsRaw);
-      const data = JSON.stringify(jsonObject, undefined, 4);
-      onDownloadFile(data, "json", this.props.selectedTabName + ".json");
+  onDownloadRawResponse = (): void => {
+    if (!this.props.queryRawResponse) {
+      this.props.getRawResponse(this.props.queries);
     }
+    const jsonObject = JSON.parse(this.props.queryRawResponse);
+    const data = JSON.stringify(jsonObject, undefined, 4);
+    onDownloadFile(data, "json", this.props.selectedTabName + ".json");
   };
 
   onDownloadJDBC = (): void => {
-    if (this.props.queryResultsJDBC) {
-      const jsonObject = JSON.parse(this.props.queryResultsJDBC);
-      const data = JSON.stringify(jsonObject, undefined, 4);
-      onDownloadFile(data, "json", this.props.selectedTabName + ".json");
+    if (!this.props.queryResultsJDBC) {
+      this.props.getJdbc(this.props.queries);
     }
+    const jsonObject = JSON.parse(this.props.queryResultsJDBC);
+    const data = JSON.stringify(jsonObject, undefined, 4);
+    onDownloadFile(data, "json", this.props.selectedTabName + ".json");
   };
 
   onDownloadCSV = (): void => {
-    if (this.props.queryResultsCSV) {
-      const data = this.props.queryResultsCSV;
-      onDownloadFile(data, "csv", this.props.selectedTabName + ".csv");
+    if (!this.props.queryResultsCSV) {
+      this.props.getCsv(this.props.queries);
     }
+    const data = this.props.queryResultsCSV;
+    onDownloadFile(data, "csv", this.props.selectedTabName + ".csv");
+  };
+
+  onDownloadText = (): void => {
+    if (!this.props.queryResultsTEXT) {
+      this.props.getText(this.props.queries);
+    }
+    const data = this.props.queryResultsTEXT;
+    onDownloadFile(data, "plain", this.props.selectedTabName + ".txt");
   };
 
   // Actions for Downloads Button
@@ -645,7 +672,7 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
       columns = this.addExpandingIconColumn(Object.keys(data));
     }
 
-    const dataTable = (
+    return (
       <div>
         <EuiTable className="sideNav-table">
           <EuiTableHeader className="table-header">
@@ -658,8 +685,6 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
         </EuiTable>
       </div>
     );
-
-    return dataTable;
   };
 
     renderNav(node: Node, table_name: string, expandedRowMap: ItemIdToExpandedRowMap) {

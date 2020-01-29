@@ -13,6 +13,7 @@
  *   permissions and limitations under the License.
  */
 
+import 'regenerator-runtime';
 import { Request, ResponseToolkit } from 'hapi-latest';
 import { CLUSTER } from './utils/constants';
 
@@ -22,45 +23,33 @@ export default class QueryService {
     this.client = client;
   }
 
-  describeQuery = async (request: Request, h: ResponseToolkit, err?: Error) => {
+  describeQueryInternal = async (request: Request, h: ResponseToolkit, format: string, err?: Error) => {
     try {
       const params = {
         body: JSON.stringify(request.payload),
       };
       const { callWithRequest } = await this.client.getCluster(CLUSTER.SQL);
-      const createResponse = await callWithRequest(request, 'sql.query', params);
+      const createResponse = await callWithRequest(request, format, params);
       return h.response({ ok: true, resp: JSON.stringify(createResponse) });
-
     } catch (err) {
-      return h.response({ ok: false, resp: err.message });
+      console.log(err);
     }
+    return h.response({ ok: false, resp: err.message });
+  };
+
+  describeQuery = async (request: Request, h: ResponseToolkit, err?: Error) => {
+    return this.describeQueryInternal(request, h, "sql.query", err)
   };
 
   describeQueryCsv = async (request: Request, h: ResponseToolkit, err?: Error) => {
-    try {
-      const params = {
-        body: JSON.stringify(request.payload),
-      };
-      const { callWithRequest } = await this.client.getCluster(CLUSTER.SQL);
-      const createResponse = await callWithRequest(request, 'sql.getCsv', params);
-      return h.response({ ok: true, resp: JSON.stringify(createResponse)});
-
-    } catch (err) {
-      return h.response({ ok: false, resp: err.message });
-    }
+    return this.describeQueryInternal(request, h, "sql.getCsv", err)
   };
 
   describeQueryJdbc = async (request: Request, h: ResponseToolkit, err?: Error) => {
-    try {
-      const params = {
-        body: JSON.stringify(request.payload),
-      };
-      const { callWithRequest } = await this.client.getCluster(CLUSTER.SQL);
-      const createResponse = await callWithRequest(request, 'sql.getJdbc', params);
-      return h.response({ ok: true, resp: JSON.stringify(createResponse) });
+    return this.describeQueryInternal(request, h, "sql.getJdbc", err)
+  };
 
-    } catch (err) {
-      return h.response({ ok: false, resp: err.message });
-    }
+  describeQueryText = async (request: Request, h: ResponseToolkit, err?: Error) => {
+    return this.describeQueryInternal(request, h, "sql.getText", err)
   };
 }

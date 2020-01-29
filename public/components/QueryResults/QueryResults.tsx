@@ -29,9 +29,10 @@ import {DEFAULT_NUM_RECORDS_PER_PAGE, MESSAGE_TAB_LABEL, TAB_CONTAINER_ID} from 
 interface QueryResultsProps {
   queries: string[];
   queryResults: ResponseDetail<QueryResult>[];
-  queryResultsRaw: string;
+  queryRawResponse: string;
   queryResultsJDBC: string;
   queryResultsCSV: string;
+  queryResultsTEXT: string;
   messages: QueryMessage[];
   selectedTabName: string;
   selectedTabId: string;
@@ -41,6 +42,10 @@ interface QueryResultsProps {
   onQueryChange: (object:any) => void;
   updateExpandedMap: (map: ItemIdToExpandedRowMap) => void;
   itemIdToExpandedRowMap: ItemIdToExpandedRowMap;
+  getRawResponse: (queries: string[]) => void;
+  getJdbc: (queries: string[]) => void;
+  getCsv: (queries: string[]) => void;
+  getText: (queries: string[]) => void;
 }
 
 interface QueryResultsState {
@@ -81,7 +86,7 @@ class QueryResults extends React.Component<QueryResultsProps, QueryResultsState>
     this.tabNames = [];
     this.pager = new Pager(0, this.state.itemsPerPage);
   }
-  
+
   componentDidUpdate() {
     const showArrow = needsScrolling("tabsContainer");
     if (showArrow !== this.state.tabsOverflow) {
@@ -200,13 +205,11 @@ class QueryResults extends React.Component<QueryResultsProps, QueryResultsState>
       <EuiIcon
         onClick={this.showTabsMenu}
         type={"arrowDown"}
-        data-test-subj={"slide-down"}
       />
     );
     const tabArrowRight = (
       <EuiIcon
         onClick={this.slideTabsRight}
-        data-test-subj={"slide-right"}
         type={"arrowRight"}
         disabled={false}
       />
@@ -214,7 +217,7 @@ class QueryResults extends React.Component<QueryResultsProps, QueryResultsState>
     const tabArrowLeft = (
       <EuiIcon
         onClick={this.slideTabsLeft}
-        data-test-subj={"slide-left"}
+        data-test-subj="slide-left"
         type={"arrowLeft"}
         disabled={false}
       />
@@ -263,7 +266,14 @@ class QueryResults extends React.Component<QueryResultsProps, QueryResultsState>
           {/*ARROW LEFT*/}
           {this.state.tabsOverflow && (
             <div className="tab-arrow-down-container">
-              <EuiFlexItem grow={false}>{tabArrowLeft}</EuiFlexItem>
+              <EuiFlexItem grow={false}>
+                <EuiPopover
+                  button={tabArrowLeft}
+                  data-test-subj="slide-left"
+                >
+                  <EuiContextMenuPanel items={tabsItems} />
+                </EuiPopover>
+              </EuiFlexItem>
             </div>
           )}
 
@@ -286,11 +296,19 @@ class QueryResults extends React.Component<QueryResultsProps, QueryResultsState>
           {this.state.tabsOverflow && (
             <div className="tab-arrow-down-container">
               <EuiFlexGroup>
-                <EuiFlexItem grow={false}>{tabArrowRight}</EuiFlexItem>
+                <EuiFlexItem grow={false}>
+                  <EuiPopover
+                    button={tabArrowRight}
+                    data-test-subj="slide-right"
+                  >
+                    <EuiContextMenuPanel items={tabsItems} />
+                  </EuiPopover>
+                </EuiFlexItem>
                 <EuiFlexItem grow={false}>
                   <EuiPopover
                     id="singlePanel"
                     button={tabArrowDown}
+                    data-test-subj="slide-down"
                     isOpen={this.state.isPopoverOpen}
                     closePopover={this.closePopover}
                     panelPaddingSize="none"
@@ -308,13 +326,15 @@ class QueryResults extends React.Component<QueryResultsProps, QueryResultsState>
 
         {/*RESULTS TABLE*/}
         <QueryResultsBody
+          queries={this.props.queries}
           selectedTabId={this.props.selectedTabId}
           selectedTabName={this.props.selectedTabName}
           tabNames={this.tabNames}
           queryResultSelected={queryResultSelected}
-          queryResultsRaw={this.props.queryResultsRaw}
+          queryRawResponse={this.props.queryRawResponse}
           queryResultsJDBC={this.props.queryResultsJDBC}
           queryResultsCSV={this.props.queryResultsCSV}
+          queryResultsTEXT={this.props.queryResultsTEXT}
           messages={this.props.messages}
           searchQuery={this.props.searchQuery}
           onQueryChange={this.props.onQueryChange}
@@ -329,6 +349,10 @@ class QueryResults extends React.Component<QueryResultsProps, QueryResultsState>
           sortableProperties={this.sortableProperties}
           itemIdToExpandedRowMap={this.props.itemIdToExpandedRowMap}
           updateExpandedMap={this.props.updateExpandedMap}
+          getRawResponse={this.props.getRawResponse}
+          getJdbc={this.props.getJdbc}
+          getCsv={this.props.getCsv}
+          getText={this.props.getText}
         />
       </EuiPanel>
     );

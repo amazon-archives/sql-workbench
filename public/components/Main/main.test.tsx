@@ -17,7 +17,11 @@ import React from "react";
 import "@testing-library/jest-dom/extend-expect";
 import { render, fireEvent } from "@testing-library/react";
 import { httpClientMock } from "../../../test/mocks";
-import { mockQueryResultResponse, mockNotOkQueryResultResponse } from "../../../test/mocks/mockData";
+import {
+  mockQueryResultResponse,
+  mockNotOkQueryResultResponse,
+  mockQueryTranslationResponse
+} from "../../../test/mocks/mockData";
 import Main from "./main";
 
 describe("<Main /> spec", () => {
@@ -74,8 +78,9 @@ describe("<Main /> spec", () => {
     expect(document.body.children[0]).toMatchSnapshot();
   });
 
-  it("click translation button", async () => {
+  it("click translation button, and response is ok", async () => {
     const client = httpClientMock;
+    client.post = jest.fn().mockResolvedValue(mockQueryTranslationResponse);
     const { getByText } = render(
         <Main httpClient={client} sqlQueriesString={'test'}/>
     );
@@ -84,7 +89,7 @@ describe("<Main /> spec", () => {
         fireEvent.click(onTranslateButton);
     };
     await asyncTest();
-    expect(client.post).toHaveBeenCalled();
+    expect(document.body.children[0]).toMatchSnapshot();
     });
 
   it("click clear button", async () => {
@@ -98,5 +103,6 @@ describe("<Main /> spec", () => {
     };
     await asyncTest();
     expect(client.post).not.toHaveBeenCalled();
+    expect(document.body.children[0]).toMatchSnapshot();
   });
 });

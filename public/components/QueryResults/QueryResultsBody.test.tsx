@@ -26,24 +26,31 @@ import userEvent from "@testing-library/user-event";
 import { QueryMessage, QueryResult } from "../Main/main";
 
 
-function renderQueryResultsBody(mockQueryResultsSelected: QueryResult,
+function renderQueryResultsBody(mockQueries: string[],
+                                mockQueryResultsSelected: QueryResult,
                                 mockQueryResultsRaw: string,
                                 mockSortableProperties: SortableProperties,
                                 messages: QueryMessage[],
                                 onSort: (prop: string) => void,
                                 onQueryChange: (query: object) => void,
                                 updateExpandedMap:(map: object) => void,
-                                onChangeItemsPerPage: (itemsPerPage: number) => void) {
+                                onChangeItemsPerPage: (itemsPerPage: number) => void,
+                                getRawResponse: (queries: string[]) => void,
+                                getJdbc: (queries: string[]) => void,
+                                getCsv: (queries: string[]) => void,
+                                getText: (queries: string[]) => void) {
     return {
         ...render(
             <QueryResultsBody
+                queries={[]}
                 selectedTabId={'0'}
                 selectedTabName={'Messages'}
                 tabNames={['Messages', 'Index_1']}
                 queryResultSelected={mockQueryResultsSelected}
-                queryResultsRaw={mockQueryResultsRaw}
+                queryRawResponse={mockQueryResultsRaw}
                 queryResultsJDBC={mockQueryResultsRaw}
                 queryResultsCSV={mockQueryResultsRaw}
+                queryResultsTEXT={mockQueryResultsRaw}
                 messages={[]}
                 searchQuery={""}
                 onQueryChange={onQueryChange}
@@ -58,6 +65,10 @@ function renderQueryResultsBody(mockQueryResultsSelected: QueryResult,
                 sortableProperties={mockSortableProperties}
                 itemIdToExpandedRowMap={{}}
                 updateExpandedMap={updateExpandedMap}
+                getRawResponse={getRawResponse}
+                getJdbc={getJdbc}
+                getCsv={getCsv}
+                getText={getText}
             />
         ),
     };
@@ -71,6 +82,10 @@ describe("<QueryResultsBody /> spec", () => {
   const onQueryChange = jest.fn();
   const updateExpandedMap = jest.fn();
   const onChangeItemsPerPage = jest.fn();
+  const getRawResponse = jest.fn();
+  const getJdbc = jest.fn();
+  const getCsv = jest.fn();
+  const getText = jest.fn();
 
   it("renders the component", () => {
     const mockSortableProperties = new SortableProperties(
@@ -84,7 +99,9 @@ describe("<QueryResultsBody /> spec", () => {
       ""
     );
 
-    const { queryByTestId } = renderQueryResultsBody(undefined, undefined, mockSortableProperties, mockErrorMessage, onSort, onQueryChange, updateExpandedMap, onChangeItemsPerPage);
+    const { queryByTestId } = renderQueryResultsBody(undefined, undefined, undefined,
+      mockSortableProperties, mockErrorMessage, onSort, onQueryChange, updateExpandedMap, onChangeItemsPerPage,
+      getRawResponse, getJdbc, getCsv, getText);
 
     // Download buttons, pagination, search area, table should not be visible when there is no data
     expect(queryByTestId('Download')).toBeNull();
@@ -104,7 +121,10 @@ describe("<QueryResultsBody /> spec", () => {
 
     (window as any).HTMLElement.prototype.scrollIntoView = function() {};
 
-    const { getAllByText, getAllByTestId, getAllByLabelText, getByText, getByPlaceholderText } = renderQueryResultsBody(mockQueryResults[0].data, mockQueryResultResponse.data.resp, mockSortableProperties, mockSuccessfulMessage, onSort, onQueryChange, updateExpandedMap, onChangeItemsPerPage);
+    const { getAllByText, getAllByTestId, getAllByLabelText, getByText, getByPlaceholderText } =
+      renderQueryResultsBody(undefined, mockQueryResults[0].data, mockQueryResultResponse.data.resp, mockSortableProperties,
+        mockSuccessfulMessage, onSort, onQueryChange, updateExpandedMap, onChangeItemsPerPage, getRawResponse, getJdbc,
+        getCsv, getText);
     expect(document.body.children[0]).toMatchSnapshot();
 
     // Test sorting
@@ -136,9 +156,11 @@ describe("<QueryResultsBody /> spec", () => {
     expect(getByText("Download JSON"));
     expect(getByText("Download JDBC"));
     expect(getByText("Download CSV"));
+    expect(getByText("Download Text"));
     await fireEvent.click(getByText("Download JSON"));
     await fireEvent.click(getByText("Download JDBC"));
     await fireEvent.click(getByText("Download CSV"));
+    await fireEvent.click(getByText("Download Text"));
 
     // Test search field
     const searchField = getByPlaceholderText('Search');
@@ -151,6 +173,6 @@ describe("<QueryResultsBody /> spec", () => {
     expect(getAllByLabelText('Collapse').length).toBeGreaterThan(0);
     await fireEvent.click(getAllByLabelText('Collapse')[0]);
     expect(updateExpandedMap).toHaveBeenCalled();
-    
+
   });
 });
