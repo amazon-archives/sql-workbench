@@ -23,7 +23,7 @@ export default class QueryService {
     this.client = client;
   }
 
-  describeQueryInteranl = async (request: Request, h: ResponseToolkit, format: string, err?: Error) => {
+  describeQueryInternal = async (request: Request, h: ResponseToolkit, format: string, err?: Error) => {
     try {
       const params = {
         body: JSON.stringify(request.payload),
@@ -38,18 +38,18 @@ export default class QueryService {
   };
 
   describeQuery = async (request: Request, h: ResponseToolkit, err?: Error) => {
-    return this.describeQueryInteranl(request, h, "sql.query", err)
+    return this.describeQueryInternal(request, h, "sql.query", err)
   };
 
   describeQueryCsv = async (request: Request, h: ResponseToolkit, err?: Error) => {
-    return this.describeQueryInteranl(request, h, "sql.getCsv", err)
+    return this.describeQueryInternal(request, h, "sql.getCsv", err)
   };
 
   describeQueryJdbc = async (request: Request, h: ResponseToolkit, err?: Error) => {
-    return this.describeQueryInteranl(request, h, "sql.getJdbc", err)
+    return this.describeQueryInternal(request, h, "sql.getJdbc", err)
   };
 
   describeQueryText = async (request: Request, h: ResponseToolkit, err?: Error) => {
-    return this.describeQueryInteranl(request, h, "sql.getText", err)
+    return this.describeQueryInternal(request, h, "sql.getText", err)
   };
 }

@@ -153,11 +153,11 @@ describe("<QueryResultsBody /> spec", () => {
     const downloadButton = getAllByText('Download')[0];
     expect(downloadButton).not.toBe(null);
     await fireEvent.click(downloadButton);
-    expect(getByText("Download ES Response"));
+    expect(getByText("Download JSON"));
     expect(getByText("Download JDBC"));
     expect(getByText("Download CSV"));
     expect(getByText("Download Text"));
-    await fireEvent.click(getByText("Download ES Response"));
+    await fireEvent.click(getByText("Download JSON"));
     await fireEvent.click(getByText("Download JDBC"));
     await fireEvent.click(getByText("Download CSV"));
     await fireEvent.click(getByText("Download Text"));

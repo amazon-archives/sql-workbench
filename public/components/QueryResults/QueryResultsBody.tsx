@@ -144,7 +144,7 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
         title: "Download",
         items: [
           {
-            name: "Download ES Response",
+            name: "Download JSON",
             onClick: () => {
               this.onDownloadRawResponse();
             }
