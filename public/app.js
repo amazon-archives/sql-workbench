@@ -19,7 +19,7 @@ import { render, unmountComponentAtNode } from 'react-dom';
 
 import 'ui/autoload/styles';
 import './less/main.less';
-import { Main } from './components/main';
+import { Main } from './components/Main/main';
 
 const app = uiModules.get('apps/sqlConsole');
 
