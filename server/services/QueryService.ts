@@ -14,6 +14,7 @@
  */
 
 import 'regenerator-runtime';
+import 'babel-polyfill';
 import { Request, ResponseToolkit } from 'hapi-latest';
 import { CLUSTER } from './utils/constants';
 
