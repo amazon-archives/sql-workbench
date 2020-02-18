@@ -38,8 +38,7 @@ function RootController($scope, $element, $http) {
   const domNode = $element[0];
 
   // render react to DOM
-  // render(<Main title="sql_console" httpClient={$http} />, domNode);
-  render(<div>test</div>, domNode)
+  render(<Main title="sql_console" httpClient={$http} />, domNode);
   // unmount react on controller destroy
   $scope.$on('$destroy', () => {
     unmountComponentAtNode(domNode);

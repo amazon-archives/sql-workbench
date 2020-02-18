@@ -13,6 +13,9 @@
  *   permissions and limitations under the License.
  */
 
+import {resolve} from 'path';
+import {existsSync} from "fs";
+
 import query from './server/routes/query';
 import translate from './server/routes/translate';
 import QueryService from './server/services/QueryService';
@@ -32,7 +35,7 @@ export default function (kibana) {
         main: 'plugins/' + PLUGIN_NAME + '/app',
         icon:'plugins/' + PLUGIN_NAME + '/icons/sql.svg',
       },
-      styleSheetPaths: require('path').resolve(__dirname, 'public/app.scss'),
+      styleSheetPaths: [resolve(__dirname, 'public/app.scss'), resolve(__dirname, 'public/app.css')].find(p => existsSync(p))
     },
 
     config(Joi) {
@@ -41,14 +44,14 @@ export default function (kibana) {
       }).default();
     },
 
-    // init(server, options) { // eslint-disable-line no-unused-vars
+    init(server, options) { // eslint-disable-line no-unused-vars
       // Create Clusters
-      // createSqlCluster(server);
-      // const client = server.plugins.elasticsearch;
+      createSqlCluster(server);
+      const client = server.plugins.elasticsearch;
 
       // Add server routes and initialize the plugin here
-      // query(server, new QueryService(client));
-      // translate(server, new TranslateService(client));
-    // }
+      query(server, new QueryService(client));
+      translate(server, new TranslateService(client));
+    }
   });
 }
