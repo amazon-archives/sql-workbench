@@ -41,14 +41,14 @@ export default function (kibana) {
       }).default();
     },
 
-    init(server, options) { // eslint-disable-line no-unused-vars
+    // init(server, options) { // eslint-disable-line no-unused-vars
       // Create Clusters
-      createSqlCluster(server);
-      const client = server.plugins.elasticsearch;
+      // createSqlCluster(server);
+      // const client = server.plugins.elasticsearch;
 
       // Add server routes and initialize the plugin here
-      query(server, new QueryService(client));
-      translate(server, new TranslateService(client));
-    }
+      // query(server, new QueryService(client));
+      // translate(server, new TranslateService(client));
+    // }
   });
 }
