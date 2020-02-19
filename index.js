@@ -13,13 +13,16 @@
  *   permissions and limitations under the License.
  */
 
+import {resolve} from 'path';
+import {existsSync} from "fs";
+
 import query from './server/routes/query';
 import translate from './server/routes/translate';
 import QueryService from './server/services/QueryService';
 import TranslateService from './server/services/TranslateService';
 import { createSqlCluster } from './server/clusters';
 
-export const PLUGIN_NAME = 'opendistro_sql_kibana';
+export const PLUGIN_NAME = 'sql-kibana';
 
 export default function (kibana) {
   return new kibana.Plugin({
@@ -32,7 +35,7 @@ export default function (kibana) {
         main: 'plugins/' + PLUGIN_NAME + '/app',
         icon:'plugins/' + PLUGIN_NAME + '/icons/sql.svg',
       },
-      styleSheetPaths: require('path').resolve(__dirname, 'public/app.scss'),
+      styleSheetPaths: [resolve(__dirname, 'public/app.scss'), resolve(__dirname, 'public/app.css')].find(p => existsSync(p))
     },
 
     config(Joi) {

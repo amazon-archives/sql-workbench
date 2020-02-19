@@ -19,7 +19,7 @@ import { render, unmountComponentAtNode } from 'react-dom';
 
 import 'ui/autoload/styles';
 import './less/main.less';
-import { Main } from './components/main';
+import { Main } from './components/Main/main';
 
 const app = uiModules.get('apps/sqlConsole');
 
@@ -39,7 +39,6 @@ function RootController($scope, $element, $http) {
 
   // render react to DOM
   render(<Main title="sql_console" httpClient={$http} />, domNode);
-
   // unmount react on controller destroy
   $scope.$on('$destroy', () => {
     unmountComponentAtNode(domNode);
