@@ -18,9 +18,6 @@ import React from "react";
 import {SortableProperties, SortableProperty} from "@elastic/eui/lib/services";
 // @ts-ignore
 import {EuiPanel, EuiFlexGroup, EuiFlexItem, EuiTab, EuiTabs, EuiPopover, EuiContextMenuItem, EuiContextMenuPanel, EuiHorizontalRule, EuiSearchBar, Pager, EuiIcon} from "@elastic/eui/lib";
-import "brace/mode/mysql";
-import "brace/mode/json";
-import "../../ace-themes/sql_console";
 import {QueryResult, QueryMessage, Tab, ResponseDetail, ItemIdToExpandedRowMap} from "../Main/main";
 import QueryResultsBody from "./QueryResultsBody";
 import { getQueryIndex, needsScrolling, getSelectedResults } from "../../utils/utils";

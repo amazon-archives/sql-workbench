@@ -48,8 +48,6 @@ import {
   onDownloadFile,
   scrollToNode
 } from "../../utils/utils";
-import "brace/mode/mysql";
-import "brace/mode/json";
 import "../../ace-themes/sql_console";
 import {COLUMN_WIDTH, PAGE_OPTIONS, SMALL_COLUMN_WIDTH} from "../../utils/constants";
 import {ItemIdToExpandedRowMap, QueryMessage, QueryResult} from "../Main/main";
