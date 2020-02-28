@@ -94,38 +94,60 @@ export function getQueryResultsForTable(queryResultsRaw: ResponseDetail<string>[
         let databaseRecords: { [key: string]: any }[] = [];
         const responseObj = queryResultResponseDetail.data ? JSON.parse(queryResultResponseDetail.data) : '';
         let databaseFields: string[] = [];
-        let fields: string[];
+        let fields: string[] = [];
+
         // the following block is to deal with describe/show/delete query from jdbc results
         if (_.has(responseObj, 'schema')) {
           const schema: object[] = _.get(responseObj, 'schema');
-          if (_.contains(_.get(schema, 'name'), 'DATA_TYPE')) {
-            // describe
-            for (const [id, field] of schema.entries()) {
-              fields[id] = _.get(field, 'name');
-            }
-          } else if (_.contains(_.get(schema, 'name'), 'deleted_rows')) {
-            // delete
-            for (const [id, field] of schema.entries()) {
-              fields[id] = _.get(field, 'name');
-            }
-          } else {
-            // default: show
-            fields = ['TABLE_NAME'];
-            const index: number = _.get(Object.values(schema[0]),'TABLE_NAME');
-            databaseFields = ['TABLE_NAME'];
-            databaseFields.unshift("id");
-            const datarows: any[][] = _.get(responseObj, 'datarows');
-            for (const [id, value] of datarows.entries()) {
-              databaseRecords['id'] = id;
-              databaseRecords[id+1] = value[index];
+          const datarows: any[][] = _.get(responseObj, 'datarows');
+          let queryType: string = 'show';
+
+          for (const column of schema.values()) {
+            if (_.isEqual(_.get(column, 'name'), 'deleted_rows')) {
+              queryType = 'delete';
+            } else if (_.isEqual(_.get(column, 'name'), 'DATA_TYPE')) {
+              queryType = 'describe'
             }
           }
-          databaseFields = fields;
-          databaseFields.unshift("id");
-          const datarows: any[][] = _.get(responseObj, 'datarows');
-          for (const [id, value] of datarows.entries()) {
-            databaseRecords['id'] = id;
-            databaseRecords[id+1] = value[fields[id]];
+          switch (queryType) {
+            case 'delete':
+            case 'describe':
+              for (const [id, field] of schema.entries()) {
+                fields[id] = _.get(field, 'name');
+              }
+              databaseFields = fields;
+              databaseFields.unshift("id");
+              for (const [id, datarow] of datarows.entries()) {
+                let databaseRecord: { [key: string]: any } = {};
+                databaseRecord['id'] = id;
+                for (const index of schema.keys()) {
+                  const fieldname = databaseFields[index+1];
+                  databaseRecord[fieldname] = datarow[index];
+                }
+                databaseRecords.push(databaseRecord);
+              }
+              break;
+            case 'show':
+              databaseFields[0] = 'TABLE_NAME';
+              databaseFields.unshift('id');
+              let index: number = -1;
+              for (const [id, field] of schema.entries()) {
+                if (_.eq(_.get(field, 'name'), 'TABLE_NAME')) {
+                  index = id;
+                  break;
+                }
+              }
+              for (const [id, datarow] of datarows.entries()) {
+                let databaseRecord: { [key: string]: any } = {};
+                databaseRecord['id'] = id;
+                databaseRecord['TABLE_NAME'] = datarow[index];
+                databaseRecords.push(databaseRecord);
+              }
+              break;
+            default:
+              let databaseRecord: { [key: string]: any } = {};
+              databaseRecord['id'] = 'null';
+              databaseRecords.push(databaseRecord);
           }
           return {
             fulfilled: queryResultResponseDetail.fulfilled,
