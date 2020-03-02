@@ -93,9 +93,73 @@ export function getQueryResultsForTable(queryResultsRaw: ResponseDetail<string>[
       } else {
         let databaseRecords: { [key: string]: any }[] = [];
         const responseObj = queryResultResponseDetail.data ? JSON.parse(queryResultResponseDetail.data) : '';
-        const hits = _.get(responseObj, "hits[hits]", []);
         let databaseFields: string[] = [];
+        let fields: string[] = [];
 
+        // the following block is to deal with describe/show/delete query from jdbc results
+        if (_.has(responseObj, 'schema')) {
+          const schema: object[] = _.get(responseObj, 'schema');
+          const datarows: any[][] = _.get(responseObj, 'datarows');
+          let queryType: string = 'show';
+
+          for (const column of schema.values()) {
+            if (_.isEqual(_.get(column, 'name'), 'deleted_rows')) {
+              queryType = 'delete';
+            } else if (_.isEqual(_.get(column, 'name'), 'DATA_TYPE')) {
+              queryType = 'describe'
+            }
+          }
+          switch (queryType) {
+            case 'delete':
+            case 'describe':
+              for (const [id, field] of schema.entries()) {
+                fields[id] = _.get(field, 'name');
+              }
+              databaseFields = fields;
+              databaseFields.unshift("id");
+              for (const [id, datarow] of datarows.entries()) {
+                let databaseRecord: { [key: string]: any } = {};
+                databaseRecord['id'] = id;
+                for (const index of schema.keys()) {
+                  const fieldname = databaseFields[index+1];
+                  databaseRecord[fieldname] = datarow[index];
+                }
+                databaseRecords.push(databaseRecord);
+              }
+              break;
+            case 'show':
+              databaseFields[0] = 'TABLE_NAME';
+              databaseFields.unshift('id');
+              let index: number = -1;
+              for (const [id, field] of schema.entries()) {
+                if (_.eq(_.get(field, 'name'), 'TABLE_NAME')) {
+                  index = id;
+                  break;
+                }
+              }
+              for (const [id, datarow] of datarows.entries()) {
+                let databaseRecord: { [key: string]: any } = {};
+                databaseRecord['id'] = id;
+                databaseRecord['TABLE_NAME'] = datarow[index];
+                databaseRecords.push(databaseRecord);
+              }
+              break;
+            default:
+              let databaseRecord: { [key: string]: any } = {};
+              databaseRecord['id'] = 'null';
+              databaseRecords.push(databaseRecord);
+          }
+          return {
+            fulfilled: queryResultResponseDetail.fulfilled,
+            data: {
+              fields: databaseFields,
+              records: databaseRecords,
+              message: SUCCESS_MESSAGE
+            }
+          }
+        }
+
+        // the following block is to deal with aggregation result
         if (_.has(responseObj, "aggregations")) {
           const aggregations = _.get(responseObj, "aggregations", {});
           let databaseRecord: { [key: string]: any } = {};
@@ -118,6 +182,7 @@ export function getQueryResultsForTable(queryResultsRaw: ResponseDetail<string>[
           }
         }
 
+        const hits = _.get(responseObj, "hits[hits]", []);
         if (hits.length > 0) {
           databaseFields=(Object.keys(hits[0]["_source"]));
           databaseFields.unshift("id");
@@ -258,6 +323,15 @@ export class Main extends React.Component<MainProps, MainState> {
     });
   }
 
+  isSelectQuery(query: string): boolean {
+    return _.startsWith(_.trim(query).toLowerCase(), "select");
+  }
+
+  requestedFormat(query: string): string {
+    if (this.isSelectQuery(query)) return "";
+    return "jdbc";
+  }
+
   onRun = (queriesString: string): void => {
     const queries: string[] = getQueries(queriesString);
 
@@ -266,7 +340,7 @@ export class Main extends React.Component<MainProps, MainState> {
       const esRawResponsePromise = Promise.all(
         queries.map((query: string) =>
           this.httpClient
-            .post("../api/sql_console/query", {query})
+            .post("../api/sql_console/query".concat(this.requestedFormat(query)), {query})
             .catch((error: any) => {
               this.setState({
                 messages: [
