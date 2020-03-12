@@ -27,16 +27,11 @@
 }
 
 .sql-console-query-editor {
-  height: 500px;
-  max-height: 500px;
-  
+  height: 430px;
+  max-height: 430px;
   .container-panel {
     border-radius: 0px;
     box-shadow: none;
-  }
-  .container-panel-header {
-    font-weight: 450px;
-    padding: $euiSize $euiSize;
   }
   .sql-query-panel {
     border-radius: 0px;
@@ -63,7 +58,7 @@
   }
   .resize-panel {
     resize: vertical;
-    overflow: auto; 
+    overflow: auto;
     cursor: row-resize;
   }
   .sql-editor-link:visited {
@@ -78,7 +73,7 @@
   scroll-behavior: smooth;
   .sql-console-results-container {
     overflow: auto;
-  } 
+  }
   .query-result-container {
     border: solid 1.5px #d9d9d9;
     border-radius: 0px;
@@ -94,15 +89,15 @@
   }
   .table-header {
     /*border-top: solid 1px #d9d9d9;*/
-    background-color: #d9d9d9; 
+    background-color: #d9d9d9;
   }
-  .sideNav-table { 
+  .sideNav-table {
     border: solid 1px rgb(217, 217, 217);
     border-collapse: separate;
   }
   .search-panel {
-    display: inline-flex; 
-    width:100%; 
+    display: inline-flex;
+    width:100%;
     padding:20px;
   }
   .search-bar {
@@ -134,7 +129,7 @@
 
   .toggleContainer {
     margin: 20px;
-  } 
+  }
 }
 
 .expanded-row {
@@ -166,7 +161,7 @@
 
 /*********  EuiTable overrides ***********/
 .euiTableCellContent {
-  display: inline-block; 
+  display: inline-block;
   width: 100%;
 }
 
@@ -225,7 +220,7 @@
   }
 
 /* Remove the horizontal tick from the root of the sideNav */
-  &.euiSideNavItem--root > .euiSideNavItemButton {   
+  &.euiSideNavItem--root > .euiSideNavItemButton {
     &:after {
       background: none;
     }

@@ -38,7 +38,7 @@ class QueryEditor extends React.Component<QueryEditorProps, QueryEditorState> {
   constructor(props: QueryEditorProps) {
     super(props);
     this.state = {
-      sqlQueriesString: this.props.sqlQueriesString ? this.props.sqlQueriesString : ""
+      sqlQueriesString: this.props.sqlQueriesString ? this.props.sqlQueriesString : "show tables like %;\n" + "describe tables like %;"
     };
 
     this.updateSQLQueries = _.debounce(this.updateSQLQueries, 250).bind(this);
@@ -53,11 +53,7 @@ class QueryEditor extends React.Component<QueryEditorProps, QueryEditorState> {
       <EuiPanel className="sql-console-query-editor container-panel"
         paddingSize="none"
       >
-        <EuiTitle className="container-panel-header" size="l">
-          <h1>SQL console</h1>
-        </EuiTitle>
-
-        <EuiFlexGroup gutterSize="none">
+        <EuiFlexGroup gutterSize="s">
           <EuiFlexItem grow={1} className="sql-query-panel" paddingSize="none">
             <EuiText className="sql-query-panel-header">SQL Query</EuiText>
             <EuiCodeEditor
@@ -123,7 +119,7 @@ class QueryEditor extends React.Component<QueryEditorProps, QueryEditorState> {
                 this.props.onTranslate(this.state.sqlQueriesString)
               }
             >
-              <EuiButton className="sql-editor-button">
+              <EuiButton fill={true} className="sql-editor-button">
                 Translate
               </EuiButton>
             </EuiFlexItem>
@@ -134,9 +130,9 @@ class QueryEditor extends React.Component<QueryEditorProps, QueryEditorState> {
                 this.props.onClear();
               }}
             >
-              <EuiHeaderLink className="sql-editor-link" href="#" isActive>
+              <EuiButton className="sql-editor-button">
                 Clear
-              </EuiHeaderLink>
+              </EuiButton>
             </EuiFlexItem>
           </EuiFlexGroup>
         </div>
