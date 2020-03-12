@@ -4,11 +4,6 @@ exports[`<Main /> spec click clear button 1`] = `
 <div>
   <div>
     <div>
-      <div
-        class="sql-console-page-header"
-      >
-        SQL console
-      </div>
       <hr
         class="euiHorizontalRule euiHorizontalRule--full"
       />
@@ -22,13 +17,8 @@ exports[`<Main /> spec click clear button 1`] = `
         <div
           class="euiPanel sql-console-query-editor container-panel"
         >
-          <h1
-            class="euiTitle euiTitle--large container-panel-header"
-          >
-            SQL console
-          </h1>
           <div
-            class="euiFlexGroup euiFlexGroup--directionRow euiFlexGroup--responsive"
+            class="euiFlexGroup euiFlexGroup--gutterSmall euiFlexGroup--directionRow euiFlexGroup--responsive"
           >
             <div
               class="euiFlexItem euiFlexItem--flexGrow1 sql-query-panel"
@@ -306,7 +296,7 @@ exports[`<Main /> spec click clear button 1`] = `
                 class="euiFlexItem euiFlexItem--flexGrowZero"
               >
                 <button
-                  class="euiButton euiButton--primary sql-editor-button"
+                  class="euiButton euiButton--primary sql-editor-button euiButton--fill"
                   type="button"
                 >
                   <span
@@ -323,21 +313,20 @@ exports[`<Main /> spec click clear button 1`] = `
               <div
                 class="euiFlexItem euiFlexItem--flexGrowZero"
               >
-                <a
-                  class="euiButtonEmpty euiButtonEmpty--primary euiHeaderLink sql-editor-link"
-                  href="#"
-                  rel="noreferrer"
+                <button
+                  class="euiButton euiButton--primary sql-editor-button"
+                  type="button"
                 >
                   <span
-                    class="euiButtonEmpty__content"
+                    class="euiButton__content"
                   >
                     <span
-                      class="euiButtonEmpty__text"
+                      class="euiButton__text"
                     >
                       Clear
                     </span>
                   </span>
-                </a>
+                </button>
               </div>
             </div>
           </div>
@@ -513,11 +502,6 @@ exports[`<Main /> spec click run button, and response causes an error 1`] = `
 <div>
   <div>
     <div>
-      <div
-        class="sql-console-page-header"
-      >
-        SQL console
-      </div>
       <hr
         class="euiHorizontalRule euiHorizontalRule--full"
       />
@@ -531,13 +515,8 @@ exports[`<Main /> spec click run button, and response causes an error 1`] = `
         <div
           class="euiPanel sql-console-query-editor container-panel"
         >
-          <h1
-            class="euiTitle euiTitle--large container-panel-header"
-          >
-            SQL console
-          </h1>
           <div
-            class="euiFlexGroup euiFlexGroup--directionRow euiFlexGroup--responsive"
+            class="euiFlexGroup euiFlexGroup--gutterSmall euiFlexGroup--directionRow euiFlexGroup--responsive"
           >
             <div
               class="euiFlexItem euiFlexItem--flexGrow1 sql-query-panel"
@@ -815,7 +794,7 @@ exports[`<Main /> spec click run button, and response causes an error 1`] = `
                 class="euiFlexItem euiFlexItem--flexGrowZero"
               >
                 <button
-                  class="euiButton euiButton--primary sql-editor-button"
+                  class="euiButton euiButton--primary sql-editor-button euiButton--fill"
                   type="button"
                 >
                   <span
@@ -832,21 +811,20 @@ exports[`<Main /> spec click run button, and response causes an error 1`] = `
               <div
                 class="euiFlexItem euiFlexItem--flexGrowZero"
               >
-                <a
-                  class="euiButtonEmpty euiButtonEmpty--primary euiHeaderLink sql-editor-link"
-                  href="#"
-                  rel="noreferrer"
+                <button
+                  class="euiButton euiButton--primary sql-editor-button"
+                  type="button"
                 >
                   <span
-                    class="euiButtonEmpty__content"
+                    class="euiButton__content"
                   >
                     <span
-                      class="euiButtonEmpty__text"
+                      class="euiButton__text"
                     >
                       Clear
                     </span>
                   </span>
-                </a>
+                </button>
               </div>
             </div>
           </div>
@@ -1022,11 +1000,6 @@ exports[`<Main /> spec click run button, and response is not ok 1`] = `
 <div>
   <div>
     <div>
-      <div
-        class="sql-console-page-header"
-      >
-        SQL console
-      </div>
       <hr
         class="euiHorizontalRule euiHorizontalRule--full"
       />
@@ -1040,13 +1013,8 @@ exports[`<Main /> spec click run button, and response is not ok 1`] = `
         <div
           class="euiPanel sql-console-query-editor container-panel"
         >
-          <h1
-            class="euiTitle euiTitle--large container-panel-header"
-          >
-            SQL console
-          </h1>
           <div
-            class="euiFlexGroup euiFlexGroup--directionRow euiFlexGroup--responsive"
+            class="euiFlexGroup euiFlexGroup--gutterSmall euiFlexGroup--directionRow euiFlexGroup--responsive"
           >
             <div
               class="euiFlexItem euiFlexItem--flexGrow1 sql-query-panel"
@@ -1324,7 +1292,7 @@ exports[`<Main /> spec click run button, and response is not ok 1`] = `
                 class="euiFlexItem euiFlexItem--flexGrowZero"
               >
                 <button
-                  class="euiButton euiButton--primary sql-editor-button"
+                  class="euiButton euiButton--primary sql-editor-button euiButton--fill"
                   type="button"
                 >
                   <span
@@ -1341,21 +1309,20 @@ exports[`<Main /> spec click run button, and response is not ok 1`] = `
               <div
                 class="euiFlexItem euiFlexItem--flexGrowZero"
               >
-                <a
-                  class="euiButtonEmpty euiButtonEmpty--primary euiHeaderLink sql-editor-link"
-                  href="#"
-                  rel="noreferrer"
+                <button
+                  class="euiButton euiButton--primary sql-editor-button"
+                  type="button"
                 >
                   <span
-                    class="euiButtonEmpty__content"
+                    class="euiButton__content"
                   >
                     <span
-                      class="euiButtonEmpty__text"
+                      class="euiButton__text"
                     >
                       Clear
                     </span>
                   </span>
-                </a>
+                </button>
               </div>
             </div>
           </div>
@@ -1531,11 +1498,6 @@ exports[`<Main /> spec click run button, and response is ok 1`] = `
 <div>
   <div>
     <div>
-      <div
-        class="sql-console-page-header"
-      >
-        SQL console
-      </div>
       <hr
         class="euiHorizontalRule euiHorizontalRule--full"
       />
@@ -1549,13 +1511,8 @@ exports[`<Main /> spec click run button, and response is ok 1`] = `
         <div
           class="euiPanel sql-console-query-editor container-panel"
         >
-          <h1
-            class="euiTitle euiTitle--large container-panel-header"
-          >
-            SQL console
-          </h1>
           <div
-            class="euiFlexGroup euiFlexGroup--directionRow euiFlexGroup--responsive"
+            class="euiFlexGroup euiFlexGroup--gutterSmall euiFlexGroup--directionRow euiFlexGroup--responsive"
           >
             <div
               class="euiFlexItem euiFlexItem--flexGrow1 sql-query-panel"
@@ -1833,7 +1790,7 @@ exports[`<Main /> spec click run button, and response is ok 1`] = `
                 class="euiFlexItem euiFlexItem--flexGrowZero"
               >
                 <button
-                  class="euiButton euiButton--primary sql-editor-button"
+                  class="euiButton euiButton--primary sql-editor-button euiButton--fill"
                   type="button"
                 >
                   <span
@@ -1850,21 +1807,20 @@ exports[`<Main /> spec click run button, and response is ok 1`] = `
               <div
                 class="euiFlexItem euiFlexItem--flexGrowZero"
               >
-                <a
-                  class="euiButtonEmpty euiButtonEmpty--primary euiHeaderLink sql-editor-link"
-                  href="#"
-                  rel="noreferrer"
+                <button
+                  class="euiButton euiButton--primary sql-editor-button"
+                  type="button"
                 >
                   <span
-                    class="euiButtonEmpty__content"
+                    class="euiButton__content"
                   >
                     <span
-                      class="euiButtonEmpty__text"
+                      class="euiButton__text"
                     >
                       Clear
                     </span>
                   </span>
-                </a>
+                </button>
               </div>
             </div>
           </div>
@@ -2040,11 +1996,6 @@ exports[`<Main /> spec click translation button, and response is ok 1`] = `
 <div>
   <div>
     <div>
-      <div
-        class="sql-console-page-header"
-      >
-        SQL console
-      </div>
       <hr
         class="euiHorizontalRule euiHorizontalRule--full"
       />
@@ -2058,13 +2009,8 @@ exports[`<Main /> spec click translation button, and response is ok 1`] = `
         <div
           class="euiPanel sql-console-query-editor container-panel"
         >
-          <h1
-            class="euiTitle euiTitle--large container-panel-header"
-          >
-            SQL console
-          </h1>
           <div
-            class="euiFlexGroup euiFlexGroup--directionRow euiFlexGroup--responsive"
+            class="euiFlexGroup euiFlexGroup--gutterSmall euiFlexGroup--directionRow euiFlexGroup--responsive"
           >
             <div
               class="euiFlexItem euiFlexItem--flexGrow1 sql-query-panel"
@@ -2342,7 +2288,7 @@ exports[`<Main /> spec click translation button, and response is ok 1`] = `
                 class="euiFlexItem euiFlexItem--flexGrowZero"
               >
                 <button
-                  class="euiButton euiButton--primary sql-editor-button"
+                  class="euiButton euiButton--primary sql-editor-button euiButton--fill"
                   type="button"
                 >
                   <span
@@ -2359,21 +2305,20 @@ exports[`<Main /> spec click translation button, and response is ok 1`] = `
               <div
                 class="euiFlexItem euiFlexItem--flexGrowZero"
               >
-                <a
-                  class="euiButtonEmpty euiButtonEmpty--primary euiHeaderLink sql-editor-link"
-                  href="#"
-                  rel="noreferrer"
+                <button
+                  class="euiButton euiButton--primary sql-editor-button"
+                  type="button"
                 >
                   <span
-                    class="euiButtonEmpty__content"
+                    class="euiButton__content"
                   >
                     <span
-                      class="euiButtonEmpty__text"
+                      class="euiButton__text"
                     >
                       Clear
                     </span>
                   </span>
-                </a>
+                </button>
               </div>
             </div>
           </div>
@@ -2549,11 +2494,6 @@ exports[`<Main /> spec renders the component 1`] = `
 <div>
   <div>
     <div>
-      <div
-        class="sql-console-page-header"
-      >
-        SQL console
-      </div>
       <hr
         class="euiHorizontalRule euiHorizontalRule--full"
       />
@@ -2567,13 +2507,8 @@ exports[`<Main /> spec renders the component 1`] = `
         <div
           class="euiPanel sql-console-query-editor container-panel"
         >
-          <h1
-            class="euiTitle euiTitle--large container-panel-header"
-          >
-            SQL console
-          </h1>
           <div
-            class="euiFlexGroup euiFlexGroup--directionRow euiFlexGroup--responsive"
+            class="euiFlexGroup euiFlexGroup--gutterSmall euiFlexGroup--directionRow euiFlexGroup--responsive"
           >
             <div
               class="euiFlexItem euiFlexItem--flexGrow1 sql-query-panel"
@@ -2851,7 +2786,7 @@ exports[`<Main /> spec renders the component 1`] = `
                 class="euiFlexItem euiFlexItem--flexGrowZero"
               >
                 <button
-                  class="euiButton euiButton--primary sql-editor-button"
+                  class="euiButton euiButton--primary sql-editor-button euiButton--fill"
                   type="button"
                 >
                   <span
@@ -2868,21 +2803,20 @@ exports[`<Main /> spec renders the component 1`] = `
               <div
                 class="euiFlexItem euiFlexItem--flexGrowZero"
               >
-                <a
-                  class="euiButtonEmpty euiButtonEmpty--primary euiHeaderLink sql-editor-link"
-                  href="#"
-                  rel="noreferrer"
+                <button
+                  class="euiButton euiButton--primary sql-editor-button"
+                  type="button"
                 >
                   <span
-                    class="euiButtonEmpty__content"
+                    class="euiButton__content"
                   >
                     <span
-                      class="euiButtonEmpty__text"
+                      class="euiButton__text"
                     >
                       Clear
                     </span>
                   </span>
-                </a>
+                </button>
               </div>
             </div>
           </div>
