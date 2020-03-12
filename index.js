@@ -30,8 +30,8 @@ export default function (kibana) {
     name: PLUGIN_NAME,
     uiExports: {
       app: {
-        title: 'SQL Console',
-        description: 'SQL Console',
+        title: 'SQL Workbench',
+        description: 'SQL Workbench',
         main: 'plugins/' + PLUGIN_NAME + '/app',
         icon:'plugins/' + PLUGIN_NAME + '/icons/sql.svg',
       },
