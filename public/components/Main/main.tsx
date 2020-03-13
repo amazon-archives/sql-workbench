@@ -102,10 +102,11 @@ export function getQueryResultsForTable(queryResults: ResponseDetail<string>[]):
 
         for (const column of schema.values()) {
           if (_.isEqual(_.get(column, 'name'), 'TABLE_NAME')) {
-            queryType = 'show'; // show or describe
-          }
-          if (_.isEqual(_.get(column, 'name'), 'DATA_TYPE')) {
-            queryType = 'default'; // describe
+            for (const col of schema.values()) {
+              if (_.isEqual(_.get(col, 'name'), 'DATA_TYPE'))
+              queryType = 'describe';
+            }
+            queryType = 'show';
           }
         }
 
@@ -128,7 +129,8 @@ export function getQueryResultsForTable(queryResults: ResponseDetail<string>[]):
             }
             break;
 
-          default:
+          case 'describe':
+          case 'default':
             for (const [id, field] of schema.entries()) {
               fields[id] = _.get(field, 'name');
             }
@@ -143,8 +145,10 @@ export function getQueryResultsForTable(queryResults: ResponseDetail<string>[]):
               }
               databaseRecords.push(databaseRecord);
             }
+            break;
+
+          default:
             let databaseRecord: { [key: string]: any } = {};
-            databaseRecord['id'] = 'null';
             databaseRecords.push(databaseRecord);
         }
 
@@ -268,18 +272,6 @@ export class Main extends React.Component<MainProps, MainState> {
         className: translation.fulfilled ? "successful-message" : "error-message"
       }
     });
-  }
-
-  isSelectQuery(query: string): boolean {
-    return _.startsWith(_.trim(query).toLowerCase(), "select");
-  }
-
-  getQueryType(query: string): string {
-    if (this.isSelectQuery(query)) {
-      return 'select';
-    } else {
-      return 'default';
-    }
   }
 
   onRun = (queriesString: string): void => {
