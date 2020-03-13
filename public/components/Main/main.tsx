@@ -102,11 +102,11 @@ export function getQueryResultsForTable(queryResults: ResponseDetail<string>[]):
 
         for (const column of schema.values()) {
           if (_.isEqual(_.get(column, 'name'), 'TABLE_NAME')) {
+            queryType = 'show';
             for (const col of schema.values()) {
               if (_.isEqual(_.get(col, 'name'), 'DATA_TYPE'))
               queryType = 'describe';
             }
-            queryType = 'show';
           }
         }
 
