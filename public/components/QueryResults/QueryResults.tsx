@@ -26,7 +26,7 @@ import {DEFAULT_NUM_RECORDS_PER_PAGE, MESSAGE_TAB_LABEL, TAB_CONTAINER_ID} from 
 interface QueryResultsProps {
   queries: string[];
   queryResults: ResponseDetail<QueryResult>[];
-  queryRawResponse: string;
+  queryResultsJSON: string;
   queryResultsJDBC: string;
   queryResultsCSV: string;
   queryResultsTEXT: string;
@@ -328,7 +328,7 @@ class QueryResults extends React.Component<QueryResultsProps, QueryResultsState>
           selectedTabName={this.props.selectedTabName}
           tabNames={this.tabNames}
           queryResultSelected={queryResultSelected}
-          queryRawResponse={this.props.queryRawResponse}
+          queryResultsJSON={this.props.queryResultsJSON}
           queryResultsJDBC={this.props.queryResultsJDBC}
           queryResultsCSV={this.props.queryResultsCSV}
           queryResultsTEXT={this.props.queryResultsTEXT}

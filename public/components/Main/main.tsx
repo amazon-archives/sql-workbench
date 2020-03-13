@@ -69,7 +69,7 @@ interface MainState {
   queryTranslations: Array<ResponseDetail<TranslateResult>>;
   queryResultsTable: Array<ResponseDetail<QueryResult>>;
   queryResults: Array<ResponseDetail<string>>;
-  queryResultsJDBC: Array<ResponseDetail<string>>;
+  queryResultsJSON: Array<ResponseDetail<string>>;
   queryResultsCSV: Array<ResponseDetail<string>>;
   queryResultsTEXT: Array<ResponseDetail<string>>;
   selectedTabName: string;
@@ -82,8 +82,8 @@ interface MainState {
 const SUCCESS_MESSAGE = "Success";
 
 // It gets column names and row values to display in a Table from the json API response
-export function getQueryResultsForTable(queryResultsRaw: ResponseDetail<string>[]): ResponseDetail<QueryResult>[] {
-  return queryResultsRaw.map(
+export function getQueryResultsForTable(queryResults: ResponseDetail<string>[]): ResponseDetail<QueryResult>[] {
+  return queryResults.map(
     ( queryResultResponseDetail: ResponseDetail<string> ): ResponseDetail<QueryResult> => {
       if (!queryResultResponseDetail.fulfilled) {
         return {
@@ -96,109 +96,56 @@ export function getQueryResultsForTable(queryResultsRaw: ResponseDetail<string>[
         let databaseFields: string[] = [];
         let fields: string[] = [];
 
-        // the following block is to deal with describe/show/delete query from jdbc results
-        if (_.has(responseObj, 'schema')) {
-          const schema: object[] = _.get(responseObj, 'schema');
-          const datarows: any[][] = _.get(responseObj, 'datarows');
-          let queryType: string = 'show';
+        const schema: object[] = _.get(responseObj, 'schema');
+        const datarows: any[][] = _.get(responseObj, 'datarows');
+        let queryType = 'default';
 
-          for (const column of schema.values()) {
-            if (_.isEqual(_.get(column, 'name'), 'deleted_rows')) {
-              queryType = 'delete';
-            } else if (_.isEqual(_.get(column, 'name'), 'DATA_TYPE')) {
-              queryType = 'describe'
-            }
+        for (const column of schema.values()) {
+          if (_.isEqual(_.get(column, 'name'), 'TABLE_NAME')) {
+            queryType = 'show'; // show or describe
           }
-          switch (queryType) {
-            case 'delete':
-            case 'describe':
-              for (const [id, field] of schema.entries()) {
-                fields[id] = _.get(field, 'name');
+          if (_.isEqual(_.get(column, 'name'), 'DATA_TYPE')) {
+            queryType = 'default'; // describe
+          }
+        }
+
+        switch (queryType) {
+          case 'show':
+            databaseFields[0] = 'TABLE_NAME';
+            databaseFields.unshift('id');
+            let index: number = -1;
+            for (const [id, field] of schema.entries()) {
+              if (_.eq(_.get(field, 'name'), 'TABLE_NAME')) {
+                index = id;
+                break;
               }
-              databaseFields = fields;
-              databaseFields.unshift("id");
-              for (const [id, datarow] of datarows.entries()) {
-                let databaseRecord: { [key: string]: any } = {};
-                databaseRecord['id'] = id;
-                for (const index of schema.keys()) {
-                  const fieldname = databaseFields[index+1];
-                  databaseRecord[fieldname] = datarow[index];
-                }
-                databaseRecords.push(databaseRecord);
-              }
-              break;
-            case 'show':
-              databaseFields[0] = 'TABLE_NAME';
-              databaseFields.unshift('id');
-              let index: number = -1;
-              for (const [id, field] of schema.entries()) {
-                if (_.eq(_.get(field, 'name'), 'TABLE_NAME')) {
-                  index = id;
-                  break;
-                }
-              }
-              for (const [id, datarow] of datarows.entries()) {
-                let databaseRecord: { [key: string]: any } = {};
-                databaseRecord['id'] = id;
-                databaseRecord['TABLE_NAME'] = datarow[index];
-                databaseRecords.push(databaseRecord);
-              }
-              break;
-            default:
+            }
+            for (const [id, datarow] of datarows.entries()) {
               let databaseRecord: { [key: string]: any } = {};
-              databaseRecord['id'] = 'null';
+              databaseRecord['id'] = id;
+              databaseRecord['TABLE_NAME'] = datarow[index];
               databaseRecords.push(databaseRecord);
-          }
-          return {
-            fulfilled: queryResultResponseDetail.fulfilled,
-            data: {
-              fields: databaseFields,
-              records: databaseRecords,
-              message: SUCCESS_MESSAGE
             }
-          }
-        }
+            break;
 
-        // the following block is to deal with aggregation result
-        if (_.has(responseObj, "aggregations")) {
-          const aggregations = _.get(responseObj, "aggregations", {});
-          let databaseRecord: { [key: string]: any } = {};
-          databaseFields = Object.keys(aggregations);
-          databaseFields.unshift("id");
-
-          databaseRecord["id"] = "value";
-          for (let i = 1; i < databaseFields.length; i++) {
-            const field: string = databaseFields[i];
-            databaseRecord[field] = _.get(responseObj, "aggregations[" + field + "][value]");
-          }
-          databaseRecords.push(databaseRecord);
-          return {
-            fulfilled: queryResultResponseDetail.fulfilled,
-            data: {
-              fields: databaseFields,
-              records: databaseRecords,
-              message: SUCCESS_MESSAGE
+          default:
+            for (const [id, field] of schema.entries()) {
+              fields[id] = _.get(field, 'name');
             }
-          }
-        }
-
-        const hits = _.get(responseObj, "hits[hits]", []);
-        if (hits.length > 0) {
-          databaseFields=(Object.keys(hits[0]["_source"]));
-          databaseFields.unshift("id");
-        }
-
-        for (let i = 0; i < hits.length; i += 1) {
-          const values = hits[i] != null ? Object.values(hits[i]["_source"]) : "";
-          const databaseRecord: { [key: string]: any } = {};
-
-          //Add row id
-          databaseRecord["id"] = i;
-          for (let j = 0; j < values.length; j += 1) {
-            const field: string = databaseFields[j+1]; // databaseFields has an extra value for "id"
-            databaseRecord[field] = values[j];
-          }
-          databaseRecords.push(databaseRecord);
+            databaseFields = fields;
+            databaseFields.unshift("id");
+            for (const [id, datarow] of datarows.entries()) {
+              let databaseRecord: { [key: string]: any } = {};
+              databaseRecord['id'] = id;
+              for (const index of schema.keys()) {
+                const fieldname = databaseFields[index+1];
+                databaseRecord[fieldname] = datarow[index];
+              }
+              databaseRecords.push(databaseRecord);
+            }
+            let databaseRecord: { [key: string]: any } = {};
+            databaseRecord['id'] = 'null';
+            databaseRecords.push(databaseRecord);
         }
 
         return {
@@ -208,7 +155,7 @@ export function getQueryResultsForTable(queryResultsRaw: ResponseDetail<string>[
             records: databaseRecords,
             message: SUCCESS_MESSAGE
           }
-        };
+        }
       }
     }
   );
@@ -226,7 +173,7 @@ export class Main extends React.Component<MainProps, MainState> {
       queryTranslations: [],
       queryResultsTable: [],
       queryResults: [],
-      queryResultsJDBC: [],
+      queryResultsJSON: [],
       queryResultsCSV: [],
       queryResultsTEXT: [],
       selectedTabName: MESSAGE_TAB_LABEL,
@@ -323,21 +270,24 @@ export class Main extends React.Component<MainProps, MainState> {
     });
   }
 
-  // isSelectQuery(query: string): boolean {
-  //   return _.startsWith(_.trim(query).toLowerCase(), "select");
-  // }
-  //
-  // requestedFormat(query: string): string {
-  //   if (this.isSelectQuery(query)) return "";
-  //   return "jdbc";
-  // }
+  isSelectQuery(query: string): boolean {
+    return _.startsWith(_.trim(query).toLowerCase(), "select");
+  }
+
+  getQueryType(query: string): string {
+    if (this.isSelectQuery(query)) {
+      return 'select';
+    } else {
+      return 'default';
+    }
+  }
 
   onRun = (queriesString: string): void => {
     const queries: string[] = getQueries(queriesString);
 
     if (queries.length > 0) {
 
-      const esRawResponsePromise = Promise.all(
+      const responsePromise = Promise.all(
         queries.map((query: string) =>
           this.httpClient
             .post("../api/sql_console/query", {query})
@@ -371,23 +321,23 @@ export class Main extends React.Component<MainProps, MainState> {
         )
       );
 
-      Promise.all([esRawResponsePromise, translationPromise]).then(([esRawResponse, translationResponse]) => {
-        const esRawResult: ResponseDetail<string>[] = esRawResponse.map(esRawResponse =>
-          this.processQueryResponse(esRawResponse as IHttpResponse<ResponseData>));
-        const resultTable: ResponseDetail<QueryResult>[] = getQueryResultsForTable(esRawResult);
+      Promise.all([responsePromise, translationPromise]).then(([response, translationResponse]) => {
+        const results: ResponseDetail<string>[] = response.map(response =>
+          this.processQueryResponse(response as IHttpResponse<ResponseData>));
+        const resultTable: ResponseDetail<QueryResult>[] = getQueryResultsForTable(results);
         const translationResult: ResponseDetail<TranslateResult>[] = translationResponse.map(translationResponse =>
           this.processTranslateResponse(translationResponse as IHttpResponse<ResponseData>));
 
         this.setState({
           queries: queries,
-          queryResults: esRawResult,
+          queryResults: results,
           queryTranslations: translationResult,
           queryResultsTable: resultTable,
-          selectedTabId: getDefaultTabId(esRawResult),
-          selectedTabName: getDefaultTabLabel(esRawResult, queries[0]),
+          selectedTabId: getDefaultTabId(results),
+          selectedTabName: getDefaultTabLabel(results, queries[0]),
           messages: this.getMessage(resultTable),
           itemIdToExpandedRowMap: {},
-          queryResultsJDBC: [],
+          queryResultsJSON: [],
           queryResultsCSV: [],
           queryResultsTEXT: [],
           searchQuery: ""
@@ -441,7 +391,7 @@ export class Main extends React.Component<MainProps, MainState> {
             selectedTabName: MESSAGE_TAB_LABEL,
             selectedTabId: MESSAGE_TAB_LABEL,
             itemIdToExpandedRowMap: {},
-            queryResultsJDBC: [],
+            queryResultsJSON: [],
             queryResultsCSV: [],
             queryResultsTEXT: [],
             searchQuery: ""
@@ -452,6 +402,36 @@ export class Main extends React.Component<MainProps, MainState> {
   };
 
   getJson = (queries: string[]): void => {
+    if (queries.length > 0) {
+      Promise.all(
+        queries.map((query: string) =>
+          this.httpClient
+            .post("../api/sql_console/queryjson", {query})
+            .catch((error: any) => {
+              this.setState({
+                messages: [
+                  {
+                    text: error.message,
+                    className: "error-message"
+                  }
+                ]
+              });
+            })
+        )
+      ).then(
+        response => {
+          const results: ResponseDetail<string>[] = response.map(response =>
+            this.processQueryResponse(response as IHttpResponse<ResponseData>));
+          this.setState({
+            queries,
+            queryResultsJSON: results
+          }, () => console.log("Successfully updated the states"));
+        }
+      )
+    }
+  };
+
+  getJdbc = (queries: string[]): void => {
     if (queries.length > 0) {
       Promise.all(
         queries.map((query: string) =>
@@ -469,42 +449,12 @@ export class Main extends React.Component<MainProps, MainState> {
             })
         )
       ).then(
-        rawResponse => {
-          const rawResponseResult: ResponseDetail<string>[] = rawResponse.map(rawResponse =>
-            this.processQueryResponse(rawResponse as IHttpResponse<ResponseData>));
-          this.setState({
-            queries,
-            queryResults: rawResponseResult
-          }, () => console.log("Successfully updated the states"));
-        }
-      )
-    }
-  };
-
-  getJdbc = (queries: string[]): void => {
-    if (queries.length > 0) {
-      Promise.all(
-        queries.map((query: string) =>
-          this.httpClient
-            .post("../api/sql_console/queryjdbc", {query})
-            .catch((error: any) => {
-              this.setState({
-                messages: [
-                  {
-                    text: error.message,
-                    className: "error-message"
-                  }
-                ]
-              });
-            })
-        )
-      ).then(
         jdbcResponse => {
           const jdbcResult: ResponseDetail<string>[] = jdbcResponse.map(jdbcResponse =>
             this.processQueryResponse(jdbcResponse as IHttpResponse<ResponseData>));
           this.setState({
             queries,
-            queryResultsJDBC: jdbcResult
+            queryResults: jdbcResult
           }, () => console.log("Successfully updated the states"));
         }
       )
@@ -578,7 +528,7 @@ export class Main extends React.Component<MainProps, MainState> {
       queryResultsTable: [],
       queryResults: [],
       queryResultsCSV: [],
-      queryResultsJDBC: [],
+      queryResultsJSON: [],
       queryResultsTEXT: [],
       messages: [],
       selectedTabId: MESSAGE_TAB_LABEL,
@@ -607,8 +557,8 @@ export class Main extends React.Component<MainProps, MainState> {
             <QueryResults
               queries={this.state.queries}
               queryResults={this.state.queryResultsTable}
-              queryRawResponse={getSelectedResults(this.state.queryResults, this.state.selectedTabId)}
-              queryResultsJDBC={getSelectedResults(this.state.queryResultsJDBC, this.state.selectedTabId)}
+              queryResultsJDBC={getSelectedResults(this.state.queryResults, this.state.selectedTabId)}
+              queryResultsJSON={getSelectedResults(this.state.queryResultsJSON, this.state.selectedTabId)}
               queryResultsCSV={getSelectedResults(this.state.queryResultsCSV, this.state.selectedTabId)}
               queryResultsTEXT={getSelectedResults(this.state.queryResultsTEXT, this.state.selectedTabId)}
               messages={this.state.messages}

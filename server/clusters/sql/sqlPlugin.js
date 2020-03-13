@@ -45,7 +45,7 @@ export default function sqlPlugin(Client, config, components) {
     method: 'POST',
   });
 
-  sql.queryjson = ca({
+  sql.getJson = ca({
     url: {
       fmt: `${QUERY_ROUTE}?${FORMAT_JSON}`,
     },

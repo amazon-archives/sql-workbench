@@ -42,7 +42,7 @@ function renderQueryResults(mockQueryResults : ResponseDetail<QueryResult>[],
         queries={mockQueries}
         queryResults={mockQueryResults}
         queryResultsJDBC={''}
-        queryRawResponse={''}
+        queryResultsJSON={''}
         queryResultsCSV={''}
         queryResultsTEXT={''}
         messages={[]}

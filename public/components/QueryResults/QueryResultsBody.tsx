@@ -59,7 +59,7 @@ interface QueryResultsBodyProps {
   queryResultSelected: QueryResult;
   queryResultsJDBC: string;
   queryResultsCSV: string;
-  queryRawResponse: string;
+  queryResultsJSON: string;
   queryResultsTEXT: string;
   tabNames: string[];
   selectedTabName: string;
@@ -144,7 +144,7 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
           {
             name: "Download JSON",
             onClick: () => {
-              this.onDownloadRawResponse();
+              this.onDownloadJSON();
             }
           },
           {
@@ -171,11 +171,11 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
   }
 
   // Actions for Download files
-  onDownloadRawResponse = (): void => {
-    if (!this.props.queryRawResponse) {
+  onDownloadJSON = (): void => {
+    if (!this.props.queryResultsJSON) {
       this.props.getJson(this.props.queries);
     }
-    const jsonObject = JSON.parse(this.props.queryRawResponse);
+    const jsonObject = JSON.parse(this.props.queryResultsJSON);
     const data = JSON.stringify(jsonObject, undefined, 4);
     onDownloadFile(data, "json", this.props.selectedTabName + ".json");
   };
