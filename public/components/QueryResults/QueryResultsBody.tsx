@@ -78,7 +78,7 @@ interface QueryResultsBodyProps {
   onSort: (prop: string) => void;
   onQueryChange: (query: object) => void;
   updateExpandedMap: (map: ItemIdToExpandedRowMap) => void;
-  getRawResponse: (queries: string[]) => void;
+  getJson: (queries: string[]) => void;
   getJdbc: (queries: string[]) => void;
   getCsv: (queries: string[]) => void;
   getText: (queries: string[]) => void;
@@ -173,7 +173,7 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
   // Actions for Download files
   onDownloadRawResponse = (): void => {
     if (!this.props.queryRawResponse) {
-      this.props.getRawResponse(this.props.queries);
+      this.props.getJson(this.props.queries);
     }
     const jsonObject = JSON.parse(this.props.queryRawResponse);
     const data = JSON.stringify(jsonObject, undefined, 4);

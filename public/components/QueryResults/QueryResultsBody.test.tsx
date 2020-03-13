@@ -35,7 +35,7 @@ function renderQueryResultsBody(mockQueries: string[],
                                 onQueryChange: (query: object) => void,
                                 updateExpandedMap:(map: object) => void,
                                 onChangeItemsPerPage: (itemsPerPage: number) => void,
-                                getRawResponse: (queries: string[]) => void,
+                                getJson: (queries: string[]) => void,
                                 getJdbc: (queries: string[]) => void,
                                 getCsv: (queries: string[]) => void,
                                 getText: (queries: string[]) => void) {
@@ -65,7 +65,7 @@ function renderQueryResultsBody(mockQueries: string[],
                 sortableProperties={mockSortableProperties}
                 itemIdToExpandedRowMap={{}}
                 updateExpandedMap={updateExpandedMap}
-                getRawResponse={getRawResponse}
+                getJson={getJson}
                 getJdbc={getJdbc}
                 getCsv={getCsv}
                 getText={getText}

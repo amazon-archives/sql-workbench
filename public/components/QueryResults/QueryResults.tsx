@@ -39,7 +39,7 @@ interface QueryResultsProps {
   onQueryChange: (object:any) => void;
   updateExpandedMap: (map: ItemIdToExpandedRowMap) => void;
   itemIdToExpandedRowMap: ItemIdToExpandedRowMap;
-  getRawResponse: (queries: string[]) => void;
+  getJson: (queries: string[]) => void;
   getJdbc: (queries: string[]) => void;
   getCsv: (queries: string[]) => void;
   getText: (queries: string[]) => void;
@@ -346,7 +346,7 @@ class QueryResults extends React.Component<QueryResultsProps, QueryResultsState>
           sortableProperties={this.sortableProperties}
           itemIdToExpandedRowMap={this.props.itemIdToExpandedRowMap}
           updateExpandedMap={this.props.updateExpandedMap}
-          getRawResponse={this.props.getRawResponse}
+          getJson={this.props.getJson}
           getJdbc={this.props.getJdbc}
           getCsv={this.props.getCsv}
           getText={this.props.getText}

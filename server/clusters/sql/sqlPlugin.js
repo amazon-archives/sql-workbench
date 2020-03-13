@@ -13,7 +13,7 @@
  *   permissions and limitations under the License.
  */
 
-import { TRANSLATE_ROUTE, QUERY_ROUTE, FORMAT_CSV, FORMAT_ESRAW, FORMAT_TEXT } from '../../services/utils/constants';
+import { TRANSLATE_ROUTE, QUERY_ROUTE, FORMAT_CSV, FORMAT_JSON, FORMAT_TEXT } from '../../services/utils/constants';
 
 export default function sqlPlugin(Client, config, components) {
   const ca = components.clientAction.factory;
@@ -31,7 +31,23 @@ export default function sqlPlugin(Client, config, components) {
 
   sql.query = ca({
     url: {
-      fmt: `${QUERY_ROUTE}?${FORMAT_ESRAW}`,
+      fmt: `${QUERY_ROUTE}`,
+    },
+    needBody: true,
+    method: 'POST',
+  }); //default: jdbc
+
+  sql.getJdbc = ca({
+    url: {
+      fmt: `${QUERY_ROUTE}`,
+    },
+    needBody: true,
+    method: 'POST',
+  });
+
+  sql.queryjson = ca({
+    url: {
+      fmt: `${QUERY_ROUTE}?${FORMAT_JSON}`,
     },
     needBody: true,
     method: 'POST',
@@ -43,14 +59,6 @@ export default function sqlPlugin(Client, config, components) {
 	},
 	needBody: true,
 	method: 'POST',
-  });
-
-  sql.getJdbc = ca({
-    url: {
-      fmt: `${QUERY_ROUTE}`,
-    },
-    needBody: true,
-    method: 'POST',
   });
 
   sql.getText = ca({

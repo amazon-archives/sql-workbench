@@ -323,14 +323,14 @@ export class Main extends React.Component<MainProps, MainState> {
     });
   }
 
-  isSelectQuery(query: string): boolean {
-    return _.startsWith(_.trim(query).toLowerCase(), "select");
-  }
-
-  requestedFormat(query: string): string {
-    if (this.isSelectQuery(query)) return "";
-    return "jdbc";
-  }
+  // isSelectQuery(query: string): boolean {
+  //   return _.startsWith(_.trim(query).toLowerCase(), "select");
+  // }
+  //
+  // requestedFormat(query: string): string {
+  //   if (this.isSelectQuery(query)) return "";
+  //   return "jdbc";
+  // }
 
   onRun = (queriesString: string): void => {
     const queries: string[] = getQueries(queriesString);
@@ -340,7 +340,7 @@ export class Main extends React.Component<MainProps, MainState> {
       const esRawResponsePromise = Promise.all(
         queries.map((query: string) =>
           this.httpClient
-            .post("../api/sql_console/query".concat(this.requestedFormat(query)), {query})
+            .post("../api/sql_console/query", {query})
             .catch((error: any) => {
               this.setState({
                 messages: [
@@ -451,7 +451,7 @@ export class Main extends React.Component<MainProps, MainState> {
     }
   };
 
-  getRawResponse = (queries: string[]): void => {
+  getJson = (queries: string[]): void => {
     if (queries.length > 0) {
       Promise.all(
         queries.map((query: string) =>
@@ -620,7 +620,7 @@ export class Main extends React.Component<MainProps, MainState> {
               updateExpandedMap={this.updateExpandedMap}
               searchQuery={this.state.searchQuery}
               tabsOverflow={false}
-              getRawResponse={this.getRawResponse}
+              getJson={this.getJson}
               getJdbc={this.getJdbc}
               getCsv={this.getCsv}
               getText={this.getText}
