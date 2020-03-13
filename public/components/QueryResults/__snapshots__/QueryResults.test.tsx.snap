@@ -22,7 +22,15 @@ exports[`<QueryResults /> spec renders the component with no data 1`] = `
             <div
               class="euiPopover__anchor"
             >
-              EuiIconMock
+              <svg
+                class="euiIcon euiIcon--medium euiIcon-isLoading"
+                data-test-subj="slide-left"
+                focusable="false"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              />
             </div>
           </div>
         </div>
@@ -70,7 +78,14 @@ exports[`<QueryResults /> spec renders the component with no data 1`] = `
               <div
                 class="euiPopover__anchor"
               >
-                EuiIconMock
+                <svg
+                  class="euiIcon euiIcon--medium euiIcon-isLoading"
+                  focusable="false"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                />
               </div>
             </div>
           </div>
@@ -85,7 +100,14 @@ exports[`<QueryResults /> spec renders the component with no data 1`] = `
               <div
                 class="euiPopover__anchor"
               >
-                EuiIconMock
+                <svg
+                  class="euiIcon euiIcon--medium euiIcon-isLoading"
+                  focusable="false"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                />
               </div>
             </div>
           </div>
@@ -103,7 +125,7 @@ exports[`<QueryResults /> spec renders the component with no data 1`] = `
       <div
         class="euiCodeEditorKeyboardHint"
         data-test-subj="codeEditorHint"
-        id="some_html_id"
+        id="i039e84f0-6579-11ea-ba24-a3ec2347362f_codeEditor"
         role="button"
         tabindex="0"
       >
@@ -119,8 +141,8 @@ exports[`<QueryResults /> spec renders the component with no data 1`] = `
         </p>
       </div>
       <div
-        class=" ace_editor ace-sql-console successful-message"
-        id="some_html_id"
+        class=" ace_editor ace-tm successful-message"
+        id="i039e84f0-6579-11ea-ba24-a3ec2347362f_039e84f1-6579-11ea-ba24-a3ec2347362f"
         style="width: 100%; height: 500px; font-size: 14px;"
       >
         <textarea

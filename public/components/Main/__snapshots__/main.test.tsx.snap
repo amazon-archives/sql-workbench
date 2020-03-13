@@ -2527,7 +2527,7 @@ exports[`<Main /> spec renders the component 1`] = `
                 <div
                   class="euiCodeEditorKeyboardHint"
                   data-test-subj="codeEditorHint"
-                  id="some_html_id"
+                  id="i2c93bfb0-6579-11ea-a7e7-eb5c4d1da4b3_codeEditor"
                   role="button"
                   tabindex="0"
                 >
@@ -2543,8 +2543,8 @@ exports[`<Main /> spec renders the component 1`] = `
                   </p>
                 </div>
                 <div
-                  class=" ace_editor ace-sql-console"
-                  id="some_html_id"
+                  class=" ace_editor ace-tm"
+                  id="i2c93bfb0-6579-11ea-a7e7-eb5c4d1da4b3_2c93e6c0-6579-11ea-a7e7-eb5c4d1da4b3"
                   style="width: 100%; height: 18.5rem; font-size: 12px;"
                 >
                   <textarea
@@ -2651,7 +2651,7 @@ exports[`<Main /> spec renders the component 1`] = `
                 <div
                   class="euiCodeEditorKeyboardHint"
                   data-test-subj="codeEditorHint"
-                  id="some_html_id"
+                  id="i2c951f40-6579-11ea-a7e7-eb5c4d1da4b3_codeEditor"
                   role="button"
                   tabindex="0"
                 >
@@ -2667,8 +2667,8 @@ exports[`<Main /> spec renders the component 1`] = `
                   </p>
                 </div>
                 <div
-                  class=" ace_editor ace-sql-console"
-                  id="some_html_id"
+                  class=" ace_editor ace-tm"
+                  id="i2c951f40-6579-11ea-a7e7-eb5c4d1da4b3_2c954650-6579-11ea-a7e7-eb5c4d1da4b3"
                   style="width: 100%; height: 18.5rem; font-size: 12px;"
                 >
                   <textarea
@@ -2874,7 +2874,7 @@ exports[`<Main /> spec renders the component 1`] = `
             <div
               class="euiCodeEditorKeyboardHint"
               data-test-subj="codeEditorHint"
-              id="some_html_id"
+              id="i2c96ccf0-6579-11ea-a7e7-eb5c4d1da4b3_codeEditor"
               role="button"
               tabindex="0"
             >
@@ -2890,8 +2890,8 @@ exports[`<Main /> spec renders the component 1`] = `
               </p>
             </div>
             <div
-              class=" ace_editor ace-sql-console successful-message"
-              id="some_html_id"
+              class=" ace_editor ace-tm successful-message"
+              id="i2c96ccf0-6579-11ea-a7e7-eb5c4d1da4b3_2c96ccf1-6579-11ea-a7e7-eb5c4d1da4b3"
               style="width: 100%; height: 500px; font-size: 14px;"
             >
               <textarea
