@@ -25,7 +25,7 @@ exports[`<QueryEditor /> spec renders the component 1`] = `
           <div
             class="euiCodeEditorKeyboardHint"
             data-test-subj="codeEditorHint"
-            id="i21f39080-6579-11ea-a2dd-1dc131f5e9ce_codeEditor"
+            id="i9a9f0860-6589-11ea-95bb-b1e50cddf85a_codeEditor"
             role="button"
             tabindex="0"
           >
@@ -42,7 +42,7 @@ exports[`<QueryEditor /> spec renders the component 1`] = `
           </div>
           <div
             class=" ace_editor ace-tm"
-            id="i21f39080-6579-11ea-a2dd-1dc131f5e9ce_21f3b790-6579-11ea-a2dd-1dc131f5e9ce"
+            id="i9a9f0860-6589-11ea-95bb-b1e50cddf85a_9a9f2f70-6589-11ea-95bb-b1e50cddf85a"
             style="width: 100%; height: 18.5rem; font-size: 12px;"
           >
             <textarea
@@ -149,7 +149,7 @@ exports[`<QueryEditor /> spec renders the component 1`] = `
           <div
             class="euiCodeEditorKeyboardHint"
             data-test-subj="codeEditorHint"
-            id="i21f51720-6579-11ea-a2dd-1dc131f5e9ce_codeEditor"
+            id="i9aa15250-6589-11ea-95bb-b1e50cddf85a_codeEditor"
             role="button"
             tabindex="0"
           >
@@ -166,7 +166,7 @@ exports[`<QueryEditor /> spec renders the component 1`] = `
           </div>
           <div
             class=" ace_editor ace-tm"
-            id="i21f51720-6579-11ea-a2dd-1dc131f5e9ce_21f51721-6579-11ea-a2dd-1dc131f5e9ce"
+            id="i9aa15250-6589-11ea-95bb-b1e50cddf85a_9aa15251-6589-11ea-95bb-b1e50cddf85a"
             style="width: 100%; height: 18.5rem; font-size: 12px;"
           >
             <textarea

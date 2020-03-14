@@ -10538,7 +10538,7 @@ exports[`<QueryResultsBody /> spec renders the component 1`] = `
     <div
       class="euiCodeEditorKeyboardHint"
       data-test-subj="codeEditorHint"
-      id="i15ddd850-6579-11ea-92ee-5db4f8eca1e2_codeEditor"
+      id="ibd1bc4a0-6589-11ea-8c5a-979df850313b_codeEditor"
       role="button"
       tabindex="0"
     >
@@ -10555,7 +10555,7 @@ exports[`<QueryResultsBody /> spec renders the component 1`] = `
     </div>
     <div
       class=" ace_editor ace-tm successful-message"
-      id="i15ddd850-6579-11ea-92ee-5db4f8eca1e2_15ddff60-6579-11ea-92ee-5db4f8eca1e2"
+      id="ibd1bc4a0-6589-11ea-8c5a-979df850313b_bd1c12c0-6589-11ea-8c5a-979df850313b"
       style="width: 100%; height: 500px; font-size: 14px;"
     >
       <textarea
