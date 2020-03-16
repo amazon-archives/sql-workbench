@@ -21,7 +21,7 @@ import QueryResultsBody from "./QueryResultsBody";
 import { Pager } from "@elastic/eui/lib";
 // @ts-ignore
 import { SortableProperties } from "@elastic/eui/lib/services";
-import { mockQueryResults, mockQueryResultResponse, mockErrorMessage, mockSuccessfulMessage, mockSortableColumns} from "../../../test/mocks/mockData";
+import { mockQueryResults, mockQueryResultJSONResponse, mockErrorMessage, mockSuccessfulMessage, mockSortableColumns} from "../../../test/mocks/mockData";
 import userEvent from "@testing-library/user-event";
 import { QueryMessage, QueryResult } from "../Main/main";
 
@@ -35,7 +35,7 @@ function renderQueryResultsBody(mockQueries: string[],
                                 onQueryChange: (query: object) => void,
                                 updateExpandedMap:(map: object) => void,
                                 onChangeItemsPerPage: (itemsPerPage: number) => void,
-                                getRawResponse: (queries: string[]) => void,
+                                getJson: (queries: string[]) => void,
                                 getJdbc: (queries: string[]) => void,
                                 getCsv: (queries: string[]) => void,
                                 getText: (queries: string[]) => void) {
@@ -47,7 +47,7 @@ function renderQueryResultsBody(mockQueries: string[],
                 selectedTabName={'Messages'}
                 tabNames={['Messages', 'Index_1']}
                 queryResultSelected={mockQueryResultsSelected}
-                queryRawResponse={mockQueryResultsRaw}
+                queryResultsJSON={mockQueryResultsRaw}
                 queryResultsJDBC={mockQueryResultsRaw}
                 queryResultsCSV={mockQueryResultsRaw}
                 queryResultsTEXT={mockQueryResultsRaw}
@@ -65,7 +65,7 @@ function renderQueryResultsBody(mockQueries: string[],
                 sortableProperties={mockSortableProperties}
                 itemIdToExpandedRowMap={{}}
                 updateExpandedMap={updateExpandedMap}
-                getRawResponse={getRawResponse}
+                getJson={getJson}
                 getJdbc={getJdbc}
                 getCsv={getCsv}
                 getText={getText}
@@ -82,7 +82,7 @@ describe("<QueryResultsBody /> spec", () => {
   const onQueryChange = jest.fn();
   const updateExpandedMap = jest.fn();
   const onChangeItemsPerPage = jest.fn();
-  const getRawResponse = jest.fn();
+  const getJson = jest.fn();
   const getJdbc = jest.fn();
   const getCsv = jest.fn();
   const getText = jest.fn();
@@ -101,7 +101,7 @@ describe("<QueryResultsBody /> spec", () => {
 
     const { queryByTestId } = renderQueryResultsBody(undefined, undefined, undefined,
       mockSortableProperties, mockErrorMessage, onSort, onQueryChange, updateExpandedMap, onChangeItemsPerPage,
-      getRawResponse, getJdbc, getCsv, getText);
+      getJson, getJdbc, getCsv, getText);
 
     // Download buttons, pagination, search area, table should not be visible when there is no data
     expect(queryByTestId('Download')).toBeNull();
@@ -122,8 +122,8 @@ describe("<QueryResultsBody /> spec", () => {
     (window as any).HTMLElement.prototype.scrollIntoView = function() {};
 
     const { getAllByText, getAllByTestId, getAllByLabelText, getByText, getByPlaceholderText } =
-      renderQueryResultsBody(undefined, mockQueryResults[0].data, mockQueryResultResponse.data.resp, mockSortableProperties,
-        mockSuccessfulMessage, onSort, onQueryChange, updateExpandedMap, onChangeItemsPerPage, getRawResponse, getJdbc,
+      renderQueryResultsBody(undefined, mockQueryResults[0].data, mockQueryResultJSONResponse.data.resp, mockSortableProperties,
+        mockSuccessfulMessage, onSort, onQueryChange, updateExpandedMap, onChangeItemsPerPage, getJson, getJdbc,
         getCsv, getText);
     expect(document.body.children[0]).toMatchSnapshot();
 

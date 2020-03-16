@@ -31,7 +31,7 @@ function renderQueryResults(mockQueryResults : ResponseDetail<QueryResult>[],
                             onSelectedTabIdChange : (tab: Tab) => void,
                             onQueryChange : () => {},
                             updateExpandedMap : (map:ItemIdToExpandedRowMap) => {},
-                            getRawResponse: (queries: string[]) => void,
+                            getJson: (queries: string[]) => void,
                             getJdbc: (queries: string[]) => void,
                             getCsv: (queries: string[]) => void,
                             getText: (queries: string[]) => void ){
@@ -42,7 +42,7 @@ function renderQueryResults(mockQueryResults : ResponseDetail<QueryResult>[],
         queries={mockQueries}
         queryResults={mockQueryResults}
         queryResultsJDBC={''}
-        queryRawResponse={''}
+        queryResultsJSON={''}
         queryResultsCSV={''}
         queryResultsTEXT={''}
         messages={[]}
@@ -54,7 +54,7 @@ function renderQueryResults(mockQueryResults : ResponseDetail<QueryResult>[],
         updateExpandedMap={updateExpandedMap}
         searchQuery={mockSearchQuery}
         tabsOverflow={true}
-        getRawResponse={getRawResponse}
+        getJson={getJson}
         getJdbc={getJdbc}
         getCsv={getCsv}
         getText={getText}

@@ -16,4 +16,5 @@
 export const ROUTE_PATH_QUERY = '/api/sql_console/query';
 export const ROUTE_PATH_QUERY_CSV = '/api/sql_console/querycsv';
 export const ROUTE_PATH_QUERY_JDBC = '/api/sql_console/queryjdbc';
+export const ROUTE_PATH_QUERY_JSON = '/api/sql_console/queryjson';
 export const ROUTE_PATH_QUERY_TEXT = '/api/sql_console/querytext';

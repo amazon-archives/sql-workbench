@@ -46,6 +46,10 @@ export default class QueryService {
     return this.describeQueryInternal(request, h, "sql.getCsv", err)
   };
 
+  describeQueryJson = async (request: Request, h: ResponseToolkit, err?: Error) => {
+    return this.describeQueryInternal(request, h, "sql.getJson", err)
+  };
+
   describeQueryJdbc = async (request: Request, h: ResponseToolkit, err?: Error) => {
     return this.describeQueryInternal(request, h, "sql.getJdbc", err)
   };
