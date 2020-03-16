@@ -1,4 +1,4 @@
-## 2020-03-16 Version 1.5.0.0 (Current)
+## 2020-03-16 Version 1.6.0.0 (Current)
 
 ### Features
 
