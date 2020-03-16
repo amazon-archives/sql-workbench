@@ -1,12 +1,12 @@
 {
   "name": "sql-kibana",
-  "version": "1.4.0.0",
+  "version": "1.6.0.0",
   "description": "SQL Workbench",
   "main": "index.js",
   "license": "Apache-2.0",
   "homepage": "https://github.com/opendistro-for-elasticsearch/sql-kibana-plugin",
   "kibana": {
-    "version": "7.4.2",
+    "version": "7.6.1",
     "templateVersion": "6.3.3"
   },
   "repository": {
@@ -81,8 +81,8 @@
     "typescript": "3.0.3"
   },
   "engines": {
-    "node": "10.15.2",
-    "yarn": "^1.10.1"
+    "node": "10.19.0",
+    "yarn": "^1.21.1"
   },
   "resolutions": {
     "**/@types/node": "10.12.27",
