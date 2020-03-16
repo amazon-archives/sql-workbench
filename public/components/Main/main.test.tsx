@@ -18,7 +18,7 @@ import "@testing-library/jest-dom/extend-expect";
 import { render, fireEvent } from "@testing-library/react";
 import { httpClientMock } from "../../../test/mocks";
 import {
-  mockQueryResultResponse,
+  mockQueryResultJDBCResponse,
   mockNotOkQueryResultResponse,
   mockQueryTranslationResponse
 } from "../../../test/mocks/mockData";
@@ -35,7 +35,7 @@ describe("<Main /> spec", () => {
 
   it("click run button, and response is ok", async () => {
     const client = httpClientMock;
-    client.post = jest.fn().mockResolvedValue(mockQueryResultResponse);
+    client.post = jest.fn().mockResolvedValue(mockQueryResultJDBCResponse);
 
     const { getByText } = render(
       <Main httpClient={client} sqlQueriesString={'test\ntest\ntest\ntest'} />
