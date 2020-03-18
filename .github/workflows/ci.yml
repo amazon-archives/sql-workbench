@@ -27,7 +27,7 @@ jobs:
           node-version: '10.19.0'
       - name: Kibana Pluign Bootstrap & Retry if failed
         run: |
-          for i in {1..3}; do [[ "$yarn kbn bootstrap" ]] && break || sleep 15; done
+          for i in {1..3}; do [[ "$yarn kbn bootstrap" ]] && sleep 10 || break; done
       - name: Build Artifact
         run: |
           yarn build
