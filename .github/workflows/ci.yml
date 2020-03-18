@@ -25,9 +25,10 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '10.19.0'
-      - name: Kibana Pluign Bootstrap & Retry if failed
+      - name: Kibana Pluign Bootstrap
+        timeout-minutes: 15
         run: |
-          for i in {1..3}; do [[ "$yarn kbn bootstrap" ]] && sleep 10 || break; done
+          bash -c 'while [[ "$(yarn kbn bootstrap)" = "0" ]]; do sleep 5; done'
       - name: Build Artifact
         run: |
           yarn build
