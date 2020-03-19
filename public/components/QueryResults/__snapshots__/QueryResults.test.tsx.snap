@@ -7,7 +7,7 @@ exports[`<QueryResults /> spec renders the component with no data 1`] = `
   >
     <div
       class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
-      style="padding: 10px; border-top-color: #69707d; border-left-color: #69707d; border-right-color: #69707d;"
+      style="padding: 10px;"
     >
       <div
         class="tab-arrow-down-container"
@@ -221,7 +221,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
   >
     <div
       class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
-      style="padding: 10px; border-top-color: #69707d; border-left-color: #69707d; border-right-color: #69707d;"
+      style="padding: 10px;"
     >
       <div
         class="tab-arrow-down-container"
@@ -5297,7 +5297,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
   >
     <div
       class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
-      style="padding: 10px; border-top-color: #69707d; border-left-color: #69707d; border-right-color: #69707d;"
+      style="padding: 10px;"
     >
       <div
         class="tab-arrow-down-container"
@@ -10373,7 +10373,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
   >
     <div
       class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
-      style="padding: 10px; border-top-color: #69707d; border-left-color: #69707d; border-right-color: #69707d;"
+      style="padding: 10px;"
     >
       <div
         class="tab-arrow-down-container"

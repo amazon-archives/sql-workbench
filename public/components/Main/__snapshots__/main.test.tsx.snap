@@ -22,7 +22,6 @@ exports[`<Main /> spec click clear button 1`] = `
           >
             <div
               class="euiFlexItem euiFlexItem--flexGrow1 sql-query-panel"
-              paddingsize="none"
             >
               <div
                 class="euiText euiText--medium sql-query-panel-header"
@@ -146,7 +145,6 @@ exports[`<Main /> spec click clear button 1`] = `
             </div>
             <div
               class="euiFlexItem euiFlexItem--flexGrow1 result-panel"
-              paddingsize="none"
             >
               <div
                 class="euiText euiText--medium translated-query-panel-header"
@@ -343,7 +341,7 @@ exports[`<Main /> spec click clear button 1`] = `
         >
           <div
             class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
-            style="padding: 10px; border-top-color: #69707d; border-left-color: #69707d; border-right-color: #69707d;"
+            style="padding: 10px;"
           >
             <div
               class="euiFlexGroup euiFlexGroup--gutterSmall euiFlexGroup--alignItemsCenter euiFlexGroup--directionRow euiFlexGroup--responsive tabs-container"
@@ -520,7 +518,6 @@ exports[`<Main /> spec click run button, and response causes an error 1`] = `
           >
             <div
               class="euiFlexItem euiFlexItem--flexGrow1 sql-query-panel"
-              paddingsize="none"
             >
               <div
                 class="euiText euiText--medium sql-query-panel-header"
@@ -644,7 +641,6 @@ exports[`<Main /> spec click run button, and response causes an error 1`] = `
             </div>
             <div
               class="euiFlexItem euiFlexItem--flexGrow1 result-panel"
-              paddingsize="none"
             >
               <div
                 class="euiText euiText--medium translated-query-panel-header"
@@ -841,7 +837,7 @@ exports[`<Main /> spec click run button, and response causes an error 1`] = `
         >
           <div
             class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
-            style="padding: 10px; border-top-color: #69707d; border-left-color: #69707d; border-right-color: #69707d;"
+            style="padding: 10px;"
           >
             <div
               class="euiFlexGroup euiFlexGroup--gutterSmall euiFlexGroup--alignItemsCenter euiFlexGroup--directionRow euiFlexGroup--responsive tabs-container"
@@ -1018,7 +1014,6 @@ exports[`<Main /> spec click run button, and response is not ok 1`] = `
           >
             <div
               class="euiFlexItem euiFlexItem--flexGrow1 sql-query-panel"
-              paddingsize="none"
             >
               <div
                 class="euiText euiText--medium sql-query-panel-header"
@@ -1142,7 +1137,6 @@ exports[`<Main /> spec click run button, and response is not ok 1`] = `
             </div>
             <div
               class="euiFlexItem euiFlexItem--flexGrow1 result-panel"
-              paddingsize="none"
             >
               <div
                 class="euiText euiText--medium translated-query-panel-header"
@@ -1339,7 +1333,7 @@ exports[`<Main /> spec click run button, and response is not ok 1`] = `
         >
           <div
             class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
-            style="padding: 10px; border-top-color: #69707d; border-left-color: #69707d; border-right-color: #69707d;"
+            style="padding: 10px;"
           >
             <div
               class="euiFlexGroup euiFlexGroup--gutterSmall euiFlexGroup--alignItemsCenter euiFlexGroup--directionRow euiFlexGroup--responsive tabs-container"
@@ -1516,7 +1510,6 @@ exports[`<Main /> spec click run button, and response is ok 1`] = `
           >
             <div
               class="euiFlexItem euiFlexItem--flexGrow1 sql-query-panel"
-              paddingsize="none"
             >
               <div
                 class="euiText euiText--medium sql-query-panel-header"
@@ -1640,7 +1633,6 @@ exports[`<Main /> spec click run button, and response is ok 1`] = `
             </div>
             <div
               class="euiFlexItem euiFlexItem--flexGrow1 result-panel"
-              paddingsize="none"
             >
               <div
                 class="euiText euiText--medium translated-query-panel-header"
@@ -1837,7 +1829,7 @@ exports[`<Main /> spec click run button, and response is ok 1`] = `
         >
           <div
             class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
-            style="padding: 10px; border-top-color: #69707d; border-left-color: #69707d; border-right-color: #69707d;"
+            style="padding: 10px;"
           >
             <div
               class="euiFlexGroup euiFlexGroup--gutterSmall euiFlexGroup--alignItemsCenter euiFlexGroup--directionRow euiFlexGroup--responsive tabs-container"
@@ -2014,7 +2006,6 @@ exports[`<Main /> spec click translation button, and response is ok 1`] = `
           >
             <div
               class="euiFlexItem euiFlexItem--flexGrow1 sql-query-panel"
-              paddingsize="none"
             >
               <div
                 class="euiText euiText--medium sql-query-panel-header"
@@ -2138,7 +2129,6 @@ exports[`<Main /> spec click translation button, and response is ok 1`] = `
             </div>
             <div
               class="euiFlexItem euiFlexItem--flexGrow1 result-panel"
-              paddingsize="none"
             >
               <div
                 class="euiText euiText--medium translated-query-panel-header"
@@ -2335,7 +2325,7 @@ exports[`<Main /> spec click translation button, and response is ok 1`] = `
         >
           <div
             class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
-            style="padding: 10px; border-top-color: #69707d; border-left-color: #69707d; border-right-color: #69707d;"
+            style="padding: 10px;"
           >
             <div
               class="euiFlexGroup euiFlexGroup--gutterSmall euiFlexGroup--alignItemsCenter euiFlexGroup--directionRow euiFlexGroup--responsive tabs-container"
@@ -2512,7 +2502,6 @@ exports[`<Main /> spec renders the component 1`] = `
           >
             <div
               class="euiFlexItem euiFlexItem--flexGrow1 sql-query-panel"
-              paddingsize="none"
             >
               <div
                 class="euiText euiText--medium sql-query-panel-header"
@@ -2636,7 +2625,6 @@ exports[`<Main /> spec renders the component 1`] = `
             </div>
             <div
               class="euiFlexItem euiFlexItem--flexGrow1 result-panel"
-              paddingsize="none"
             >
               <div
                 class="euiText euiText--medium translated-query-panel-header"
@@ -2833,7 +2821,7 @@ exports[`<Main /> spec renders the component 1`] = `
         >
           <div
             class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
-            style="padding: 10px; border-top-color: #69707d; border-left-color: #69707d; border-right-color: #69707d;"
+            style="padding: 10px;"
           >
             <div
               class="euiFlexGroup euiFlexGroup--gutterSmall euiFlexGroup--alignItemsCenter euiFlexGroup--directionRow euiFlexGroup--responsive tabs-container"

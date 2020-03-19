@@ -16,8 +16,8 @@
 import React, {Fragment} from "react";
 // @ts-ignore
 import {SortableProperties} from "@elastic/eui/lib/services";
-//@ts-ignore
-import {EuiCodeEditor, EuiSearchBar, EuiSideNav} from "@elastic/eui/lib";
+// @ts-ignore
+import {EuiCodeEditor, EuiSearchBar, EuiSideNav} from "@elastic/eui";
 import {
   EuiButton,
   EuiButtonIcon,

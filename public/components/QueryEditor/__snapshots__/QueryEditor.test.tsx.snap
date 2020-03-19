@@ -10,7 +10,6 @@ exports[`<QueryEditor /> spec renders the component 1`] = `
     >
       <div
         class="euiFlexItem euiFlexItem--flexGrow1 sql-query-panel"
-        paddingsize="none"
       >
         <div
           class="euiText euiText--medium sql-query-panel-header"
@@ -134,7 +133,6 @@ exports[`<QueryEditor /> spec renders the component 1`] = `
       </div>
       <div
         class="euiFlexItem euiFlexItem--flexGrow1 result-panel"
-        paddingsize="none"
       >
         <div
           class="euiText euiText--medium translated-query-panel-header"
@@ -332,7 +330,6 @@ exports[`<QueryEditor /> spec tests the action buttons 1`] = `
     >
       <div
         class="euiFlexItem euiFlexItem--flexGrow1 sql-query-panel"
-        paddingsize="none"
       >
         <div
           class="euiText euiText--medium sql-query-panel-header"
@@ -456,7 +453,6 @@ exports[`<QueryEditor /> spec tests the action buttons 1`] = `
       </div>
       <div
         class="euiFlexItem euiFlexItem--flexGrow1 result-panel"
-        paddingsize="none"
       >
         <div
           class="euiText euiText--medium translated-query-panel-header"
