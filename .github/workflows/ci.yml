@@ -26,8 +26,11 @@ jobs:
         with:
           node-version: '10.19.0'
       - name: Kibana Pluign Bootstrap
-        run: |
-          bash -c 'for i in {1..3}; do [[ "$(yarn kbn bootstrap)" -eq "1" && sleep 5 || break; ]]; done'
+        uses: nick-invision/retry@v1
+        with:
+          timeout_minutes: 60
+          max_attempts: 3
+          command: yarn kbn bootstrap
       - name: Build Artifact
         run: |
           yarn build
