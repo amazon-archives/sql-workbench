@@ -38,4 +38,4 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: sql-kibana.zip
-          path: ./build/*.zip
+          path: ./build
