@@ -28,7 +28,7 @@ jobs:
       - name: Kibana Pluign Bootstrap
         timeout-minutes: 60
         run: |
-          bash -c 'while [[ "$(yarn kbn bootstrap)" != "0" ]]; do sleep 5; done'
+          bash -c 'while [[ "$yarn kbn bootstrap" -eq "1" ]]; do sleep 5; done'
       - name: Build Artifact
         run: |
           yarn build
