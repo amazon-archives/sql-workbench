@@ -35,7 +35,7 @@ Ultimately, your directory structure should look like this:
 
 To build the plugin's distributable zip simply run `yarn build`.
 
-Example output: `./build/opendistro_sql_kibana-1.0.0.0.zip`
+Example output: `./build/sql-kibana-1.4.0.0.zip`
 
 
 ## Run

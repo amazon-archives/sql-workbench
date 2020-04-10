@@ -26,7 +26,7 @@ import {DEFAULT_NUM_RECORDS_PER_PAGE, MESSAGE_TAB_LABEL, TAB_CONTAINER_ID} from 
 interface QueryResultsProps {
   queries: string[];
   queryResults: ResponseDetail<QueryResult>[];
-  queryRawResponse: string;
+  queryResultsJSON: string;
   queryResultsJDBC: string;
   queryResultsCSV: string;
   queryResultsTEXT: string;
@@ -39,7 +39,7 @@ interface QueryResultsProps {
   onQueryChange: (object:any) => void;
   updateExpandedMap: (map: ItemIdToExpandedRowMap) => void;
   itemIdToExpandedRowMap: ItemIdToExpandedRowMap;
-  getRawResponse: (queries: string[]) => void;
+  getJson: (queries: string[]) => void;
   getJdbc: (queries: string[]) => void;
   getCsv: (queries: string[]) => void;
   getText: (queries: string[]) => void;
@@ -323,7 +323,7 @@ class QueryResults extends React.Component<QueryResultsProps, QueryResultsState>
           selectedTabName={this.props.selectedTabName}
           tabNames={this.tabNames}
           queryResultSelected={queryResultSelected}
-          queryRawResponse={this.props.queryRawResponse}
+          queryResultsJSON={this.props.queryResultsJSON}
           queryResultsJDBC={this.props.queryResultsJDBC}
           queryResultsCSV={this.props.queryResultsCSV}
           queryResultsTEXT={this.props.queryResultsTEXT}
@@ -341,7 +341,7 @@ class QueryResults extends React.Component<QueryResultsProps, QueryResultsState>
           sortableProperties={this.sortableProperties}
           itemIdToExpandedRowMap={this.props.itemIdToExpandedRowMap}
           updateExpandedMap={this.props.updateExpandedMap}
-          getRawResponse={this.props.getRawResponse}
+          getJson={this.props.getJson}
           getJdbc={this.props.getJdbc}
           getCsv={this.props.getCsv}
           getText={this.props.getText}
