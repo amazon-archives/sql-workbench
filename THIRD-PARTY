@@ -1,6 +1,6 @@
-** @elastic/eui; version 6.5.1 -- https://elastic.github.io/eui/#/
-Copyright 2017 Elasticsearch BV
-** TSLint; version 5.11.0 -- https://github.com/palantir/tslint
+** @elastic/eui; version 23.1.0 -- https://elastic.github.io/eui/#/
+Copyright 2020 Elasticsearch BV
+** TSLint; version 6.1.2 -- https://github.com/palantir/tslint
 Copyright 2017 Palantir Technologies, Inc.
 ** typescript; version 3.0.3 -- https://github.com/Microsoft/TypeScript
 /*!
