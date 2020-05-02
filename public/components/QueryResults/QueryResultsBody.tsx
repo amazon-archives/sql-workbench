@@ -175,34 +175,42 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
     if (!this.props.queryResultsJSON) {
       this.props.getJson(this.props.queries);
     }
-    const jsonObject = JSON.parse(this.props.queryResultsJSON);
-    const data = JSON.stringify(jsonObject, undefined, 4);
-    onDownloadFile(data, "json", this.props.selectedTabName + ".json");
+    setTimeout(() => {
+      const jsonObject = JSON.parse(this.props.queryResultsJSON);
+      const data = JSON.stringify(jsonObject, undefined, 4);
+      onDownloadFile(data, "json", this.props.selectedTabName + ".json");
+    }, 2000);
   };
 
   onDownloadJDBC = (): void => {
     if (!this.props.queryResultsJDBC) {
       this.props.getJdbc(this.props.queries);
     }
-    const jsonObject = JSON.parse(this.props.queryResultsJDBC);
-    const data = JSON.stringify(jsonObject, undefined, 4);
-    onDownloadFile(data, "json", this.props.selectedTabName + ".json");
+    setTimeout(() => {
+      const jsonObject = JSON.parse(this.props.queryResultsJDBC);
+      const data = JSON.stringify(jsonObject, undefined, 4);
+      onDownloadFile(data, "json", this.props.selectedTabName + ".json");
+    }, 2000);
   };
 
   onDownloadCSV = (): void => {
     if (!this.props.queryResultsCSV) {
       this.props.getCsv(this.props.queries);
     }
-    const data = this.props.queryResultsCSV;
-    onDownloadFile(data, "csv", this.props.selectedTabName + ".csv");
+    setTimeout(() => {
+      const data = this.props.queryResultsCSV;
+      onDownloadFile(data, "csv", this.props.selectedTabName + ".csv");
+    }, 2000);
   };
 
   onDownloadText = (): void => {
     if (!this.props.queryResultsTEXT) {
       this.props.getText(this.props.queries);
     }
-    const data = this.props.queryResultsTEXT;
-    onDownloadFile(data, "plain", this.props.selectedTabName + ".txt");
+    setTimeout(() => {
+      const data = this.props.queryResultsTEXT;
+      onDownloadFile(data, "plain", this.props.selectedTabName + ".txt");
+    }, 2000);
   };
 
   // Actions for Downloads Button
