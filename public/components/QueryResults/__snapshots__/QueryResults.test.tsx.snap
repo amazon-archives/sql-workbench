@@ -645,7 +645,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                     class="table-header"
                   >
                     <tr>
-                      <th
+                      <td
                         aria-live="polite"
                         aria-sort="none"
                         class="euiTableHeaderCell"
@@ -671,7 +671,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                             </span>
                           </span>
                         </button>
-                      </th>
+                      </td>
                       <th
                         aria-live="polite"
                         aria-sort="ascending"
@@ -690,6 +690,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="id; Sorted in ascending order"
                             >
                               id
                             </span>
@@ -720,6 +721,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="category"
                             >
                               category
                             </span>
@@ -749,6 +751,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="currency"
                             >
                               currency
                             </span>
@@ -778,6 +781,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="customer_first_name"
                             >
                               customer_first_name
                             </span>
@@ -807,6 +811,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="customer_full_name"
                             >
                               customer_full_name
                             </span>
@@ -836,6 +841,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="customer_gender"
                             >
                               customer_gender
                             </span>
@@ -865,6 +871,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="customer_id"
                             >
                               customer_id
                             </span>
@@ -894,6 +901,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="customer_last_name"
                             >
                               customer_last_name
                             </span>
@@ -923,6 +931,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="customer_phone"
                             >
                               customer_phone
                             </span>
@@ -952,6 +961,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="day_of_week"
                             >
                               day_of_week
                             </span>
@@ -981,6 +991,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="day_of_week_i"
                             >
                               day_of_week_i
                             </span>
@@ -1010,6 +1021,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="email"
                             >
                               email
                             </span>
@@ -1039,6 +1051,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="manufacturer"
                             >
                               manufacturer
                             </span>
@@ -1068,6 +1081,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="order_date"
                             >
                               order_date
                             </span>
@@ -1097,6 +1111,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="order_id"
                             >
                               order_id
                             </span>
@@ -1126,6 +1141,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="products"
                             >
                               products
                             </span>
@@ -1155,6 +1171,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="sku"
                             >
                               sku
                             </span>
@@ -1184,6 +1201,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="taxful_total_price"
                             >
                               taxful_total_price
                             </span>
@@ -1213,6 +1231,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="taxless_total_price"
                             >
                               taxless_total_price
                             </span>
@@ -1242,6 +1261,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="total_quantity"
                             >
                               total_quantity
                             </span>
@@ -1271,6 +1291,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="total_unique_products"
                             >
                               total_unique_products
                             </span>
@@ -1300,6 +1321,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="type"
                             >
                               type
                             </span>
@@ -1329,6 +1351,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="user"
                             >
                               user
                             </span>
@@ -1358,6 +1381,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="geoip"
                             >
                               geoip
                             </span>
@@ -5721,7 +5745,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                     class="table-header"
                   >
                     <tr>
-                      <th
+                      <td
                         aria-live="polite"
                         aria-sort="none"
                         class="euiTableHeaderCell"
@@ -5747,7 +5771,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                             </span>
                           </span>
                         </button>
-                      </th>
+                      </td>
                       <th
                         aria-live="polite"
                         aria-sort="ascending"
@@ -5766,6 +5790,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="id; Sorted in ascending order"
                             >
                               id
                             </span>
@@ -5796,6 +5821,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="category"
                             >
                               category
                             </span>
@@ -5825,6 +5851,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="currency"
                             >
                               currency
                             </span>
@@ -5854,6 +5881,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="customer_first_name"
                             >
                               customer_first_name
                             </span>
@@ -5883,6 +5911,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="customer_full_name"
                             >
                               customer_full_name
                             </span>
@@ -5912,6 +5941,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="customer_gender"
                             >
                               customer_gender
                             </span>
@@ -5941,6 +5971,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="customer_id"
                             >
                               customer_id
                             </span>
@@ -5970,6 +6001,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="customer_last_name"
                             >
                               customer_last_name
                             </span>
@@ -5999,6 +6031,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="customer_phone"
                             >
                               customer_phone
                             </span>
@@ -6028,6 +6061,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="day_of_week"
                             >
                               day_of_week
                             </span>
@@ -6057,6 +6091,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="day_of_week_i"
                             >
                               day_of_week_i
                             </span>
@@ -6086,6 +6121,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="email"
                             >
                               email
                             </span>
@@ -6115,6 +6151,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="manufacturer"
                             >
                               manufacturer
                             </span>
@@ -6144,6 +6181,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="order_date"
                             >
                               order_date
                             </span>
@@ -6173,6 +6211,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="order_id"
                             >
                               order_id
                             </span>
@@ -6202,6 +6241,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="products"
                             >
                               products
                             </span>
@@ -6231,6 +6271,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="sku"
                             >
                               sku
                             </span>
@@ -6260,6 +6301,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="taxful_total_price"
                             >
                               taxful_total_price
                             </span>
@@ -6289,6 +6331,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="taxless_total_price"
                             >
                               taxless_total_price
                             </span>
@@ -6318,6 +6361,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="total_quantity"
                             >
                               total_quantity
                             </span>
@@ -6347,6 +6391,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="total_unique_products"
                             >
                               total_unique_products
                             </span>
@@ -6376,6 +6421,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="type"
                             >
                               type
                             </span>
@@ -6405,6 +6451,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="user"
                             >
                               user
                             </span>
@@ -6434,6 +6481,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="geoip"
                             >
                               geoip
                             </span>
@@ -10797,7 +10845,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                     class="table-header"
                   >
                     <tr>
-                      <th
+                      <td
                         aria-live="polite"
                         aria-sort="none"
                         class="euiTableHeaderCell"
@@ -10823,7 +10871,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                             </span>
                           </span>
                         </button>
-                      </th>
+                      </td>
                       <th
                         aria-live="polite"
                         aria-sort="ascending"
@@ -10842,6 +10890,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="id; Sorted in ascending order"
                             >
                               id
                             </span>
@@ -10872,6 +10921,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="category"
                             >
                               category
                             </span>
@@ -10901,6 +10951,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="currency"
                             >
                               currency
                             </span>
@@ -10930,6 +10981,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="customer_first_name"
                             >
                               customer_first_name
                             </span>
@@ -10959,6 +11011,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="customer_full_name"
                             >
                               customer_full_name
                             </span>
@@ -10988,6 +11041,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="customer_gender"
                             >
                               customer_gender
                             </span>
@@ -11017,6 +11071,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="customer_id"
                             >
                               customer_id
                             </span>
@@ -11046,6 +11101,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="customer_last_name"
                             >
                               customer_last_name
                             </span>
@@ -11075,6 +11131,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="customer_phone"
                             >
                               customer_phone
                             </span>
@@ -11104,6 +11161,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="day_of_week"
                             >
                               day_of_week
                             </span>
@@ -11133,6 +11191,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="day_of_week_i"
                             >
                               day_of_week_i
                             </span>
@@ -11162,6 +11221,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="email"
                             >
                               email
                             </span>
@@ -11191,6 +11251,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="manufacturer"
                             >
                               manufacturer
                             </span>
@@ -11220,6 +11281,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="order_date"
                             >
                               order_date
                             </span>
@@ -11249,6 +11311,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="order_id"
                             >
                               order_id
                             </span>
@@ -11278,6 +11341,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="products"
                             >
                               products
                             </span>
@@ -11307,6 +11371,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="sku"
                             >
                               sku
                             </span>
@@ -11336,6 +11401,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="taxful_total_price"
                             >
                               taxful_total_price
                             </span>
@@ -11365,6 +11431,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="taxless_total_price"
                             >
                               taxless_total_price
                             </span>
@@ -11394,6 +11461,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="total_quantity"
                             >
                               total_quantity
                             </span>
@@ -11423,6 +11491,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="total_unique_products"
                             >
                               total_unique_products
                             </span>
@@ -11452,6 +11521,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="type"
                             >
                               type
                             </span>
@@ -11481,6 +11551,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="user"
                             >
                               user
                             </span>
@@ -11510,6 +11581,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="geoip"
                             >
                               geoip
                             </span>

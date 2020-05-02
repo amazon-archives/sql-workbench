@@ -17,6 +17,7 @@ import "core-js/stable";
 import "regenerator-runtime/runtime";
 import { Request, ResponseToolkit } from 'hapi-latest';
 import { CLUSTER } from './utils/constants';
+import _ from "lodash";
 
 export default class QueryService {
   private client: any;
@@ -24,14 +25,16 @@ export default class QueryService {
     this.client = client;
   }
 
-  describeQueryInternal = async (request: Request, h: ResponseToolkit, format: string, err?: Error) => {
+  describeQueryInternal = async (request: Request, h: ResponseToolkit, format: string, responseFormat: string, err?: Error) => {
     try {
       const params = {
         body: JSON.stringify(request.payload),
       };
       const { callWithRequest } = await this.client.getCluster(CLUSTER.SQL);
       const createResponse = await callWithRequest(request, format, params);
-      return h.response({ ok: true, resp: JSON.stringify(createResponse) });
+      return h.response({ ok: true, resp:
+          _.isEqual(responseFormat, "json") ? JSON.stringify(createResponse) : createResponse
+      });
     } catch (err) {
       console.log(err);
     }
@@ -39,22 +42,22 @@ export default class QueryService {
   };
 
   describeQuery = async (request: Request, h: ResponseToolkit, err?: Error) => {
-    return this.describeQueryInternal(request, h, "sql.query", err)
+    return this.describeQueryInternal(request, h, "sql.query", "json", err)
   };
 
   describeQueryCsv = async (request: Request, h: ResponseToolkit, err?: Error) => {
-    return this.describeQueryInternal(request, h, "sql.getCsv", err)
+    return this.describeQueryInternal(request, h, "sql.getCsv", null, err)
   };
 
   describeQueryJson = async (request: Request, h: ResponseToolkit, err?: Error) => {
-    return this.describeQueryInternal(request, h, "sql.getJson", err)
+    return this.describeQueryInternal(request, h, "sql.getJson", "json", err)
   };
 
   describeQueryJdbc = async (request: Request, h: ResponseToolkit, err?: Error) => {
-    return this.describeQueryInternal(request, h, "sql.getJdbc", err)
+    return this.describeQueryInternal(request, h, "sql.getJdbc", "json", err)
   };
 
   describeQueryText = async (request: Request, h: ResponseToolkit, err?: Error) => {
-    return this.describeQueryInternal(request, h, "sql.getText", err)
+    return this.describeQueryInternal(request, h, "sql.getText", null, err)
   };
 }
