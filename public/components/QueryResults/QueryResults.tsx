@@ -17,7 +17,7 @@ import React from "react";
 // @ts-ignore
 import {SortableProperties, SortableProperty} from "@elastic/eui/lib/services";
 // @ts-ignore
-import {EuiPanel, EuiFlexGroup, EuiFlexItem, EuiTab, EuiTabs, EuiPopover, EuiContextMenuItem, EuiContextMenuPanel, EuiHorizontalRule, EuiSearchBar, Pager, EuiIcon} from "@elastic/eui/lib";
+import {EuiPanel, EuiFlexGroup, EuiFlexItem, EuiTab, EuiTabs, EuiPopover, EuiContextMenuItem, EuiContextMenuPanel, EuiHorizontalRule, EuiSearchBar, Pager, EuiIcon} from "@elastic/eui";
 import {QueryResult, QueryMessage, Tab, ResponseDetail, ItemIdToExpandedRowMap} from "../Main/main";
 import QueryResultsBody from "./QueryResultsBody";
 import { getQueryIndex, needsScrolling, getSelectedResults } from "../../utils/utils";
@@ -208,7 +208,6 @@ class QueryResults extends React.Component<QueryResultsProps, QueryResultsState>
       <EuiIcon
         onClick={this.slideTabsRight}
         type={"arrowRight"}
-        disabled={false}
       />
     );
     const tabArrowLeft = (
@@ -216,7 +215,6 @@ class QueryResults extends React.Component<QueryResultsProps, QueryResultsState>
         onClick={this.slideTabsLeft}
         data-test-subj="slide-left"
         type={"arrowLeft"}
-        disabled={false}
       />
     );
     const tabs: Tab[] = this.renderTabs();
@@ -254,10 +252,7 @@ class QueryResults extends React.Component<QueryResultsProps, QueryResultsState>
       <EuiPanel className="query-result-container" paddingSize="none">
         <EuiFlexGroup
           style={{
-            padding: "10px",
-            "border-top-color": "#69707d",
-            "border-left-color": "#69707d",
-            "border-right-color": "#69707d"
+            padding: "10px"
           }}
         >
           {/*ARROW LEFT*/}

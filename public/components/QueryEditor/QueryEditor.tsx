@@ -16,7 +16,7 @@
 import React from "react";
 import _ from "lodash";
 // @ts-ignore
-import { EuiPanel, EuiTitle, EuiButton, EuiText, EuiFlexGroup, EuiFlexItem, EuiCodeEditor, EuiHeaderLink} from "@elastic/eui/lib";
+import { EuiPanel, EuiButton, EuiText, EuiFlexGroup, EuiFlexItem, EuiCodeEditor} from "@elastic/eui";
 import "brace/mode/sql";
 import "brace/mode/json";
 import "../../ace-themes/sql_console";
@@ -54,7 +54,7 @@ class QueryEditor extends React.Component<QueryEditorProps, QueryEditorState> {
         paddingSize="none"
       >
         <EuiFlexGroup gutterSize="s">
-          <EuiFlexItem grow={1} className="sql-query-panel" paddingSize="none">
+          <EuiFlexItem grow={1} className="sql-query-panel">
             <EuiText className="sql-query-panel-header">SQL Query</EuiText>
             <EuiCodeEditor
               mode="sql"
@@ -76,7 +76,6 @@ class QueryEditor extends React.Component<QueryEditorProps, QueryEditorState> {
           <EuiFlexItem
             grow={1}
             className="result-panel"
-            paddingSize="none"
           >
             <EuiText className="translated-query-panel-header">
               Translation

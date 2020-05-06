@@ -7,7 +7,7 @@ exports[`<QueryResults /> spec renders the component with no data 1`] = `
   >
     <div
       class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
-      style="padding: 10px; border-top-color: #69707d; border-left-color: #69707d; border-right-color: #69707d;"
+      style="padding: 10px;"
     >
       <div
         class="tab-arrow-down-container"
@@ -22,15 +22,7 @@ exports[`<QueryResults /> spec renders the component with no data 1`] = `
             <div
               class="euiPopover__anchor"
             >
-              <svg
-                class="euiIcon euiIcon--medium euiIcon-isLoading"
-                data-test-subj="slide-left"
-                focusable="false"
-                height="16"
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              />
+              EuiIconMock
             </div>
           </div>
         </div>
@@ -78,14 +70,7 @@ exports[`<QueryResults /> spec renders the component with no data 1`] = `
               <div
                 class="euiPopover__anchor"
               >
-                <svg
-                  class="euiIcon euiIcon--medium euiIcon-isLoading"
-                  focusable="false"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                />
+                EuiIconMock
               </div>
             </div>
           </div>
@@ -100,14 +85,7 @@ exports[`<QueryResults /> spec renders the component with no data 1`] = `
               <div
                 class="euiPopover__anchor"
               >
-                <svg
-                  class="euiIcon euiIcon--medium euiIcon-isLoading"
-                  focusable="false"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                />
+                EuiIconMock
               </div>
             </div>
           </div>
@@ -125,7 +103,7 @@ exports[`<QueryResults /> spec renders the component with no data 1`] = `
       <div
         class="euiCodeEditorKeyboardHint"
         data-test-subj="codeEditorHint"
-        id="ia6bcd6e0-6589-11ea-90f8-375bec87a4c3_codeEditor"
+        id="some_html_id"
         role="button"
         tabindex="0"
       >
@@ -141,8 +119,8 @@ exports[`<QueryResults /> spec renders the component with no data 1`] = `
         </p>
       </div>
       <div
-        class=" ace_editor ace-tm successful-message"
-        id="ia6bcd6e0-6589-11ea-90f8-375bec87a4c3_a6bcfdf0-6589-11ea-90f8-375bec87a4c3"
+        class=" ace_editor ace-sql-console successful-message"
+        id="some_html_id"
         style="width: 100%; height: 500px; font-size: 14px;"
       >
         <textarea
@@ -243,7 +221,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
   >
     <div
       class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
-      style="padding: 10px; border-top-color: #69707d; border-left-color: #69707d; border-right-color: #69707d;"
+      style="padding: 10px;"
     >
       <div
         class="tab-arrow-down-container"
@@ -667,7 +645,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                     class="table-header"
                   >
                     <tr>
-                      <th
+                      <td
                         aria-live="polite"
                         aria-sort="none"
                         class="euiTableHeaderCell"
@@ -693,7 +671,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                             </span>
                           </span>
                         </button>
-                      </th>
+                      </td>
                       <th
                         aria-live="polite"
                         aria-sort="ascending"
@@ -712,6 +690,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="id; Sorted in ascending order"
                             >
                               id
                             </span>
@@ -742,6 +721,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="category"
                             >
                               category
                             </span>
@@ -771,6 +751,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="currency"
                             >
                               currency
                             </span>
@@ -800,6 +781,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="customer_first_name"
                             >
                               customer_first_name
                             </span>
@@ -829,6 +811,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="customer_full_name"
                             >
                               customer_full_name
                             </span>
@@ -858,6 +841,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="customer_gender"
                             >
                               customer_gender
                             </span>
@@ -887,6 +871,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="customer_id"
                             >
                               customer_id
                             </span>
@@ -916,6 +901,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="customer_last_name"
                             >
                               customer_last_name
                             </span>
@@ -945,6 +931,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="customer_phone"
                             >
                               customer_phone
                             </span>
@@ -974,6 +961,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="day_of_week"
                             >
                               day_of_week
                             </span>
@@ -1003,6 +991,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="day_of_week_i"
                             >
                               day_of_week_i
                             </span>
@@ -1032,6 +1021,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="email"
                             >
                               email
                             </span>
@@ -1061,6 +1051,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="manufacturer"
                             >
                               manufacturer
                             </span>
@@ -1090,6 +1081,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="order_date"
                             >
                               order_date
                             </span>
@@ -1119,6 +1111,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="order_id"
                             >
                               order_id
                             </span>
@@ -1148,6 +1141,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="products"
                             >
                               products
                             </span>
@@ -1177,6 +1171,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="sku"
                             >
                               sku
                             </span>
@@ -1206,6 +1201,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="taxful_total_price"
                             >
                               taxful_total_price
                             </span>
@@ -1235,6 +1231,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="taxless_total_price"
                             >
                               taxless_total_price
                             </span>
@@ -1264,6 +1261,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="total_quantity"
                             >
                               total_quantity
                             </span>
@@ -1293,6 +1291,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="total_unique_products"
                             >
                               total_unique_products
                             </span>
@@ -1322,6 +1321,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="type"
                             >
                               type
                             </span>
@@ -1351,6 +1351,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="user"
                             >
                               user
                             </span>
@@ -1380,6 +1381,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="geoip"
                             >
                               geoip
                             </span>
@@ -5319,7 +5321,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
   >
     <div
       class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
-      style="padding: 10px; border-top-color: #69707d; border-left-color: #69707d; border-right-color: #69707d;"
+      style="padding: 10px;"
     >
       <div
         class="tab-arrow-down-container"
@@ -5743,7 +5745,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                     class="table-header"
                   >
                     <tr>
-                      <th
+                      <td
                         aria-live="polite"
                         aria-sort="none"
                         class="euiTableHeaderCell"
@@ -5769,7 +5771,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                             </span>
                           </span>
                         </button>
-                      </th>
+                      </td>
                       <th
                         aria-live="polite"
                         aria-sort="ascending"
@@ -5788,6 +5790,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="id; Sorted in ascending order"
                             >
                               id
                             </span>
@@ -5818,6 +5821,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="category"
                             >
                               category
                             </span>
@@ -5847,6 +5851,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="currency"
                             >
                               currency
                             </span>
@@ -5876,6 +5881,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="customer_first_name"
                             >
                               customer_first_name
                             </span>
@@ -5905,6 +5911,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="customer_full_name"
                             >
                               customer_full_name
                             </span>
@@ -5934,6 +5941,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="customer_gender"
                             >
                               customer_gender
                             </span>
@@ -5963,6 +5971,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="customer_id"
                             >
                               customer_id
                             </span>
@@ -5992,6 +6001,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="customer_last_name"
                             >
                               customer_last_name
                             </span>
@@ -6021,6 +6031,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="customer_phone"
                             >
                               customer_phone
                             </span>
@@ -6050,6 +6061,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="day_of_week"
                             >
                               day_of_week
                             </span>
@@ -6079,6 +6091,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="day_of_week_i"
                             >
                               day_of_week_i
                             </span>
@@ -6108,6 +6121,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="email"
                             >
                               email
                             </span>
@@ -6137,6 +6151,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="manufacturer"
                             >
                               manufacturer
                             </span>
@@ -6166,6 +6181,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="order_date"
                             >
                               order_date
                             </span>
@@ -6195,6 +6211,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="order_id"
                             >
                               order_id
                             </span>
@@ -6224,6 +6241,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="products"
                             >
                               products
                             </span>
@@ -6253,6 +6271,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="sku"
                             >
                               sku
                             </span>
@@ -6282,6 +6301,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="taxful_total_price"
                             >
                               taxful_total_price
                             </span>
@@ -6311,6 +6331,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="taxless_total_price"
                             >
                               taxless_total_price
                             </span>
@@ -6340,6 +6361,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="total_quantity"
                             >
                               total_quantity
                             </span>
@@ -6369,6 +6391,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="total_unique_products"
                             >
                               total_unique_products
                             </span>
@@ -6398,6 +6421,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="type"
                             >
                               type
                             </span>
@@ -6427,6 +6451,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="user"
                             >
                               user
                             </span>
@@ -6456,6 +6481,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs right
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="geoip"
                             >
                               geoip
                             </span>
@@ -10395,7 +10421,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
   >
     <div
       class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
-      style="padding: 10px; border-top-color: #69707d; border-left-color: #69707d; border-right-color: #69707d;"
+      style="padding: 10px;"
     >
       <div
         class="tab-arrow-down-container"
@@ -10410,15 +10436,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
             <div
               class="euiPopover__anchor"
             >
-              <svg
-                class="euiIcon euiIcon--medium euiIcon-isLoading"
-                data-test-subj="slide-left"
-                focusable="false"
-                height="16"
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              />
+              EuiIconMock
             </div>
           </div>
         </div>
@@ -10586,14 +10604,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
               <div
                 class="euiPopover__anchor"
               >
-                <svg
-                  class="euiIcon euiIcon--medium euiIcon-isLoading"
-                  focusable="false"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                />
+                EuiIconMock
               </div>
             </div>
           </div>
@@ -10608,14 +10619,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
               <div
                 class="euiPopover__anchor"
               >
-                <svg
-                  class="euiIcon euiIcon--medium euiIcon-isLoading"
-                  focusable="false"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                />
+                EuiIconMock
               </div>
             </div>
           </div>
@@ -10661,15 +10665,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                   <span
                     class="euiButton__content"
                   >
-                    <svg
-                      aria-hidden="true"
-                      class="euiIcon euiIcon--medium euiIcon-isLoading euiButton__icon"
-                      focusable="false"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      width="16"
-                      xmlns="http://www.w3.org/2000/svg"
-                    />
+                    EuiIconMock
                     <span
                       class="euiButton__text"
                     >
@@ -10716,15 +10712,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                     <span
                       class="euiFormControlLayoutCustomIcon"
                     >
-                      <svg
-                        aria-hidden="true"
-                        class="euiIcon euiIcon--medium euiIcon-isLoading euiFormControlLayoutCustomIcon__icon"
-                        focusable="false"
-                        height="16"
-                        viewBox="0 0 16 16"
-                        width="16"
-                        xmlns="http://www.w3.org/2000/svg"
-                      />
+                      EuiIconMock
                     </span>
                   </div>
                 </div>
@@ -10752,15 +10740,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                   <span
                     class="euiButtonEmpty__content"
                   >
-                    <svg
-                      aria-hidden="true"
-                      class="euiIcon euiIcon--medium euiIcon-isLoading euiButtonEmpty__icon"
-                      focusable="false"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      width="16"
-                      xmlns="http://www.w3.org/2000/svg"
-                    />
+                    EuiIconMock
                     <span
                       class="euiButtonEmpty__text"
                     >
@@ -10787,15 +10767,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                 disabled=""
                 type="button"
               >
-                <svg
-                  aria-hidden="true"
-                  class="euiIcon euiIcon--medium euiIcon-isLoading euiButtonIcon__icon"
-                  focusable="false"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                />
+                EuiIconMock
               </button>
               <button
                 aria-label="Page 1 of 2"
@@ -10835,15 +10807,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                 data-test-subj="pagination-button-next"
                 type="button"
               >
-                <svg
-                  aria-hidden="true"
-                  class="euiIcon euiIcon--medium euiIcon-isLoading euiButtonIcon__icon"
-                  focusable="false"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                />
+                EuiIconMock
               </button>
             </div>
           </div>
@@ -10881,7 +10845,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                     class="table-header"
                   >
                     <tr>
-                      <th
+                      <td
                         aria-live="polite"
                         aria-sort="none"
                         class="euiTableHeaderCell"
@@ -10907,7 +10871,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                             </span>
                           </span>
                         </button>
-                      </th>
+                      </td>
                       <th
                         aria-live="polite"
                         aria-sort="ascending"
@@ -10926,18 +10890,11 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="id; Sorted in ascending order"
                             >
                               id
                             </span>
-                            <svg
-                              aria-label="Sorted in ascending order"
-                              class="euiIcon euiIcon--medium euiIcon-isLoading euiTableSortIcon"
-                              focusable="false"
-                              height="16"
-                              viewBox="0 0 16 16"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
-                            />
+                            EuiIconMock
                             <span
                               class="euiScreenReaderOnly"
                             >
@@ -10964,6 +10921,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="category"
                             >
                               category
                             </span>
@@ -10993,6 +10951,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="currency"
                             >
                               currency
                             </span>
@@ -11022,6 +10981,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="customer_first_name"
                             >
                               customer_first_name
                             </span>
@@ -11051,6 +11011,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="customer_full_name"
                             >
                               customer_full_name
                             </span>
@@ -11080,6 +11041,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="customer_gender"
                             >
                               customer_gender
                             </span>
@@ -11109,6 +11071,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="customer_id"
                             >
                               customer_id
                             </span>
@@ -11138,6 +11101,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="customer_last_name"
                             >
                               customer_last_name
                             </span>
@@ -11167,6 +11131,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="customer_phone"
                             >
                               customer_phone
                             </span>
@@ -11196,6 +11161,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="day_of_week"
                             >
                               day_of_week
                             </span>
@@ -11225,6 +11191,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="day_of_week_i"
                             >
                               day_of_week_i
                             </span>
@@ -11254,6 +11221,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="email"
                             >
                               email
                             </span>
@@ -11283,6 +11251,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="manufacturer"
                             >
                               manufacturer
                             </span>
@@ -11312,6 +11281,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="order_date"
                             >
                               order_date
                             </span>
@@ -11341,6 +11311,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="order_id"
                             >
                               order_id
                             </span>
@@ -11370,6 +11341,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="products"
                             >
                               products
                             </span>
@@ -11399,6 +11371,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="sku"
                             >
                               sku
                             </span>
@@ -11428,6 +11401,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="taxful_total_price"
                             >
                               taxful_total_price
                             </span>
@@ -11457,6 +11431,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="taxless_total_price"
                             >
                               taxless_total_price
                             </span>
@@ -11486,6 +11461,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="total_quantity"
                             >
                               total_quantity
                             </span>
@@ -11515,6 +11491,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="total_unique_products"
                             >
                               total_unique_products
                             </span>
@@ -11544,6 +11521,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="type"
                             >
                               type
                             </span>
@@ -11573,6 +11551,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="user"
                             >
                               user
                             </span>
@@ -11602,6 +11581,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                           >
                             <span
                               class="euiTableCellContent__text"
+                              title="geoip"
                             >
                               geoip
                             </span>
@@ -11635,15 +11615,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                               class="euiButtonIcon euiButtonIcon--primary"
                               type="button"
                             >
-                              <svg
-                                aria-hidden="true"
-                                class="euiIcon euiIcon--medium euiIcon-isLoading euiButtonIcon__icon"
-                                focusable="false"
-                                height="16"
-                                viewBox="0 0 16 16"
-                                width="16"
-                                xmlns="http://www.w3.org/2000/svg"
-                              />
+                              EuiIconMock
                             </button>
                           </span>
                         </div>
@@ -12024,15 +11996,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                               class="euiButtonIcon euiButtonIcon--primary"
                               type="button"
                             >
-                              <svg
-                                aria-hidden="true"
-                                class="euiIcon euiIcon--medium euiIcon-isLoading euiButtonIcon__icon"
-                                focusable="false"
-                                height="16"
-                                viewBox="0 0 16 16"
-                                width="16"
-                                xmlns="http://www.w3.org/2000/svg"
-                              />
+                              EuiIconMock
                             </button>
                           </span>
                         </div>
@@ -12413,15 +12377,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                               class="euiButtonIcon euiButtonIcon--primary"
                               type="button"
                             >
-                              <svg
-                                aria-hidden="true"
-                                class="euiIcon euiIcon--medium euiIcon-isLoading euiButtonIcon__icon"
-                                focusable="false"
-                                height="16"
-                                viewBox="0 0 16 16"
-                                width="16"
-                                xmlns="http://www.w3.org/2000/svg"
-                              />
+                              EuiIconMock
                             </button>
                           </span>
                         </div>
@@ -12802,15 +12758,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                               class="euiButtonIcon euiButtonIcon--primary"
                               type="button"
                             >
-                              <svg
-                                aria-hidden="true"
-                                class="euiIcon euiIcon--medium euiIcon-isLoading euiButtonIcon__icon"
-                                focusable="false"
-                                height="16"
-                                viewBox="0 0 16 16"
-                                width="16"
-                                xmlns="http://www.w3.org/2000/svg"
-                              />
+                              EuiIconMock
                             </button>
                           </span>
                         </div>
@@ -13191,15 +13139,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                               class="euiButtonIcon euiButtonIcon--primary"
                               type="button"
                             >
-                              <svg
-                                aria-hidden="true"
-                                class="euiIcon euiIcon--medium euiIcon-isLoading euiButtonIcon__icon"
-                                focusable="false"
-                                height="16"
-                                viewBox="0 0 16 16"
-                                width="16"
-                                xmlns="http://www.w3.org/2000/svg"
-                              />
+                              EuiIconMock
                             </button>
                           </span>
                         </div>
@@ -13580,15 +13520,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                               class="euiButtonIcon euiButtonIcon--primary"
                               type="button"
                             >
-                              <svg
-                                aria-hidden="true"
-                                class="euiIcon euiIcon--medium euiIcon-isLoading euiButtonIcon__icon"
-                                focusable="false"
-                                height="16"
-                                viewBox="0 0 16 16"
-                                width="16"
-                                xmlns="http://www.w3.org/2000/svg"
-                              />
+                              EuiIconMock
                             </button>
                           </span>
                         </div>
@@ -13969,15 +13901,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                               class="euiButtonIcon euiButtonIcon--primary"
                               type="button"
                             >
-                              <svg
-                                aria-hidden="true"
-                                class="euiIcon euiIcon--medium euiIcon-isLoading euiButtonIcon__icon"
-                                focusable="false"
-                                height="16"
-                                viewBox="0 0 16 16"
-                                width="16"
-                                xmlns="http://www.w3.org/2000/svg"
-                              />
+                              EuiIconMock
                             </button>
                           </span>
                         </div>
@@ -14358,15 +14282,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                               class="euiButtonIcon euiButtonIcon--primary"
                               type="button"
                             >
-                              <svg
-                                aria-hidden="true"
-                                class="euiIcon euiIcon--medium euiIcon-isLoading euiButtonIcon__icon"
-                                focusable="false"
-                                height="16"
-                                viewBox="0 0 16 16"
-                                width="16"
-                                xmlns="http://www.w3.org/2000/svg"
-                              />
+                              EuiIconMock
                             </button>
                           </span>
                         </div>
@@ -14747,15 +14663,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                               class="euiButtonIcon euiButtonIcon--primary"
                               type="button"
                             >
-                              <svg
-                                aria-hidden="true"
-                                class="euiIcon euiIcon--medium euiIcon-isLoading euiButtonIcon__icon"
-                                focusable="false"
-                                height="16"
-                                viewBox="0 0 16 16"
-                                width="16"
-                                xmlns="http://www.w3.org/2000/svg"
-                              />
+                              EuiIconMock
                             </button>
                           </span>
                         </div>
@@ -15136,15 +15044,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                               class="euiButtonIcon euiButtonIcon--primary"
                               type="button"
                             >
-                              <svg
-                                aria-hidden="true"
-                                class="euiIcon euiIcon--medium euiIcon-isLoading euiButtonIcon__icon"
-                                focusable="false"
-                                height="16"
-                                viewBox="0 0 16 16"
-                                width="16"
-                                xmlns="http://www.w3.org/2000/svg"
-                              />
+                              EuiIconMock
                             </button>
                           </span>
                         </div>
@@ -15536,15 +15436,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                   <span
                     class="euiButtonEmpty__content"
                   >
-                    <svg
-                      aria-hidden="true"
-                      class="euiIcon euiIcon--medium euiIcon-isLoading euiButtonEmpty__icon"
-                      focusable="false"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      width="16"
-                      xmlns="http://www.w3.org/2000/svg"
-                    />
+                    EuiIconMock
                     <span
                       class="euiButtonEmpty__text"
                     >
@@ -15571,15 +15463,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                 disabled=""
                 type="button"
               >
-                <svg
-                  aria-hidden="true"
-                  class="euiIcon euiIcon--medium euiIcon-isLoading euiButtonIcon__icon"
-                  focusable="false"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                />
+                EuiIconMock
               </button>
               <button
                 aria-label="Page 1 of 2"
@@ -15619,15 +15503,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                 data-test-subj="pagination-button-next"
                 type="button"
               >
-                <svg
-                  aria-hidden="true"
-                  class="euiIcon euiIcon--medium euiIcon-isLoading euiButtonIcon__icon"
-                  focusable="false"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                />
+                EuiIconMock
               </button>
             </div>
           </div>

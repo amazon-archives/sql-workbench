@@ -129,7 +129,28 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
         <div
           class="euiFlexItem euiFlexItem--flexGrowZero"
         >
-          <span />
+          <div
+            class="euiPagination"
+            role="group"
+          >
+            <button
+              aria-label="Previous page"
+              class="euiButtonIcon euiButtonIcon--text"
+              data-test-subj="pagination-button-previous"
+              disabled=""
+              type="button"
+            >
+              EuiIconMock
+            </button>
+            <button
+              aria-label="Next page"
+              class="euiButtonIcon euiButtonIcon--text"
+              data-test-subj="pagination-button-next"
+              type="button"
+            >
+              EuiIconMock
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -165,7 +186,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                   class="table-header"
                 >
                   <tr>
-                    <th
+                    <td
                       aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
@@ -191,7 +212,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                           </span>
                         </span>
                       </button>
-                    </th>
+                    </td>
                     <th
                       aria-live="polite"
                       aria-sort="none"
@@ -210,6 +231,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="id"
                           >
                             id
                           </span>
@@ -239,6 +261,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="category"
                           >
                             category
                           </span>
@@ -268,6 +291,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="currency"
                           >
                             currency
                           </span>
@@ -297,6 +321,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="customer_first_name"
                           >
                             customer_first_name
                           </span>
@@ -326,6 +351,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="customer_full_name"
                           >
                             customer_full_name
                           </span>
@@ -355,6 +381,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="customer_gender"
                           >
                             customer_gender
                           </span>
@@ -384,6 +411,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="customer_id"
                           >
                             customer_id
                           </span>
@@ -413,6 +441,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="customer_last_name"
                           >
                             customer_last_name
                           </span>
@@ -442,6 +471,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="customer_phone"
                           >
                             customer_phone
                           </span>
@@ -471,6 +501,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="day_of_week"
                           >
                             day_of_week
                           </span>
@@ -500,6 +531,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="day_of_week_i"
                           >
                             day_of_week_i
                           </span>
@@ -529,6 +561,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="email"
                           >
                             email
                           </span>
@@ -558,6 +591,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="manufacturer"
                           >
                             manufacturer
                           </span>
@@ -587,6 +621,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="order_date"
                           >
                             order_date
                           </span>
@@ -616,6 +651,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="order_id"
                           >
                             order_id
                           </span>
@@ -645,6 +681,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="products"
                           >
                             products
                           </span>
@@ -674,6 +711,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="sku"
                           >
                             sku
                           </span>
@@ -703,6 +741,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="taxful_total_price"
                           >
                             taxful_total_price
                           </span>
@@ -732,6 +771,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="taxless_total_price"
                           >
                             taxless_total_price
                           </span>
@@ -761,6 +801,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="total_quantity"
                           >
                             total_quantity
                           </span>
@@ -790,6 +831,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="total_unique_products"
                           >
                             total_unique_products
                           </span>
@@ -819,6 +861,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="type"
                           >
                             type
                           </span>
@@ -848,6 +891,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="user"
                           >
                             user
                           </span>
@@ -877,6 +921,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="geoip"
                           >
                             geoip
                           </span>
@@ -5128,7 +5173,28 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
         <div
           class="euiFlexItem euiFlexItem--flexGrowZero"
         >
-          <span />
+          <div
+            class="euiPagination"
+            role="group"
+          >
+            <button
+              aria-label="Previous page"
+              class="euiButtonIcon euiButtonIcon--text"
+              data-test-subj="pagination-button-previous"
+              disabled=""
+              type="button"
+            >
+              EuiIconMock
+            </button>
+            <button
+              aria-label="Next page"
+              class="euiButtonIcon euiButtonIcon--text"
+              data-test-subj="pagination-button-next"
+              type="button"
+            >
+              EuiIconMock
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -5213,7 +5279,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                   class="euiFieldSearch euiFieldSearch--fullWidth"
                   placeholder="Search"
                   type="search"
-                  value=""
+                  value="Test"
                 />
                 <div
                   class="euiFormControlLayoutIcons"
@@ -5223,6 +5289,17 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                   >
                     EuiIconMock
                   </span>
+                </div>
+                <div
+                  class="euiFormControlLayoutIcons euiFormControlLayoutIcons--right"
+                >
+                  <button
+                    aria-label="Clear input"
+                    class="euiFormControlLayoutClearButton"
+                    type="button"
+                  >
+                    EuiIconMock
+                  </button>
                 </div>
               </div>
             </div>
@@ -5265,7 +5342,28 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
         <div
           class="euiFlexItem euiFlexItem--flexGrowZero"
         >
-          <span />
+          <div
+            class="euiPagination"
+            role="group"
+          >
+            <button
+              aria-label="Previous page"
+              class="euiButtonIcon euiButtonIcon--text"
+              data-test-subj="pagination-button-previous"
+              disabled=""
+              type="button"
+            >
+              EuiIconMock
+            </button>
+            <button
+              aria-label="Next page"
+              class="euiButtonIcon euiButtonIcon--text"
+              data-test-subj="pagination-button-next"
+              type="button"
+            >
+              EuiIconMock
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -5301,7 +5399,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                   class="table-header"
                 >
                   <tr>
-                    <th
+                    <td
                       aria-live="polite"
                       aria-sort="none"
                       class="euiTableHeaderCell"
@@ -5327,7 +5425,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                           </span>
                         </span>
                       </button>
-                    </th>
+                    </td>
                     <th
                       aria-live="polite"
                       aria-sort="none"
@@ -5346,6 +5444,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="id"
                           >
                             id
                           </span>
@@ -5375,6 +5474,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="category"
                           >
                             category
                           </span>
@@ -5404,6 +5504,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="currency"
                           >
                             currency
                           </span>
@@ -5433,6 +5534,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="customer_first_name"
                           >
                             customer_first_name
                           </span>
@@ -5462,6 +5564,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="customer_full_name"
                           >
                             customer_full_name
                           </span>
@@ -5491,6 +5594,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="customer_gender"
                           >
                             customer_gender
                           </span>
@@ -5520,6 +5624,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="customer_id"
                           >
                             customer_id
                           </span>
@@ -5549,6 +5654,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="customer_last_name"
                           >
                             customer_last_name
                           </span>
@@ -5578,6 +5684,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="customer_phone"
                           >
                             customer_phone
                           </span>
@@ -5607,6 +5714,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="day_of_week"
                           >
                             day_of_week
                           </span>
@@ -5636,6 +5744,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="day_of_week_i"
                           >
                             day_of_week_i
                           </span>
@@ -5665,6 +5774,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="email"
                           >
                             email
                           </span>
@@ -5694,6 +5804,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="manufacturer"
                           >
                             manufacturer
                           </span>
@@ -5723,6 +5834,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="order_date"
                           >
                             order_date
                           </span>
@@ -5752,6 +5864,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="order_id"
                           >
                             order_id
                           </span>
@@ -5781,6 +5894,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="products"
                           >
                             products
                           </span>
@@ -5810,6 +5924,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="sku"
                           >
                             sku
                           </span>
@@ -5839,6 +5954,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="taxful_total_price"
                           >
                             taxful_total_price
                           </span>
@@ -5868,6 +5984,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="taxless_total_price"
                           >
                             taxless_total_price
                           </span>
@@ -5897,6 +6014,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="total_quantity"
                           >
                             total_quantity
                           </span>
@@ -5926,6 +6044,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="total_unique_products"
                           >
                             total_unique_products
                           </span>
@@ -5955,6 +6074,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="type"
                           >
                             type
                           </span>
@@ -5984,6 +6104,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="user"
                           >
                             user
                           </span>
@@ -6013,6 +6134,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                         >
                           <span
                             class="euiTableCellContent__text"
+                            title="geoip"
                           >
                             geoip
                           </span>
@@ -10520,7 +10642,28 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
         <div
           class="euiFlexItem euiFlexItem--flexGrowZero"
         >
-          <span />
+          <div
+            class="euiPagination"
+            role="group"
+          >
+            <button
+              aria-label="Previous page"
+              class="euiButtonIcon euiButtonIcon--text"
+              data-test-subj="pagination-button-previous"
+              disabled=""
+              type="button"
+            >
+              EuiIconMock
+            </button>
+            <button
+              aria-label="Next page"
+              class="euiButtonIcon euiButtonIcon--text"
+              data-test-subj="pagination-button-next"
+              type="button"
+            >
+              EuiIconMock
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -10538,7 +10681,7 @@ exports[`<QueryResultsBody /> spec renders the component 1`] = `
     <div
       class="euiCodeEditorKeyboardHint"
       data-test-subj="codeEditorHint"
-      id="ibd1bc4a0-6589-11ea-8c5a-979df850313b_codeEditor"
+      id="some_html_id"
       role="button"
       tabindex="0"
     >
@@ -10554,8 +10697,8 @@ exports[`<QueryResultsBody /> spec renders the component 1`] = `
       </p>
     </div>
     <div
-      class=" ace_editor ace-tm successful-message"
-      id="ibd1bc4a0-6589-11ea-8c5a-979df850313b_bd1c12c0-6589-11ea-8c5a-979df850313b"
+      class=" ace_editor ace-sql-console successful-message"
+      id="some_html_id"
       style="width: 100%; height: 500px; font-size: 14px;"
     >
       <textarea
