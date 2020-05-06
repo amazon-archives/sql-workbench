@@ -31,11 +31,14 @@ jobs:
           timeout_minutes: 60
           max_attempts: 3
           command: yarn kbn bootstrap
+      - name: Test
+        run: |
+          yarn test:jest
       - name: Build Artifact
         run: |
           yarn build
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
         with:
-          name: sql-kibana.zip
+          name: sql-kibana
           path: ./build
