@@ -5279,7 +5279,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                   class="euiFieldSearch euiFieldSearch--fullWidth"
                   placeholder="Search"
                   type="search"
-                  value="Test"
+                  value=""
                 />
                 <div
                   class="euiFormControlLayoutIcons"
