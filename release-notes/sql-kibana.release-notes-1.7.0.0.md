@@ -1,4 +1,4 @@
-## 2020-05-04 Version 1.7.0.0 (Current)
+## 2020-05-04 Version 1.7.0.0 
 
 ### Initial Release
 
