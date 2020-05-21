@@ -1,5 +1,5 @@
 
-name: Release SQL-Kibana Artifacts
+name: Release SQL-Workbench Artifacts
 
 on:
   push:
@@ -32,7 +32,7 @@ jobs:
       - name: Checkout Plugin
         uses: actions/checkout@v1
         with:
-          path: kibana/plugins/sql-kibana-plugin
+          path: kibana/plugins/sql-workbench
 
       - name: Setup Node
         uses: actions/setup-node@v1
@@ -51,5 +51,5 @@ jobs:
           yarn build
           artifact=`ls ./build/*.zip`
 
-          aws s3 cp $artifact s3://artifacts.opendistroforelasticsearch.amazon.com/downloads/kibana-plugins/opendistro-sql-kibana/
+          aws s3 cp $artifact s3://artifacts.opendistroforelasticsearch.amazon.com/downloads/kibana-plugins/opendistro-sql-workbench/
           aws cloudfront create-invalidation --distribution-id ${{ secrets.DISTRIBUTION_ID }} --paths "/downloads/*"
