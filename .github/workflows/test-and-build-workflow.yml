@@ -19,7 +19,7 @@ jobs:
       - name: Checkout Plugin
         uses: actions/checkout@v1
         with:
-          path: kibana/plugins/sql-kibana-plugin
+          path: kibana/plugins/sql-workbench
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
@@ -39,5 +39,5 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
         with:
-          name: sql-kibana
+          name: sql-workbench
           path: ./build

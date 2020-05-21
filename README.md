@@ -1,5 +1,4 @@
-# Open Distro for Elasticsearch 
-Workbench
+# Open Distro for Elasticsearch SQL Workbench
 
 The Open Distro for Elasticsearch SQL Workbench enables you to query your Elasticsearch data using SQL syntax from a dedicated Kibana UI. You can download your query results data in JSON, JDBC, CSV and raw text formats.
 
@@ -20,7 +19,7 @@ Please see our technical [documentation](https://opendistro.github.io/for-elasti
 1. Change your node version to the version specified in `.node-version` inside the Kibana root directory.
 1. cd into `plugins` directory in the Kibana source code directory.
 1. Check out this package from version control into the `plugins` directory.
-1. Run `yarn kbn bootstrap` inside `kibana/plugins/sql-kibana-plugin`.
+1. Run `yarn kbn bootstrap` inside `kibana/plugins/sql-workbench`.
 
 Ultimately, your directory structure should look like this:
 
@@ -28,7 +27,7 @@ Ultimately, your directory structure should look like this:
 .
 ├── kibana
 │   └── plugins
-│       └── sql-kibana-plugin
+│       └── sql-workbench
 ```
 
 
@@ -36,7 +35,7 @@ Ultimately, your directory structure should look like this:
 
 To build the plugin's distributable zip simply run `yarn build`.
 
-Example output: `./build/sql-workbench-*.zip`
+Example output: `./build/opendistro-sql-workbench-*.zip`
 
 
 ## Run
@@ -53,7 +52,7 @@ Example output: `./build/sql-workbench-*.zip`
 ## Contributing to Open Distro for Elasticsearch SQL Workbench
 
 - Refer to [CONTRIBUTING.md](./CONTRIBUTING.md).
-- Since this is a Workbench, it can be useful to review the [Kibana contributing guide](https://github.com/elastic/kibana/blob/master/CONTRIBUTING.md) alongside the documentation around [Workbenchs](https://www.elastic.co/guide/en/kibana/master/kibana-plugins.html) and [plugin development](https://www.elastic.co/guide/en/kibana/master/plugin-development.html).
+- Since this is a workbench, it can be useful to review the [Kibana contributing guide](https://github.com/elastic/kibana/blob/master/CONTRIBUTING.md) alongside the documentation around [workbenchs](https://www.elastic.co/guide/en/kibana/master/kibana-plugins.html) and [plugin development](https://www.elastic.co/guide/en/kibana/master/plugin-development.html).
 
 ## Bugs, Enhancements or Questions
 
