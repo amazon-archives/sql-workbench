@@ -1,4 +1,5 @@
-# Open Distro for Elasticsearch SQL Workbench
+# Open Distro for Elasticsearch 
+Workbench
 
 The Open Distro for Elasticsearch SQL Workbench enables you to query your Elasticsearch data using SQL syntax from a dedicated Kibana UI. You can download your query results data in JSON, JDBC, CSV and raw text formats.
 
@@ -35,7 +36,7 @@ Ultimately, your directory structure should look like this:
 
 To build the plugin's distributable zip simply run `yarn build`.
 
-Example output: `./build/sql-kibana-1.4.0.0.zip`
+Example output: `./build/sql-workbench-*.zip`
 
 
 ## Run
@@ -49,14 +50,14 @@ Example output: `./build/sql-kibana-1.4.0.0.zip`
   Runs the plugin tests.
 
 
-## Contributing to Open Distro for Elasticsearch SQL Kibana
+## Contributing to Open Distro for Elasticsearch SQL Workbench
 
 - Refer to [CONTRIBUTING.md](./CONTRIBUTING.md).
 - Since this is a Workbench, it can be useful to review the [Kibana contributing guide](https://github.com/elastic/kibana/blob/master/CONTRIBUTING.md) alongside the documentation around [Workbenchs](https://www.elastic.co/guide/en/kibana/master/kibana-plugins.html) and [plugin development](https://www.elastic.co/guide/en/kibana/master/plugin-development.html).
 
 ## Bugs, Enhancements or Questions
 
-Please file an issue to report any bugs you may find, enhancements you may need or questions you may have [here](https://github.com/opendistro-for-elasticsearch/sql-kibana-plugin/issues).
+Please file an issue to report any bugs you may find, enhancements you may need or questions you may have [here](https://github.com/opendistro-for-elasticsearch/sql-workbench/issues).
 
 ## License
 
