@@ -10,3 +10,4 @@
 - Update release notes and contributors for v1.8 ([#68](https://github.com/opendistro-for-elasticsearch/sql-workbench/pull/68))
 - Update README.md ([#71](https://github.com/opendistro-for-elasticsearch/sql-workbench/pull/71))
 - Rename plugin name to sql-workbench ([#72](https://github.com/opendistro-for-elasticsearch/sql-workbench/pull/72))
+- Bug fix: custom plugin icon displaying improperly ([#73](https://github.com/opendistro-for-elasticsearch/sql-workbench/pull/73))
