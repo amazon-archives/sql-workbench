@@ -35,7 +35,7 @@ export default function (kibana) {
         main: 'plugins/' + PLUGIN_NAME + '/app',
         icon:'plugins/' + PLUGIN_NAME + '/icons/sql.svg',
       },
-      styleSheetPaths: [resolve(__dirname, 'public/app.scss'), resolve(__dirname, 'public/app.css')].find(p => existsSync(p))
+      styleSheetPaths: [resolve(__dirname, 'public/app.scss'), require('path').resolve(__dirname, 'public/app.css')]
     },
 
     config(Joi) {
