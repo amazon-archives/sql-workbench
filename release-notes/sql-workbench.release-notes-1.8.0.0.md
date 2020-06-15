@@ -1,4 +1,4 @@
-## 2020-05-14 Version 1.8.0.0 (Current)
+## 2020-05-14 Version 1.8.0.0
 
 ### Features
 #### Kibana Compatibility
