@@ -3,7 +3,7 @@
 ### Features
 #### Kibana Compatibility
 
-- Support v7.7.1 compatibility ([#76](https://github.com/opendistro-for-elasticsearch/sql-workbench/pull/76))
+- Support v7.7.1 compatibility ([#78](https://github.com/opendistro-for-elasticsearch/sql-workbench/pull/78))
 
 #### Version 1.8.1.0 Release
 
