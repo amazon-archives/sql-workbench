@@ -21,6 +21,7 @@ import translate from './server/routes/translate';
 import QueryService from './server/services/QueryService';
 import TranslateService from './server/services/TranslateService';
 import { createSqlCluster } from './server/clusters';
+import { DEFAULT_APP_CATEGORIES } from '../../src/core/utils';
 
 export const PLUGIN_NAME = 'opendistro-sql-workbench';
 
@@ -34,6 +35,7 @@ export default function (kibana) {
         description: 'SQL Workbench',
         main: 'plugins/' + PLUGIN_NAME + '/app',
         icon:'plugins/' + PLUGIN_NAME + '/icons/sql.svg',
+        category: DEFAULT_APP_CATEGORIES.kibana,
       },
       styleSheetPaths: [resolve(__dirname, 'public/app.scss'), require('path').resolve(__dirname, 'public/app.css')]
     },
