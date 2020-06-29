@@ -1,4 +1,4 @@
-## 2020-06-23 Version 1.9.0.0 (Current)
+## 2020-06-23 Version 1.9.0.0
 
 ### Features
 #### Kibana Compatibility
