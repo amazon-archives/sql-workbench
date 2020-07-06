@@ -138,7 +138,7 @@ export function getQueryResultsForTable(queryResults: ResponseDetail<string>[]):
               } catch (e) {
                 console.log('No alias for field ' + field);
               } finally {
-                fields[id] = alias == null ?  _.get(field, 'name') : alias;
+                fields[id] = !alias ?  _.get(field, 'name') : alias;
               }
             }
             databaseFields = fields;
