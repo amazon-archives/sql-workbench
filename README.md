@@ -1,3 +1,6 @@
+__NOTE:__ We have merged this repository into [Open Distro for Elasticsearch SQL](https://github.com/opendistro-for-elasticsearch/sql) as of 7/9/20. Please visit [here](https://github.com/opendistro-for-elasticsearch/sql/tree/master/sql-workbench) for latest updates on SQL Workbench. Thanks.
+---
+
 # Open Distro for Elasticsearch SQL Workbench
 
 The Open Distro for Elasticsearch SQL Workbench enables you to query your Elasticsearch data using SQL syntax from a dedicated Kibana UI. You can download your query results data in JSON, JDBC, CSV and raw text formats.
