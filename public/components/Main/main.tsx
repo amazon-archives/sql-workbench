@@ -132,7 +132,14 @@ export function getQueryResultsForTable(queryResults: ResponseDetail<string>[]):
           case 'describe':
           case 'default':
             for (const [id, field] of schema.entries()) {
-              fields[id] = _.get(field, 'name');
+              let alias: any = null;
+              try {
+                alias = _.get(field, 'alias');
+              } catch (e) {
+                console.log('No alias for field ' + field);
+              } finally {
+                fields[id] = !alias ?  _.get(field, 'name') : alias;
+              }
             }
             databaseFields = fields;
             databaseFields.unshift("id");
